@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -6,188 +7,182 @@
 <meta name="theme-color" content="#17232f">
 <title>KissUZ 🍾</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;background:#fff;color:#fff}
-body{display:flex;flex-direction:column}
-:root{--wood1:#c9823e;--wood2:#e3a45c;--orange:#d88732}
-.topbar{height:64px;flex:none;background:#192633;display:flex;align-items:center;justify-content:space-around;padding:0 12px;gap:8px}
-.topbar .close{font-size:34px;font-weight:300}
-.topbar .game-title{font-size:clamp(19px,5vw,27px);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.topbar .more{font-size:30px;letter-spacing:2px}
-.game{height:52vh;min-height:390px;max-height:650px;position:relative;overflow:hidden;flex:none;
-background:
-repeating-linear-gradient(2deg,transparent 0 19px,rgba(91,43,13,.13) 20px,transparent 22px 37px),
-repeating-linear-gradient(178deg,rgba(255,220,160,.10) 0 2px,transparent 3px 29px),
-radial-gradient(ellipse at 50% 50%,#eeb36d 0%,#d9954c 57%,#b96f32 100%);
-border-bottom:3px solid #b8753e}
-.game:before{content:"";position:absolute;inset:0;opacity:.18;background:repeating-linear-gradient(0deg,transparent 0 55px,#7a431d 56px,#f3c080 58px,transparent 61px)}
-.controls{height:62px;position:absolute;z-index:5;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-around;padding:3px 9px;background:linear-gradient(180deg,rgba(160,85,33,.35),rgba(160,85,33,.05))}
-.control{width:43px;height:43px;flex:none;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#efa34d,#c8782d);box-shadow:inset 0 2px 4px #ffd08a66,0 2px 5px #8b4a2470;color:#fff;font-size:27px;text-shadow:0 1px 2px #9b5725;position:relative}
-.control small{position:absolute;top:49px;left:50%;transform:translateX(-50%);background:#fff;color:#888;border-radius:12px;padding:3px 10px;font-size:11px;font-weight:bold;text-shadow:none;white-space:nowrap}
-.heart-wrap{display:flex;align-items:center;gap:7px;font-size:15px}
-.heart{font-size:47px;color:#ff5a1f;text-shadow:-2px -2px white,2px -2px white,-2px 2px white,2px 2px white,0 3px 3px #8a3c1e}
-.table-count{font-size:14px;font-weight:bold;text-align:center;line-height:17px}
-.table-count b{font-size:16px}
-.ornament{position:absolute;width:min(74vw,360px);height:min(74vw,360px);left:50%;top:54%;transform:translate(-50%,-50%);opacity:.23}
-.bottle{position:absolute;z-index:3;left:50%;top:57%;transform:translate(-50%,-50%);width:54px;height:175px;filter:drop-shadow(0 5px 4px #4b3b1d88)}
-.bottle .neck{position:absolute;left:18px;top:0;width:18px;height:48px;border-radius:5px 5px 2px 2px;background:linear-gradient(90deg,#075a16,#5ee52c 45%,#08751b);border:1px solid #12651b}
-.bottle .lip{position:absolute;left:16px;top:1px;width:22px;height:8px;border-radius:3px;background:linear-gradient(90deg,#064c15,#5bd52d,#075c16)}
-.bottle .body{position:absolute;left:3px;top:40px;width:48px;height:124px;border-radius:20px 20px 12px 12px/30px 30px 12px 12px;background:linear-gradient(90deg,#064c11 0%,#25b51a 22%,#8df43e 47%,#16951a 72%,#03470d 100%);border:2px solid #176d18;box-shadow:inset 4px 0 5px #d5ff8a66,inset -5px 0 8px #003b0c88}
-.bottle .base{position:absolute;left:8px;top:151px;width:38px;height:13px;border-radius:50%;background:#07550d;box-shadow:0 3px 3px #003b0c}
-.hint{position:absolute;z-index:4;top:35%;left:31%;font-size:16px;line-height:19px;text-align:center;text-shadow:0 1px 3px #805020}
-.hint:after{content:"↑";display:block;font-size:30px;line-height:27px}
-.players{position:absolute;inset:62px 0 0}
-.seat{position:absolute;width:clamp(82px,18vw,112px);text-align:center;transform:translate(-50%,-50%);z-index:4}
-.avatar{width:100%;aspect-ratio:1/1;border-radius:10px;background:linear-gradient(135deg,#344c60,#192b3b);box-shadow:0 3px 8px #70411d88;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;overflow:hidden;border:1px solid #ffffff55}
-.avatar img{width:100%;height:100%;object-fit:cover}
-.player-name{font-size:13px;margin-top:3px;color:#fff;text-shadow:0 1px 3px #533018;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.seat .badge{position:absolute;right:-5px;top:-5px;width:21px;height:21px;border-radius:50%;background:#e74738;color:white;font-size:12px;display:grid;place-items:center;border:1px solid #ffb1a8}
-.chat{flex:1;min-height:0;background:#fff;color:#111;position:relative;display:flex;flex-direction:column}
-.messages{flex:1;overflow-y:auto;padding:8px 12px 4px;display:flex;flex-direction:column;gap:8px}
-.message{display:flex;align-items:flex-start;gap:9px;max-width:90%}
-.msg-avatar{width:40px;height:40px;flex:none;border-radius:8px;background:#d8dce0;color:#65717a;display:grid;place-items:center;font-weight:bold}
-.bubble{background:#f2f3f5;border-radius:0 12px 12px 12px;padding:8px 12px;font-size:16px;line-height:20px;color:#111;min-height:38px}
-.sender{color:#42a9df;font-weight:bold}
-.translation{display:block;color:#888;font-size:14px;margin-top:2px}
-.side-buttons{position:absolute;right:0;top:8px;z-index:5;display:flex;flex-direction:column;gap:12px}
-.side-btn{width:68px;height:68px;border-radius:36px 0 0 36px;background:#fff;border:1px solid #ddd;box-shadow:0 2px 7px #0002;display:grid;place-items:center;font-size:32px;color:#645d91}
-.composer{height:66px;flex:none;border-top:1px solid #eee;display:flex;align-items:center;padding:0 15px 0 22px;gap:10px;background:#fff}
-.composer input{flex:1;min-width:0;border:0;outline:0;font-size:18px;color:#333;background:transparent}
-.composer input::placeholder{color:#c7c7c7}
-.send{width:48px;height:48px;border:0;border-radius:50%;background:#f5ad4e;color:#fff;font-size:27px;display:grid;place-items:center}
-@media(max-height:700px){.game{height:52vh;min-height:350px}.bottle{top:57%;transform:translate(-50%,-50%) scale(.88)}.ornament{top:57%;transform:translate(-50%,-50%) scale(.88)}.seat{width:clamp(72px,17vw,98px)}}
+body{
+ margin:0;padding:18px 14px 30px;
+ background:#17232f;color:white;
+ font-family:Arial,sans-serif;
+}
+.header{
+ display:flex;justify-content:space-between;
+ align-items:center;margin-bottom:25px;
+}
+.logo{font-size:25px;font-weight:900;color:#ffc65b}
+.online{background:#243b43;border-radius:20px;padding:8px 13px;font-size:12px;color:#68e6a5}
+h2{text-align:center;font-size:22px;margin:10px 0 5px}
+.subtitle{text-align:center;color:#91a3b4;font-size:13px}
+.table-area{
+ width:min(100%,390px);
+ aspect-ratio:1;
+ margin:30px auto 22px;
+ position:relative;border-radius:50%;
+ background:radial-gradient(circle,#28534b,#1e443d 65%,#142e2c);
+ border:10px solid #70472f;
+ box-shadow:0 0 0 5px #a87545,0 12px 30px #0008,inset 0 0 25px #0008;
+}
+.table-area:before{
+ content:"";position:absolute;inset:9px;
+ border:2px solid #ffffff18;border-radius:50%;
+}
+.center{
+ position:absolute;left:50%;top:50%;
+ transform:translate(-50%,-50%);
+ width:115px;height:115px;
+ display:flex;align-items:center;justify-content:center;
+}
+.bottle{
+ font-size:77px;
+ filter:drop-shadow(0 6px 5px #0008);
+}
+.player{
+ position:absolute;width:70px;
+ display:flex;flex-direction:column;
+ align-items:center;gap:5px;
+ transform:translate(-50%,-50%);
+ z-index:2;
+}
+.avatar{
+ width:53px;height:53px;border-radius:50%;
+ background:linear-gradient(145deg,#435c75,#243747);
+ border:3px solid #d5aa64;
+ display:flex;align-items:center;justify-content:center;
+ font-size:25px;box-shadow:0 4px 9px #0007;
+}
+.player-name{
+ background:#14232d;border:1px solid #ffffff20;
+ border-radius:12px;padding:4px 9px;
+ font-size:11px;white-space:nowrap;
+ max-width:90px;overflow:hidden;text-overflow:ellipsis;
+}
+.empty .avatar{
+ border:2px dashed #8ca19d;
+ background:#ffffff0a;color:#b4c4c0;
+}
+.empty .player-name{color:#a6b5b3}
+.info{
+ display:flex;justify-content:space-between;
+ gap:10px;margin:15px 0;
+}
+.info-card{
+ flex:1;background:#21313f;padding:13px 8px;
+ border-radius:14px;text-align:center;
+ border:1px solid #ffffff10;
+}
+.info-card b{
+ display:block;font-size:20px;color:#ffc65b;
+}
+.info-card span{font-size:11px;color:#a6b5c5}
+.section{
+ background:#21313f;border:1px solid #ffffff12;
+ border-radius:17px;padding:16px;margin-top:17px;
+}
+.section h3{margin:0 0 12px;font-size:15px}
+.people{
+ display:flex;justify-content:space-between;
+ color:#aebbc7;font-size:13px;
+}
+.btn{
+ width:100%;border:0;border-radius:14px;
+ padding:16px;margin-top:12px;
+ font-size:16px;font-weight:bold;
+ background:linear-gradient(135deg,#ffda82,#eaa63e);
+ color:#30200b;
+}
+.secondary{background:#344654;color:white;border:1px solid #ffffff15}
+.footer{text-align:center;color:#718394;font-size:11px;margin-top:24px}
 </style>
 </head>
+
 <body>
-<header class="topbar">
-<span class="close">×</span>
-<div class="game-title">Spin the Bottle 🍾</div>
-<span style="font-size:27px">⌄</span>
-<span class="more">⋮</span>
-</header>
 
-<main class="game">
-<div class="controls">
-<div class="heart-wrap"><span class="heart">♥</span><span>0</span></div>
-<div class="control">✧<small>14d</small></div>
-<div class="control">◉</div>
-<div class="control" style="font-size:17px">#8<small>3h</small></div>
-<div class="control">☰</div>
-<div class="control">⚙</div>
-<div class="table-count">Table<br><b>94</b></div>
-<div class="control">⟳</div>
+<div class="header">
+ <div class="logo">🍾 KissUZ</div>
+ <div class="online">● Online</div>
 </div>
 
-<svg class="ornament" viewBox="0 0 300 300" aria-hidden="true">
-<g fill="none" stroke="#9b5d25" stroke-width="8">
-<circle cx="150" cy="150" r="104"/>
-<circle cx="150" cy="150" r="88"/>
-<path d="M150 42 C180 72 228 70 258 150 C228 230 180 228 150 258 C120 228 72 230 42 150 C72 70 120 72 150 42Z"/>
-<path d="M150 58 C165 103 197 135 242 150 C197 165 165 197 150 242 C135 197 103 165 58 150 C103 135 135 103 150 58Z"/>
-<path d="M90 90 Q150 115 210 90 Q185 150 210 210 Q150 185 90 210 Q115 150 90 90Z"/>
-</g>
-</svg>
+<h2>O‘yin stoli</h2>
+<div class="subtitle">Do‘stlaring bilan qiziqarli vaqt o‘tkaz!</div>
 
-<div class="hint">Spins<br>the bottle</div>
-
-<div class="bottle">
-<div class="lip"></div>
-<div class="neck"></div>
-<div class="body"></div>
-<div class="base"></div>
+<div class="table-area" id="table">
+ <div class="center">
+  <div class="bottle">🍾</div>
+ </div>
 </div>
 
-<div class="players" id="players"></div>
-</main>
-
-<section class="chat">
-<div class="messages" id="messages"></div>
-
-<div class="side-buttons">
-<button class="side-btn" type="button">🎼</button>
-<button class="side-btn" type="button">🎵</button>
+<div class="info">
+ <div class="info-card">
+  <b>12</b><span>Maksimal joy</span>
+ </div>
+ <div class="info-card">
+  <b id="playerCount">0/12</b><span>O‘yinchilar</span>
+ </div>
+ <div class="info-card">
+  <b>0</b><span>Raundlar</span>
+ </div>
 </div>
 
-<form class="composer" id="chatForm">
-<input id="chatInput" autocomplete="off" placeholder="Write a message here">
-<button class="send" type="submit">➤</button>
-</form>
-</section>
+<div class="section">
+ <h3>👥 O‘yinchilar</h3>
+ <div class="people">
+  <span>Stoldagi o‘yinchilar</span>
+  <span id="playerText">0 / 12</span>
+ </div>
+ <button class="btn">➕ Joy egallash</button>
+ <button class="btn secondary">🚪 Stolni tark etish</button>
+</div>
+
+<div class="section">
+ <h3>🍾 O‘yin boshqaruvi</h3>
+ <button class="btn">🍾 Aylantirish</button>
+ <button class="btn secondary">🔄 Qayta boshlash</button>
+</div>
+
+<div class="footer">KissUZ © 2026</div>
 
 <script>
 const tg=window.Telegram?.WebApp;
-tg?.ready();
-tg?.expand();
+if(tg){
+ tg.ready();
+ tg.expand();
+}
 
-// 12 ta doimiy joy
-const seats=[
-[36,17],[63,17],[90,23],[13,42],[88,51],[13,72],
-[49,84],[78,82],[13,87],[51,17],[76,17],[91,76]
-];
+const table=document.getElementById("table");
 
-const demoPlayers=[
-{name:"No name [1], 22",emoji:"📸",color:"#d6bba4"},
-{name:"21, katta",emoji:"🧕",color:"#b8a18c"},
-{name:"AЯIK",emoji:"🚘",color:"#27384b"},
-{name:"Pari, 18",emoji:"🌸",color:"#e8b3b5"},
-{name:"21",emoji:"🚙",color:"#9da9b2"},
-{name:"No name, 22",emoji:"🖤",color:"#343434"},
-{name:"Ismoil, 23",emoji:"👑",color:"#713d37"},
-{name:"19",emoji:"🚗",color:"#252525"},
-{name:"Messika, 19",emoji:"🤳",color:"#c9a69c"},
-{name:"27",emoji:"🏙️",color:"#8c9a9e"},
-{name:"Z E I",emoji:"👩🏻",color:"#cda88e"}
-];
+const count=12;
+const radius=39;
 
-const used=[0,1,2,3,4,5,6,7,8,9,10];
-const players=document.getElementById("players");
+for(let i=0;i<count;i++){
+ const angle=(i*2*Math.PI/count)-Math.PI/2;
 
-used.forEach((playerIndex)=>{
-const [x,y]=seats[playerIndex];
-const p=demoPlayers[playerIndex];
+ const x=50+radius*Math.cos(angle);
+ const y=50+radius*Math.sin(angle);
 
-const el=document.createElement("div");
-el.className="seat";
-el.style.left=x+"%";
-el.style.top=y+"%";
+ const player=document.createElement("div");
+ player.className="player empty";
 
-el.innerHTML=`
-<div class="avatar" style="background:${p.color}">${p.emoji}</div>
-<div class="player-name"></div>`;
+ player.style.left=x+"%";
+ player.style.top=y+"%";
 
-el.querySelector(".player-name").textContent=p.name;
-players.appendChild(el);
-});
+ player.innerHTML=`
+  <div class="avatar">+</div>
+  <div class="player-name">Bo‘sh joy</div>
+ `;
 
-document.getElementById("chatForm").addEventListener("submit",e=>{
-e.preventDefault();
-
-const input=document.getElementById("chatInput");
-const value=input.value.trim();
-if(!value)return;
-
-const row=document.createElement("div");
-row.className="message";
-
-const avatar=document.createElement("div");
-avatar.className="msg-avatar";
-avatar.textContent="🙂";
-
-const bubble=document.createElement("div");
-bubble.className="bubble";
-
-const sender=document.createElement("span");
-sender.className="sender";
-sender.textContent="Siz: ";
-
-bubble.append(sender,document.createTextNode(value));
-row.append(avatar,bubble);
-
-document.getElementById("messages").append(row);
-input.value="";
-document.getElementById("messages").scrollTop=999999;
-});
+ table.appendChild(player);
+}
 </script>
+
 </body>
 </html>
