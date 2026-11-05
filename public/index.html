@@ -3,186 +3,168 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="theme-color" content="#17232f">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#17120f">
 <title>KissUZ 🍾</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
 <style>
 *{box-sizing:border-box}
 body{
- margin:0;padding:18px 14px 30px;
- background:#17232f;color:white;
+ margin:0;background:#17120f;color:white;
  font-family:Arial,sans-serif;
 }
-.header{
- display:flex;justify-content:space-between;
- align-items:center;margin-bottom:25px;
+header{
+ height:60px;padding:0 17px;
+ display:flex;align-items:center;
+ justify-content:space-between;
+ background:#241b15;
+ border-bottom:1px solid #493426;
 }
-.logo{font-size:25px;font-weight:900;color:#ffc65b}
-.online{background:#243b43;border-radius:20px;padding:8px 13px;font-size:12px;color:#68e6a5}
-h2{text-align:center;font-size:22px;margin:10px 0 5px}
-.subtitle{text-align:center;color:#91a3b4;font-size:13px}
-.table-area{
- width:min(100%,390px);
- aspect-ratio:1;
- margin:30px auto 22px;
+.logo{font-size:23px;font-weight:900;color:#f7c77c}
+.icons{font-size:21px;display:flex;gap:18px}
+main{max-width:480px;margin:auto;padding:12px}
+.title{text-align:center;margin:10px 0 20px}
+.title h2{font-size:21px;margin:0 0 6px}
+.title p{font-size:12px;color:#b8a28c;margin:0}
+.table{
+ width:100%;aspect-ratio:1/1;
  position:relative;border-radius:50%;
- background:radial-gradient(circle,#28534b,#1e443d 65%,#142e2c);
- border:10px solid #70472f;
- box-shadow:0 0 0 5px #a87545,0 12px 30px #0008,inset 0 0 25px #0008;
+ border:12px solid #56351f;
+ background:
+ repeating-linear-gradient(2deg,#81502e 0 10px,#a56e40 10px 19px,#774628 19px 28px);
+ box-shadow:0 0 0 4px #bd925c,0 12px 25px #000a,inset 0 0 35px #281309;
 }
-.table-area:before{
- content:"";position:absolute;inset:9px;
- border:2px solid #ffffff18;border-radius:50%;
-}
-.center{
- position:absolute;left:50%;top:50%;
- transform:translate(-50%,-50%);
- width:115px;height:115px;
- display:flex;align-items:center;justify-content:center;
+.table:before{
+ content:"";position:absolute;inset:12px;
+ border:2px solid #f3c58b66;border-radius:50%;
 }
 .bottle{
- font-size:77px;
- filter:drop-shadow(0 6px 5px #0008);
+ position:absolute;left:50%;top:50%;
+ transform:translate(-50%,-50%) rotate(-35deg);
+ font-size:90px;z-index:2;
+ filter:drop-shadow(0 8px 5px #0009);
 }
-.player{
- position:absolute;width:70px;
+.seat{
+ position:absolute;transform:translate(-50%,-50%);
  display:flex;flex-direction:column;
- align-items:center;gap:5px;
- transform:translate(-50%,-50%);
- z-index:2;
+ align-items:center;gap:4px;width:65px;
+ z-index:3;
 }
 .avatar{
  width:53px;height:53px;border-radius:50%;
- background:linear-gradient(145deg,#435c75,#243747);
- border:3px solid #d5aa64;
- display:flex;align-items:center;justify-content:center;
- font-size:25px;box-shadow:0 4px 9px #0007;
+ background:linear-gradient(145deg,#586c78,#24313c);
+ border:3px solid #e5bb79;
+ display:flex;align-items:center;
+ justify-content:center;font-size:25px;
+ box-shadow:0 4px 8px #0009;
 }
-.player-name{
- background:#14232d;border:1px solid #ffffff20;
- border-radius:12px;padding:4px 9px;
- font-size:11px;white-space:nowrap;
- max-width:90px;overflow:hidden;text-overflow:ellipsis;
+.name{
+ background:#291d15;border:1px solid #bd925c;
+ padding:4px 7px;border-radius:9px;
+ font-size:10px;white-space:nowrap;
+ max-width:78px;overflow:hidden;text-overflow:ellipsis;
 }
 .empty .avatar{
- border:2px dashed #8ca19d;
- background:#ffffff0a;color:#b4c4c0;
+ background:#4a3829;
+ border:2px dashed #e8bf83;
+ color:#f5d8aa;
 }
-.empty .player-name{color:#a6b5b3}
-.info{
+.empty .name{color:#f2d5a8}
+.stats{display:flex;gap:8px;margin-top:20px}
+.stat{
+ flex:1;text-align:center;padding:13px 5px;
+ background:#2a2019;border:1px solid #59432f;
+ border-radius:13px;
+}
+.stat b{display:block;font-size:20px;color:#ffcc7b}
+.stat small{color:#b8a38b;font-size:11px}
+.panel{
+ margin-top:15px;padding:16px;
+ background:#292019;border:1px solid #59432f;
+ border-radius:15px;
+}
+.panel h3{font-size:15px;margin:0 0 13px}
+.row{
  display:flex;justify-content:space-between;
- gap:10px;margin:15px 0;
+ font-size:13px;color:#c8b9a5;
 }
-.info-card{
- flex:1;background:#21313f;padding:13px 8px;
- border-radius:14px;text-align:center;
- border:1px solid #ffffff10;
+button{
+ width:100%;padding:15px;margin-top:11px;
+ border:0;border-radius:12px;
+ background:linear-gradient(135deg,#ffdc98,#d99a46);
+ color:#34200c;font-weight:bold;font-size:15px;
 }
-.info-card b{
- display:block;font-size:20px;color:#ffc65b;
-}
-.info-card span{font-size:11px;color:#a6b5c5}
-.section{
- background:#21313f;border:1px solid #ffffff12;
- border-radius:17px;padding:16px;margin-top:17px;
-}
-.section h3{margin:0 0 12px;font-size:15px}
-.people{
- display:flex;justify-content:space-between;
- color:#aebbc7;font-size:13px;
-}
-.btn{
- width:100%;border:0;border-radius:14px;
- padding:16px;margin-top:12px;
- font-size:16px;font-weight:bold;
- background:linear-gradient(135deg,#ffda82,#eaa63e);
- color:#30200b;
-}
-.secondary{background:#344654;color:white;border:1px solid #ffffff15}
-.footer{text-align:center;color:#718394;font-size:11px;margin-top:24px}
+.dark{background:#493729;color:white;border:1px solid #73553b}
+.footer{text-align:center;color:#8e7b68;font-size:11px;padding:20px}
 </style>
 </head>
-
 <body>
 
-<div class="header">
- <div class="logo">🍾 KissUZ</div>
- <div class="online">● Online</div>
-</div>
+<header>
+ <div class="logo">KissUZ 🍾</div>
+ <div class="icons">♟　⚙　⋮</div>
+</header>
 
-<h2>O‘yin stoli</h2>
-<div class="subtitle">Do‘stlaring bilan qiziqarli vaqt o‘tkaz!</div>
+<main>
+ <div class="title">
+  <h2>O‘yin stoli №1</h2>
+  <p>Do‘stlaringni taklif qil va o‘yinni boshlang!</p>
+ </div>
 
-<div class="table-area" id="table">
- <div class="center">
+ <div class="table" id="table">
   <div class="bottle">🍾</div>
  </div>
-</div>
 
-<div class="info">
- <div class="info-card">
-  <b>12</b><span>Maksimal joy</span>
+ <div class="stats">
+  <div class="stat"><b>12</b><small>Joylar</small></div>
+  <div class="stat"><b id="count">0/12</b><small>O‘yinchilar</small></div>
+  <div class="stat"><b>0</b><small>Raundlar</small></div>
  </div>
- <div class="info-card">
-  <b id="playerCount">0/12</b><span>O‘yinchilar</span>
- </div>
- <div class="info-card">
-  <b>0</b><span>Raundlar</span>
- </div>
-</div>
 
-<div class="section">
- <h3>👥 O‘yinchilar</h3>
- <div class="people">
-  <span>Stoldagi o‘yinchilar</span>
-  <span id="playerText">0 / 12</span>
+ <div class="panel">
+  <h3>👥 O‘yinchilar</h3>
+  <div class="row">
+   <span>Stol holati</span>
+   <span id="status">Bo‘sh</span>
+  </div>
+  <button>➕ Joy egallash</button>
+  <button class="dark">🔗 Do‘stlarni taklif qilish</button>
  </div>
- <button class="btn">➕ Joy egallash</button>
- <button class="btn secondary">🚪 Stolni tark etish</button>
-</div>
 
-<div class="section">
- <h3>🍾 O‘yin boshqaruvi</h3>
- <button class="btn">🍾 Aylantirish</button>
- <button class="btn secondary">🔄 Qayta boshlash</button>
-</div>
+ <div class="panel">
+  <h3>🍾 O‘yin boshqaruvi</h3>
+  <button>AYLANTIRISH 🍾</button>
+  <button class="dark">🔄 Qayta boshlash</button>
+ </div>
+</main>
 
 <div class="footer">KissUZ © 2026</div>
 
 <script>
 const tg=window.Telegram?.WebApp;
-if(tg){
- tg.ready();
- tg.expand();
-}
+if(tg){tg.ready();tg.expand();}
 
 const table=document.getElementById("table");
+const total=12;
+const radius=40;
 
-const count=12;
-const radius=39;
-
-for(let i=0;i<count;i++){
- const angle=(i*2*Math.PI/count)-Math.PI/2;
-
+for(let i=0;i<total;i++){
+ const angle=(i*2*Math.PI/total)-Math.PI/2;
  const x=50+radius*Math.cos(angle);
  const y=50+radius*Math.sin(angle);
 
- const player=document.createElement("div");
- player.className="player empty";
+ const seat=document.createElement("div");
+ seat.className="seat empty";
+ seat.style.left=x+"%";
+ seat.style.top=y+"%";
 
- player.style.left=x+"%";
- player.style.top=y+"%";
-
- player.innerHTML=`
+ seat.innerHTML=`
   <div class="avatar">+</div>
-  <div class="player-name">Bo‘sh joy</div>
+  <div class="name">Bo‘sh joy</div>
  `;
 
- table.appendChild(player);
+ table.appendChild(seat);
 }
 </script>
-
 </body>
 </html>
