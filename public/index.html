@@ -7,135 +7,219 @@
 <meta name="theme-color" content="#17120f">
 <title>KissUZ 🍾</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;background:#17120f;color:white;
- font-family:Arial,sans-serif;
-}
+body{margin:0;background:#17120f;color:#fff;font-family:Arial,sans-serif}
+button{font-family:inherit;cursor:pointer}
 header{
- height:60px;padding:0 17px;
- display:flex;align-items:center;
- justify-content:space-between;
- background:#241b15;
- border-bottom:1px solid #493426;
+ height:58px;padding:0 15px;background:#241b15;
+ display:flex;align-items:center;justify-content:space-between;
+ border-bottom:1px solid #493426
 }
-.logo{font-size:23px;font-weight:900;color:#f7c77c}
-.icons{font-size:21px;display:flex;gap:18px}
+.logo{font-size:22px;font-weight:900;color:#f7c77c}
+.top-actions{display:flex;gap:15px;font-size:21px}
 main{max-width:480px;margin:auto;padding:12px}
-.title{text-align:center;margin:10px 0 20px}
-.title h2{font-size:21px;margin:0 0 6px}
-.title p{font-size:12px;color:#b8a28c;margin:0}
+.title{text-align:center;margin:12px 0 18px}
+.title h2{font-size:20px;margin:0 0 5px}
+.title p{font-size:12px;color:#b8a28c}
 .table{
- width:100%;aspect-ratio:1/1;
- position:relative;border-radius:50%;
+ width:100%;aspect-ratio:1/1;position:relative;border-radius:50%;
  border:12px solid #56351f;
- background:
- repeating-linear-gradient(2deg,#81502e 0 10px,#a56e40 10px 19px,#774628 19px 28px);
+ background:repeating-linear-gradient(2deg,#81502e 0 10px,#a56e40 10px 19px,#774628 19px 28px);
  box-shadow:0 0 0 4px #bd925c,0 12px 25px #000a,inset 0 0 35px #281309;
 }
-.table:before{
- content:"";position:absolute;inset:12px;
- border:2px solid #f3c58b66;border-radius:50%;
-}
+.table:before{content:"";position:absolute;inset:12px;border:2px solid #f3c58b66;border-radius:50%}
 .bottle{
- position:absolute;left:50%;top:50%;
+ position:absolute;left:50%;top:50%;z-index:2;
  transform:translate(-50%,-50%) rotate(-35deg);
- font-size:90px;z-index:2;
- filter:drop-shadow(0 8px 5px #0009);
+ font-size:83px;filter:drop-shadow(0 8px 5px #0009);
+}
+.bottle.spinning{animation:spin 3s cubic-bezier(.12,.7,.2,1) forwards}
+@keyframes spin{
+ from{transform:translate(-50%,-50%) rotate(-35deg)}
+ to{transform:translate(-50%,-50%) rotate(1400deg)}
 }
 .seat{
  position:absolute;transform:translate(-50%,-50%);
- display:flex;flex-direction:column;
- align-items:center;gap:4px;width:65px;
- z-index:3;
+ display:flex;flex-direction:column;align-items:center;
+ gap:4px;width:68px;z-index:3
 }
 .avatar{
- width:53px;height:53px;border-radius:50%;
+ width:54px;height:54px;border-radius:50%;
  background:linear-gradient(145deg,#586c78,#24313c);
  border:3px solid #e5bb79;
- display:flex;align-items:center;
- justify-content:center;font-size:25px;
- box-shadow:0 4px 8px #0009;
+ display:flex;align-items:center;justify-content:center;
+ font-size:25px;box-shadow:0 4px 8px #0009
 }
 .name{
  background:#291d15;border:1px solid #bd925c;
- padding:4px 7px;border-radius:9px;
- font-size:10px;white-space:nowrap;
- max-width:78px;overflow:hidden;text-overflow:ellipsis;
+ padding:4px 7px;border-radius:9px;font-size:10px;
+ white-space:nowrap;max-width:78px;overflow:hidden;text-overflow:ellipsis
 }
-.empty .avatar{
- background:#4a3829;
- border:2px dashed #e8bf83;
- color:#f5d8aa;
-}
+.empty .avatar{background:#4a3829;border:2px dashed #e8bf83;color:#f5d8aa}
 .empty .name{color:#f2d5a8}
 .stats{display:flex;gap:8px;margin-top:20px}
-.stat{
- flex:1;text-align:center;padding:13px 5px;
- background:#2a2019;border:1px solid #59432f;
- border-radius:13px;
-}
-.stat b{display:block;font-size:20px;color:#ffcc7b}
+.stat{flex:1;text-align:center;padding:12px 4px;background:#2a2019;border:1px solid #59432f;border-radius:13px}
+.stat b{display:block;font-size:19px;color:#ffcc7b}
 .stat small{color:#b8a38b;font-size:11px}
-.panel{
- margin-top:15px;padding:16px;
- background:#292019;border:1px solid #59432f;
- border-radius:15px;
-}
+.panel{margin-top:15px;padding:15px;background:#292019;border:1px solid #59432f;border-radius:15px}
 .panel h3{font-size:15px;margin:0 0 13px}
-.row{
- display:flex;justify-content:space-between;
- font-size:13px;color:#c8b9a5;
-}
-button{
- width:100%;padding:15px;margin-top:11px;
- border:0;border-radius:12px;
+.row{display:flex;justify-content:space-between;font-size:13px;color:#c8b9a5}
+.btn{
+ width:100%;padding:14px;margin-top:10px;border:0;border-radius:12px;
  background:linear-gradient(135deg,#ffdc98,#d99a46);
- color:#34200c;font-weight:bold;font-size:15px;
+ color:#34200c;font-weight:bold;font-size:14px
 }
-.dark{background:#493729;color:white;border:1px solid #73553b}
+.btn.dark{background:#493729;color:white;border:1px solid #73553b}
+.top-menu{
+ display:flex;justify-content:space-around;align-items:center;
+ padding:12px 2px;gap:5px
+}
+.menu-item{
+ background:#2a2019;border:1px solid #59432f;border-radius:12px;
+ flex:1;text-align:center;padding:10px 2px;font-size:19px
+}
+.menu-item small{display:block;font-size:9px;color:#c8b9a5;margin-top:5px}
+.page{display:none}
+.page.active{display:block}
+.back{background:#493729;color:white;border:1px solid #73553b;padding:10px 15px;border-radius:10px;margin-bottom:15px}
+.menu-card{
+ padding:15px;background:#30231a;border:1px solid #59432f;
+ border-radius:13px;margin:9px 0;font-size:14px;
+ display:flex;justify-content:space-between;align-items:center
+}
 .footer{text-align:center;color:#8e7b68;font-size:11px;padding:20px}
+.notice{text-align:center;color:#f7c77c;font-size:13px;margin-top:12px;min-height:20px}
 </style>
 </head>
+
 <body>
 
 <header>
  <div class="logo">KissUZ 🍾</div>
- <div class="icons">♟　⚙　⋮</div>
+ <div class="top-actions">
+  <span onclick="openPage('hearts')">❤️ <small id="hearts">50</small></span>
+  <span onclick="openPage('settings')">⚙️</span>
+  <span onclick="openPage('menu')">⋮</span>
+ </div>
 </header>
 
 <main>
+
+<div id="home" class="page active">
+
+ <div class="top-menu">
+  <div class="menu-item" onclick="openPage('achievements')">🏆<small>Achievements</small></div>
+  <div class="menu-item" onclick="openPage('ratings')">🥇<small>Ratings</small></div>
+  <div class="menu-item" onclick="openPage('bottle')">🍾<small>Bottle</small></div>
+  <div class="menu-item" onclick="openPage('styling')">🎨<small>Styling</small></div>
+  <div class="menu-item" onclick="openPage('boosters')">⚡<small>Boosters</small></div>
+ </div>
+
  <div class="title">
-  <h2>O‘yin stoli №1</h2>
+  <h2 id="tableTitle">Table 226</h2>
   <p>Do‘stlaringni taklif qil va o‘yinni boshlang!</p>
  </div>
 
  <div class="table" id="table">
-  <div class="bottle">🍾</div>
+  <div class="bottle" id="bottle">🍾</div>
  </div>
 
  <div class="stats">
   <div class="stat"><b>12</b><small>Joylar</small></div>
   <div class="stat"><b id="count">0/12</b><small>O‘yinchilar</small></div>
-  <div class="stat"><b>0</b><small>Raundlar</small></div>
+  <div class="stat"><b id="rounds">0</b><small>Raundlar</small></div>
  </div>
 
  <div class="panel">
   <h3>👥 O‘yinchilar</h3>
-  <div class="row">
-   <span>Stol holati</span>
-   <span id="status">Bo‘sh</span>
-  </div>
-  <button>➕ Joy egallash</button>
-  <button class="dark">🔗 Do‘stlarni taklif qilish</button>
+  <div class="row"><span>Stol holati</span><span id="status">Bo‘sh</span></div>
+  <button class="btn" onclick="joinTable()">➕ Joy egallash</button>
+  <button class="btn dark" onclick="invite()">🔗 Do‘stlarni taklif qilish</button>
  </div>
 
  <div class="panel">
   <h3>🍾 O‘yin boshqaruvi</h3>
-  <button>AYLANTIRISH 🍾</button>
-  <button class="dark">🔄 Qayta boshlash</button>
+  <button class="btn" onclick="spinBottle()">AYLANTIRISH 🍾</button>
+  <button class="btn dark" onclick="resetGame()">🔄 Qayta boshlash</button>
+  <div class="notice" id="notice"></div>
  </div>
+</div>
+
+<!-- ACHIEVEMENTS -->
+<div id="achievements" class="page">
+ <button class="back" onclick="openPage('home')">← Orqaga</button>
+ <h3>🏆 Achievements</h3>
+ <div class="menu-card">🥉 Birinchi o‘yin <span>0/1</span></div>
+ <div class="menu-card">🥈 10 ta raund <span>0/10</span></div>
+ <div class="menu-card">🥇 50 ta raund <span>0/50</span></div>
+</div>
+
+<!-- RATINGS -->
+<div id="ratings" class="page">
+ <button class="back" onclick="openPage('home')">← Orqaga</button>
+ <h3>🥇 Ratings</h3>
+ <div class="menu-card">1. O‘yinchilar reytingi <span>🏆</span></div>
+ <div class="menu-card">2. Eng faol o‘yinchilar <span>⭐</span></div>
+</div>
+
+<!-- BOTTLE -->
+<div id="bottlePage" class="page">
+ <button class="back" onclick="openPage('home')">← Orqaga</button>
+ <h3>🍾 Bottle</h3>
+ <div class="menu-card">Butilka o‘yini <span>🍾</span></div>
+ <button class="btn" onclick="openPage('home');spinBottle()">AYLANTIRISH</button>
+</div>
+
+<!-- STYLING -->
+<div id="styling" class="page">
+ <button class="back" onclick="openPage('home')">← Orqaga</button>
+ <h3>🎨 Styling</h3>
+ <div class="menu-card">Classic <span>✓</span></div>
+ <div class="menu-card">Gold <span>🔒</span></div>
+ <div class="menu-card">Neon <span>🔒</span></div>
+</div>
+
+<!-- BOOSTERS -->
+<div id="boosters" class="page">
+ <button class="back" onclick="openPage('home')">← Orqaga</button>
+ <h3>⚡ Boosters</h3>
+ <div class="menu-card">⚡ Tez aylantirish <span>100 ❤️</span></div>
+ <div class="menu-card">❤️ Yuraklar bonusi <span>250 ❤️</span></div>
+</div>
+
+<!-- HEARTS -->
+<div id="heartsPage" class="page">
+ <button class="back" onclick="openPage('home')">← Orqaga</button>
+ <h3>❤️ Hearts</h3>
+ <div class="menu-card">50 Hearts <span>❤️</span></div>
+ <div class="menu-card">250 Hearts <span>❤️</span></div>
+ <div class="menu-card">500 Hearts <span>❤️</span></div>
+ <div class="menu-card">1200 Hearts <span>❤️</span></div>
+ <div class="menu-card">3125 Hearts <span>❤️</span></div>
+ <div class="menu-card">7000 Hearts <span>❤️</span></div>
+</div>
+
+<!-- SETTINGS -->
+<div id="settingsPage" class="page">
+ <button class="back" onclick="openPage('home')">← Orqaga</button>
+ <h3>⚙️ Settings</h3>
+ <div class="menu-card">Til <span>O‘zbekcha</span></div>
+ <div class="menu-card">Ovoz <span>🔊</span></div>
+ <div class="menu-card">Vibratsiya <span>📳</span></div>
+</div>
+
+<!-- MENU -->
+<div id="menuPage" class="page">
+ <button class="back" onclick="openPage('home')">← Orqaga</button>
+ <h3>Menu</h3>
+ <div class="menu-card">💎 Premium / VIP</div>
+ <div class="menu-card">🎁 Gifts</div>
+ <div class="menu-card">💌 Compliments</div>
+ <div class="menu-card">ℹ️ About KissUZ</div>
+</div>
+
 </main>
 
 <div class="footer">KissUZ © 2026</div>
@@ -145,25 +229,99 @@ const tg=window.Telegram?.WebApp;
 if(tg){tg.ready();tg.expand();}
 
 const table=document.getElementById("table");
+const bottle=document.getElementById("bottle");
+const seats=[];
+let rounds=0;
+let spinning=false;
+let mySeat=-1;
 const total=12;
 const radius=40;
+const players=[];
 
 for(let i=0;i<total;i++){
  const angle=(i*2*Math.PI/total)-Math.PI/2;
- const x=50+radius*Math.cos(angle);
- const y=50+radius*Math.sin(angle);
-
  const seat=document.createElement("div");
  seat.className="seat empty";
- seat.style.left=x+"%";
- seat.style.top=y+"%";
-
- seat.innerHTML=`
-  <div class="avatar">+</div>
-  <div class="name">Bo‘sh joy</div>
- `;
-
+ seat.style.left=(50+radius*Math.cos(angle))+"%";
+ seat.style.top=(50+radius*Math.sin(angle))+"%";
+ seat.innerHTML='<div class="avatar">+</div><div class="name">Bo‘sh joy</div>';
  table.appendChild(seat);
+ seats.push(seat);
+}
+
+function openPage(name){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ const ids={
+  home:"home",achievements:"achievements",ratings:"ratings",
+  bottle:"bottlePage",styling:"styling",boosters:"boosters",
+  hearts:"heartsPage",settings:"settingsPage",menu:"menuPage"
+ };
+ document.getElementById(ids[name]||"home").classList.add("active");
+}
+
+function update(){
+ document.getElementById("count").textContent=players.length+"/12";
+ document.getElementById("status").textContent=players.length?"O‘yin davom etmoqda":"Bo‘sh";
+}
+
+function joinTable(){
+ if(mySeat!==-1){
+  document.getElementById("notice").textContent="Siz allaqachon stoldasiz!";
+  return;
+ }
+ const free=seats.findIndex((s,i)=>!players.some(p=>p.seat===i));
+ if(free===-1)return;
+ const user=tg?.initDataUnsafe?.user;
+ const name=user?.first_name||"Mehmon";
+ players.push({seat:free,name});
+ mySeat=free;
+ seats[free].classList.remove("empty");
+ seats[free].querySelector(".avatar").textContent="👤";
+ seats[free].querySelector(".name").textContent=name;
+ update();
+ document.getElementById("notice").textContent="Stolga qo‘shildingiz!";
+}
+
+function spinBottle(){
+ if(spinning)return;
+ if(players.length===0){
+  document.getElementById("notice").textContent="Avval stolga joylashing!";
+  return;
+ }
+ spinning=true;
+ bottle.classList.remove("spinning");
+ void bottle.offsetWidth;
+ bottle.classList.add("spinning");
+ document.getElementById("notice").textContent="Butilka aylanmoqda...";
+ setTimeout(()=>{
+  bottle.classList.remove("spinning");
+  const winner=players[Math.floor(Math.random()*players.length)];
+  rounds++;
+  document.getElementById("rounds").textContent=rounds;
+  document.getElementById("notice").textContent=winner.name+" tanlandi! ❤️";
+  spinning=false;
+ },3000);
+}
+
+function resetGame(){
+ if(spinning)return;
+ players.length=0;
+ mySeat=-1;
+ rounds=0;
+ seats.forEach(s=>{
+  s.className="seat empty";
+  s.querySelector(".avatar").textContent="+";
+  s.querySelector(".name").textContent="Bo‘sh joy";
+ });
+ document.getElementById("rounds").textContent="0";
+ document.getElementById("notice").textContent="Stol qayta boshlandi.";
+ update();
+}
+
+function invite(){
+ const url="https://t.me/share/url?url="+encodeURIComponent("https://t.me/UZCoinTapBot");
+ if(tg)tg.openTelegramLink(url);
+ else window.open(url,"_blank");
 }
 </script>
 </body>
