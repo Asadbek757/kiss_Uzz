@@ -51,18 +51,18 @@ linear-gradient(105deg,#c27a36,#e2a454 30%,#c9823c 66%,#a95f28)}
 .streak{font-size:9px;text-align:center;background:#fff;color:#777;border-radius:12px;padding:3px 8px;margin-top:-3px}
 .tablecount{text-align:center;font-size:12px;line-height:15px;font-weight:bold}
 .tablecount b{font-size:14px}
-.seats{position:absolute;inset:66px 0 66px;z-index:2}
-.seat{position:absolute;width:17%;height:15%;min-height:62px;max-height:94px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start}
-.avatar{width:100%;height:calc(100% - 17px);max-height:78px;min-height:54px;position:relative;border-radius:9px;overflow:hidden;border:2px solid rgba(255,222,157,.65);background:linear-gradient(145deg,#27394b,#111b26);box-shadow:0 3px 7px #5c2e1680}
+.seats{position:absolute;inset:66px 0 28px;z-index:2;overflow:visible}
+.seat{position:absolute;width:17%;height:106px;min-height:106px;max-height:106px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow:visible}
+.avatar{width:100%;height:80px;max-height:80px;min-height:80px;flex:0 0 80px;position:relative;border-radius:9px;overflow:hidden;border:2px solid rgba(255,222,157,.65);background:linear-gradient(145deg,#27394b,#111b26);box-shadow:0 3px 7px #5c2e1680}
 .avatar img{width:100%;height:100%;object-fit:cover;display:block}
 .avatar .initial{height:100%;display:flex;align-items:center;justify-content:center;font-size:34px;color:#ffe0a2;background:linear-gradient(135deg,#4c6070,#17232f)}
 .level{position:absolute;right:-3px;top:-4px;z-index:2;background:#e74d36;color:#fff;border-radius:12px;padding:3px 6px;font-size:11px;font-weight:bold;border:1px solid #ffbd82}
-.playername{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff8e9;font-size:11px;text-shadow:0 1px 3px #552b12;margin-top:3px}
+.playername{display:block;width:100%;max-width:130px;white-space:nowrap;overflow:visible;text-overflow:clip;color:#fff8e9;font-size:12px;line-height:17px;text-align:center;text-shadow:0 1px 3px #552b12;margin-top:4px}
 .gift{position:absolute;right:-8px;bottom:15px;font-size:24px;filter:drop-shadow(0 1px 2px #6d371b)}
-.s1{left:8%;top:7%}.s2{left:36%;top:2%}.s3{right:8%;top:7%}
-.s4{left:3%;top:29%}.s5{right:3%;top:29%}
-.s6{left:3%;top:53%}.s7{right:3%;top:53%}
-.s8{left:8%;bottom:3%}.s9{left:36%;bottom:0}.s10{right:8%;bottom:3%}
+.s1{left:8%;top:5%}.s2{left:36%;top:0%}.s3{right:8%;top:5%}
+.s4{left:3%;top:27%}.s5{right:3%;top:27%}
+.s6{left:3%;top:50%}.s7{right:3%;top:50%}
+.s8{left:8%;top:76%}.s9{left:36%;top:77%}.s10{right:8%;top:76%}
 .centerornament{position:absolute;z-index:1;width:min(45vw,245px);height:min(45vw,245px);left:50%;top:50%;transform:translate(-50%,-50%);opacity:.45}
 .bottlewrap{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:126px;display:flex;align-items:center;justify-content:center}
 .bottle{width:48px;height:122px;filter:drop-shadow(5px 6px 4px #603b1b88)}
@@ -74,7 +74,7 @@ linear-gradient(105deg,#c27a36,#e2a454 30%,#c9823c 66%,#a95f28)}
 .bottomchat{position:relative;z-index:6;flex:0 0 58px;left:0;right:0;height:58px;background:#fff;display:flex;align-items:center;padding:0 13px;gap:10px;box-shadow:0 -1px 4px #00000012}
 .bottomchat .placeholder{flex:1;color:#aaa;font-size:16px}
 .send{width:38px;height:38px;border-radius:50%;background:#f4ad4b;color:white;display:flex;align-items:center;justify-content:center;font-size:22px}
-@media(max-height:650px){.topbar{height:52px}.seats{inset:60px 0 56px}.seat{min-height:54px}.avatar{min-height:46px}.gameboard{height:59%}.chatpanel{top:59%}.bottomchat{flex-basis:50px;height:50px}}
+@media(max-height:650px){.topbar{height:52px}.seats{inset:60px 0 24px}.seat{height:96px;min-height:96px;max-height:96px}.avatar{height:72px;min-height:72px;max-height:72px;flex-basis:72px}.playername{font-size:11px;line-height:15px}.gameboard{height:59%}.chatpanel{top:59%}.bottomchat{flex-basis:50px;height:50px}}
 </style>
 </head>
 <body>
