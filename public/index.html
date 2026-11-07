@@ -1,528 +1,137 @@
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Spin the Bottle</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#17232f">
+<title>KissUZ — Spin the Bottle</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
-  color: white;
-  max-width: 720px;
-  margin-inline: auto;
-}
-
-/* Yuqori panel */
-.status {
-  height: 45px;
-  background: #1d2935;
-  padding: 12px 25px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.header {
-  height: 100px;
-  background: #1d2935;
-  display: flex;
-  align-items: center;
-  padding: 0 22px;
-  gap: 18px;
-}
-
-.close {
-  font-size: 40px;
-}
-
-.title {
-  font-size: 27px;
-  font-weight: bold;
-  flex: 1;
-  white-space: nowrap;
-}
-
-.menu {
-  font-size: 30px;
-}
-
-/* O'yin maydoni */
-.game {
-  height: 770px;
-  position: relative;
-  overflow: hidden;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0 75px,
-      #80451d22 76px 79px
-    ),
-    linear-gradient(
-      100deg,
-      #b66d2d,
-      #e7a34f,
-      #bd762f
-    );
-}
-
-.toolbar {
-  height: 65px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  position: relative;
-  z-index: 5;
-}
-
-.icon {
-  width: 43px;
-  height: 43px;
-  border-radius: 50%;
-  background: #dc8c37;
-  display: grid;
-  place-items: center;
-  font-size: 24px;
-}
-
-.heart {
-  font-size: 48px;
-  color: white;
-  text-shadow: 2px 2px #ed6842;
-}
-
-.table {
-  text-align: center;
-  font-size: 13px;
-}
-
-.table strong {
-  display: grid;
-  place-items: center;
-  width: 43px;
-  height: 43px;
-  background: #dc8c37;
-  border-radius: 50%;
-  font-size: 20px;
-}
-
-/* Markazdagi naqsh */
-.flower {
-  position: absolute;
-  left: 50%;
-  top: 48%;
-  transform: translate(-50%, -50%);
-  width: 290px;
-  height: 290px;
-  border-radius: 50%;
-  border: 12px double #b87532;
-  display: grid;
-  place-items: center;
-  font-size: 230px;
-  color: #d18b3d;
-  opacity: .6;
-}
-
-/* O'yinchilar */
-.player {
-  position: absolute;
-  width: 20%;
-  text-align: center;
-  font-size: 12px;
-  z-index: 2;
-}
-
-.photo {
-  height: 105px;
-  border: 3px solid #dda04e;
-  border-radius: 9px;
-  position: relative;
-  background: #344755;
-  overflow: hidden;
-}
-
-.photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.score {
-  position: absolute;
-  top: -3px;
-  right: -3px;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #ed514d;
-  display: grid;
-  place-items: center;
-  font-weight: bold;
-}
-
-.name {
-  padding-top: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.drink {
-  position: absolute;
-  right: -13px;
-  bottom: 15px;
-  font-size: 27px;
-}
-
-.p1 { left: 7%; top: 145px; }
-.p2 { left: 30%; top: 95px; }
-.p3 { right: 7%; top: 145px; }
-
-.p4 { left: 3%; top: 300px; }
-.p5 { right: 3%; top: 300px; }
-
-.p6 { left: 5%; top: 450px; }
-.p7 { right: 5%; top: 450px; }
-
-.p8 { left: 30%; top: 595px; }
-.p9 { right: 30%; top: 595px; }
-
-.scene {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  font-size: 38px;
-  background: linear-gradient(140deg, #253440, #8c795f);
-}
-
-/* Yashil shisha */
-.bottle-area {
-  position: absolute;
-  left: 50%;
-  top: 48%;
-  transform: translate(-50%, -50%);
-  z-index: 4;
-}
-
-.bottle {
-  width: 62px;
-  height: 175px;
-  position: relative;
-  filter: drop-shadow(0 5px 4px #54300c88);
-}
-
-.neck {
-  position: absolute;
-  top: 0;
-  left: 24px;
-  width: 15px;
-  height: 38px;
-  border-radius: 4px;
-  background: linear-gradient(
-    90deg,
-    #14571b,
-    #78d83a,
-    #21641c
-  );
-}
-
-.body-bottle {
-  position: absolute;
-  top: 30px;
-  left: 5px;
-  width: 53px;
-  height: 143px;
-  border-radius: 12px 12px 18px 18px;
-  background: linear-gradient(
-    90deg,
-    #15591a,
-    #51bc24,
-    #91e53b,
-    #278a1c,
-    #14551b
-  );
-  clip-path: polygon(
-    30% 0, 70% 0, 75% 8%,
-    95% 17%, 100% 30%,
-    100% 88%, 85% 100%,
-    15% 100%, 0 88%,
-    0 30%, 5% 17%, 25% 8%
-  );
-}
-
-.bottle-label {
-  position: absolute;
-  top: 42%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  font-size: 16px;
-}
-
-/* Chat */
-.chat {
-  background: #f3f3f3;
-  color: #222;
-  padding: 12px;
-}
-
-.message {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 13px;
-  align-items: center;
-}
-
-.avatar-small {
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
-  background: #344755;
-  display: grid;
-  place-items: center;
-  font-size: 24px;
-  flex-shrink: 0;
-}
-
-.bubble {
-  background: white;
-  border-radius: 9px;
-  padding: 12px;
-  flex: 1;
-  font-size: 15px;
-  line-height: 1.4;
-}
-
-.username {
-  color: #42a9e8;
-  font-weight: bold;
-}
-
-.translation {
-  display: block;
-  color: #999;
-  font-size: 13px;
-}
-
-.composer {
-  height: 70px;
-  background: white;
-  display: flex;
-  align-items: center;
-  padding: 10px 15px;
-  gap: 10px;
-}
-
-.composer input {
-  flex: 1;
-  min-width: 0;
-  border: none;
-  outline: none;
-  font-size: 17px;
-}
-
-.send {
-  width: 45px;
-  height: 45px;
-  border: none;
-  border-radius: 50%;
-  background: #ffb348;
-  color: white;
-  font-size: 25px;
-}
-
-@media (max-width: 400px) {
-  .title {
-    font-size: 22px;
-  }
-
-  .header {
-    gap: 12px;
-    padding: 0 14px;
-  }
-
-  .photo {
-    height: 88px;
-  }
-
-  .player {
-    font-size: 10px;
-  }
-
-  .flower {
-    width: 250px;
-    height: 250px;
-    font-size: 190px;
-  }
-}
+:root{--wood1:#e5a04e;--wood2:#bd7130;--wood3:#8e4c20;--cream:#ffe1a2}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;background:#17232f}
+body{overscroll-behavior:none}
+#app{position:relative;width:100%;height:100dvh;overflow:hidden;background:#17232f}
+.screen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .35s ease}
+.screen.active{opacity:1;visibility:visible}
+#loading,#logo{background-color:#7d9e4b;background-image:
+radial-gradient(circle at 12% 15%,transparent 0 6px,#91b65b 7px 9px,transparent 10px),
+radial-gradient(circle at 78% 28%,transparent 0 8px,#91b65b 9px 11px,transparent 12px),
+radial-gradient(circle at 35% 75%,transparent 0 5px,#91b65b 6px 8px,transparent 9px),
+radial-gradient(circle at 85% 82%,transparent 0 4px,#91b65b 5px 7px,transparent 8px),
+linear-gradient(135deg,#789746,#85a653 55%,#729044)}
+.pattern{position:absolute;inset:-20px;opacity:.18;background-image:
+radial-gradient(ellipse at center,transparent 44%,#b4d06c 46% 53%,transparent 55%);
+background-size:118px 126px;transform:rotate(17deg)}
+.doodles{position:absolute;inset:0;opacity:.16;color:#b8d66d;font-size:43px;line-height:1}
+.doodles span{position:absolute;transform:rotate(-13deg)}
+.doodles span:nth-child(1){left:8%;top:8%}.doodles span:nth-child(2){left:55%;top:5%}
+.doodles span:nth-child(3){left:78%;top:22%}.doodles span:nth-child(4){left:20%;top:33%}
+.doodles span:nth-child(5){left:66%;top:49%}.doodles span:nth-child(6){left:5%;top:67%}
+.doodles span:nth-child(7){left:43%;top:78%}.doodles span:nth-child(8){left:82%;top:87%}
+.progress{width:52%;height:34px;border-radius:30px;background:#fff;padding:6px;box-shadow:0 2px 6px #526b32;overflow:hidden}
+.progress i{display:block;width:0;height:100%;border-radius:20px;background:linear-gradient(#c4e86d,#91c33d);animation:load 1.8s ease forwards}
+@keyframes load{to{width:100%}}
+.logo{color:#ff9d18;text-align:center;font-weight:1000;font-style:italic;line-height:.83;letter-spacing:1px;text-shadow:2px 4px 0 #a94e14,4px 7px 5px #394b24;transform:rotate(-2deg);animation:logoIn .65s cubic-bezier(.2,1.5,.4,1) both}
+.logo strong{display:block;font-size:clamp(68px,19vw,112px);letter-spacing:3px}
+.logo small{display:block;font-size:clamp(37px,10vw,58px);margin-top:10px;letter-spacing:-1px}
+@keyframes logoIn{from{transform:scale(.45) rotate(-10deg);opacity:0}to{transform:scale(1) rotate(-2deg);opacity:1}}
+#tableScreen{display:block;background:#b76c2c}
+.wood{position:absolute;inset:0;background:
+radial-gradient(ellipse at 50% 45%,rgba(255,211,130,.32),transparent 55%),
+repeating-linear-gradient(2deg,transparent 0 17px,rgba(103,48,13,.10) 18px,transparent 20px 34px),
+repeating-linear-gradient(91deg,rgba(255,220,150,.07) 0 2px,transparent 3px 95px),
+linear-gradient(105deg,#c27a36,#e2a454 30%,#c9823c 66%,#a95f28)}
+.wood:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(74,35,11,.18),transparent 15%,transparent 85%,rgba(74,35,11,.18))}
+.topbar{height:76px;position:absolute;z-index:5;left:0;right:0;top:0;display:flex;align-items:center;justify-content:space-around;padding:5px 8px;background:linear-gradient(#bd7535,#a95f28);box-shadow:0 2px 5px #75401f66;color:#fff4d9}
+.topbtn{width:42px;height:42px;flex:0 0 42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(#e8a957,#c77b35);box-shadow:0 2px 4px #713e20aa,inset 0 1px 2px #ffdfa2;font-size:24px;text-shadow:0 1px 2px #88501f}
+.heart{font-size:47px;color:#fff;filter:drop-shadow(1px 2px 1px #9c4926)}
+.score{font-size:13px;font-weight:bold;margin-left:-8px}
+.streak{font-size:10px;text-align:center;background:#fff;color:#777;border-radius:12px;padding:3px 8px;margin-top:-3px}
+.tablecount{text-align:center;font-size:12px;line-height:15px;font-weight:bold}
+.tablecount b{font-size:14px}
+.seats{position:absolute;inset:88px 0 78px;z-index:2}
+.seat{position:absolute;width:18%;height:18%;min-height:86px;max-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start}
+.avatar{width:100%;height:calc(100% - 20px);max-height:105px;min-height:65px;position:relative;border-radius:9px;overflow:hidden;border:2px solid rgba(255,222,157,.65);background:linear-gradient(145deg,#27394b,#111b26);box-shadow:0 3px 7px #5c2e1680}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.avatar .initial{height:100%;display:flex;align-items:center;justify-content:center;font-size:34px;color:#ffe0a2;background:linear-gradient(135deg,#4c6070,#17232f)}
+.level{position:absolute;right:-3px;top:-4px;z-index:2;background:#e74d36;color:#fff;border-radius:12px;padding:3px 6px;font-size:11px;font-weight:bold;border:1px solid #ffbd82}
+.playername{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff8e9;font-size:11px;text-shadow:0 1px 3px #552b12;margin-top:3px}
+.gift{position:absolute;right:-8px;bottom:15px;font-size:24px;filter:drop-shadow(0 1px 2px #6d371b)}
+.s1{left:8%;top:7%}.s2{left:36%;top:2%}.s3{right:8%;top:7%}
+.s4{left:3%;top:29%}.s5{right:3%;top:29%}
+.s6{left:3%;top:53%}.s7{right:3%;top:53%}
+.s8{left:8%;bottom:3%}.s9{left:36%;bottom:0}.s10{right:8%;bottom:3%}
+.s11{left:22%;top:2%;transform:translateX(-50%) scale(.82)}.s12{right:22%;top:2%;transform:translateX(50%) scale(.82)}
+.centerornament{position:absolute;z-index:1;width:min(58vw,330px);height:min(58vw,330px);left:50%;top:50%;transform:translate(-50%,-50%);opacity:.45}
+.bottlewrap{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);width:94px;height:220px;display:flex;align-items:center;justify-content:center}
+.bottle{width:76px;height:205px;filter:drop-shadow(5px 6px 4px #603b1b88)}
+.spincaption{position:absolute;z-index:3;left:31%;top:43%;color:#fff;text-shadow:0 1px 3px #75401f;font-size:14px;line-height:16px;text-align:center}
+.bottomchat{position:absolute;z-index:6;bottom:0;left:0;right:0;height:66px;background:#fff;display:flex;align-items:center;padding:0 13px;gap:10px;box-shadow:0 -2px 5px #713e2022}
+.bottomchat .placeholder{flex:1;color:#aaa;font-size:16px}
+.send{width:43px;height:43px;border-radius:50%;background:#f4ad4b;color:white;display:flex;align-items:center;justify-content:center;font-size:25px}
+@media(max-height:650px){.topbar{height:62px}.seats{inset:70px 0 66px}.seat{min-height:68px}.avatar{min-height:52px}.bottlewrap{transform:translate(-50%,-50%) scale(.78)}.centerornament{width:48vw;height:48vw}.bottomchat{height:55px}}
 </style>
 </head>
-
 <body>
-
-<div class="status">
-  <span>01:54</span>
-  <span>4G ▮ ▰ 71% ⚡</span>
+<div id="app">
+  <section id="loading" class="screen active">
+    <div class="pattern"></div><div class="doodles"><span>♡</span><span>♬</span><span>♛</span><span>♧</span><span>♙</span><span>♬</span><span>♡</span><span>♛</span></div>
+    <div class="progress"><i></i></div>
+  </section>
+  <section id="logo" class="screen">
+    <div class="pattern"></div><div class="doodles"><span>♡</span><span>♬</span><span>♛</span><span>♧</span><span>♙</span><span>♬</span><span>♡</span><span>♛</span></div>
+    <div class="logo"><strong>SPIN</strong><small>the Bottle</small></div>
+  </section>
+  <section id="tableScreen" class="screen">
+    <div class="wood"></div>
+    <div class="topbar">
+      <div class="heart">♡</div><div class="score">0</div>
+      <div class="topbtn">✧<div class="streak" style="position:absolute;top:49px">14d</div></div>
+      <div class="topbtn">◉</div>
+      <div class="topbtn" style="font-size:15px">#20<div class="streak" style="position:absolute;top:49px">22h</div></div>
+      <div class="topbtn">☰</div><div class="topbtn">⚙</div>
+      <div class="tablecount">Table<br><b>40</b></div><div class="topbtn">7</div>
+    </div>
+    <svg class="centerornament" viewBox="0 0 300 300" aria-hidden="true">
+      <path d="M150 8 C170 42 190 48 224 34 C211 68 232 89 270 92 C241 116 242 142 292 150 C242 165 241 190 270 214 C230 216 211 238 224 270 C190 254 170 262 150 292 C130 262 110 254 76 270 C89 238 70 216 30 214 C59 190 58 165 8 150 C58 142 59 116 30 92 C68 89 89 68 76 34 C110 48 130 42 150 8Z" fill="#f5c16e" fill-opacity=".12" stroke="#8f4f20" stroke-width="5"/>
+      <path d="M150 30 C168 68 199 83 238 75 C218 111 232 135 270 150 C232 165 218 189 238 225 C199 217 168 232 150 270 C132 232 101 217 62 225 C82 189 68 165 30 150 C68 135 82 111 62 75 C101 83 132 68 150 30Z" fill="none" stroke="#f5c16e" stroke-width="7"/>
+      <circle cx="150" cy="150" r="95" fill="none" stroke="#8f4f20" stroke-width="3"/>
+    </svg>
+    <div class="spincaption">Spins<br>the bottle</div>
+    <div class="bottlewrap">
+      <svg class="bottle" viewBox="0 0 100 260" aria-label="Green bottle">
+        <defs><linearGradient id="glass" x1="0" x2="1"><stop stop-color="#0d6a16"/><stop offset=".22" stop-color="#4bc52b"/><stop offset=".48" stop-color="#9bea43"/><stop offset=".72" stop-color="#238b18"/><stop offset="1" stop-color="#064d13"/></linearGradient><linearGradient id="neck" x1="0" x2="1"><stop stop-color="#075a12"/><stop offset=".5" stop-color="#8fe63a"/><stop offset="1" stop-color="#06450e"/></linearGradient></defs>
+        <path d="M40 8 Q40 3 50 3 Q60 3 60 8 L60 35 Q60 43 68 51 Q78 62 78 79 L78 225 Q78 245 61 250 L39 250 Q22 245 22 225 L22 79 Q22 62 32 51 Q40 43 40 35Z" fill="url(#glass)" stroke="#145b12" stroke-width="3"/>
+        <path d="M40 7 L60 7 L60 37 L40 37Z" fill="url(#neck)"/><path d="M38 3 L62 3 L62 12 L38 12Z" fill="#174f10" stroke="#b1ed56" stroke-width="1"/>
+        <path d="M31 72 Q27 91 29 220 Q30 237 38 240" fill="none" stroke="#c4ff6c" stroke-width="5" opacity=".65" stroke-linecap="round"/>
+        <path d="M70 80 Q74 100 71 220" fill="none" stroke="#06490d" stroke-width="4" opacity=".5"/>
+        <path d="M26 225 Q50 210 74 225" fill="none" stroke="#0a5610" stroke-width="7" opacity=".65"/>
+      </svg>
+    </div>
+    <div class="seats" id="seats"></div>
+    <div class="bottomchat"><div class="placeholder">Write a message here</div><div class="send">➤</div></div>
+  </section>
 </div>
-
-<header class="header">
-  <div class="close">×</div>
-  <div class="title">Spin the Bottle 🍾...</div>
-  <div class="menu">⌄</div>
-  <div class="menu">⋮</div>
-</header>
-
-<main class="game">
-
-  <div class="toolbar">
-    <div class="heart">♡ <small>0</small></div>
-    <div class="icon">✧</div>
-    <div class="icon">◉</div>
-    <div class="icon">#20</div>
-    <div class="icon">☰</div>
-    <div class="icon">⚙</div>
-    <div class="table">Table<strong>7</strong></div>
-  </div>
-
-  <div class="flower">✿</div>
-
-  <div class="player p1">
-    <div class="photo">
-      <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300" alt="">
-      <span class="score">6</span>
-    </div>
-    <span class="drink">🍸</span>
-    <div class="name">No name [1], 22</div>
-  </div>
-
-  <div class="player p2">
-    <div class="photo">
-      <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300" alt="">
-      <span class="score">2</span>
-    </div>
-    <span class="drink">🍸</span>
-    <div class="name">الله أكبر, 21</div>
-  </div>
-
-  <div class="player p3">
-    <div class="photo">
-      <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=300" alt="">
-      <span class="score">5</span>
-    </div>
-    <span class="drink">🍸</span>
-    <div class="name">Z E I</div>
-  </div>
-
-  <div class="player p4">
-    <div class="photo">
-      <img src="https://images.unsplash.com/photo-1519689680058-324335c77eba?w=300" alt="">
-      <span class="score">8</span>
-    </div>
-    <span class="drink">🍸</span>
-    <div class="name">Pari, 18</div>
-  </div>
-
-  <div class="player p5">
-    <div class="photo">
-      <div class="scene">🚘🌄</div>
-      <span class="score">17</span>
-    </div>
-    <span class="drink">🍸</span>
-    <div class="name">21</div>
-  </div>
-
-  <div class="player p6">
-    <div class="photo">
-      <div class="scene">🖤</div>
-      <span class="score">2</span>
-    </div>
-    <div class="name">No name, 22</div>
-  </div>
-
-  <div class="player p7">
-    <div class="photo">
-      <div class="scene">👩🏻</div>
-      <span class="score">125</span>
-    </div>
-    <span class="drink">🍸</span>
-    <div class="name">Сам по себе</div>
-  </div>
-
-  <div class="player p8">
-    <div class="photo">
-      <div class="scene">🚗🌃</div>
-      <span class="score">14</span>
-    </div>
-    <div class="name">19</div>
-  </div>
-
-  <div class="player p9">
-    <div class="photo">
-      <div class="scene">🏎️</div>
-    </div>
-    <div class="name">27</div>
-  </div>
-
-  <div class="bottle-label">Spins<br>the bottle</div>
-
-  <div class="bottle-area">
-    <div class="bottle">
-      <div class="neck"></div>
-      <div class="body-bottle"></div>
-    </div>
-  </div>
-
-</main>
-
-<section class="chat">
-
-  <div class="message">
-    <div class="avatar-small">🚘</div>
-    <div class="bubble">
-      <span class="username">No name [1]</span>: да, майли
-      <span class="translation">Show translation</span>
-    </div>
-  </div>
-
-  <div class="message">
-    <div class="avatar-small">🪞</div>
-    <div class="bubble">
-      <span class="username" style="color:#ef7db0">No name [1]</span>:
-      yahw rahmat ozizc
-      <span class="translation">Show translation</span>
-    </div>
-  </div>
-
-  <div class="message">
-    <div class="avatar-small">🖤</div>
-    <div class="bubble">
-      <span class="username">Ismoil</span>: Kim 1/1 oynedi
-      <span class="translation">Show translation</span>
-    </div>
-  </div>
-
-  <div class="message">
-    <div class="avatar-small">🚘</div>
-    <div class="bubble">
-      <span class="username">No name [1]</span>:
-      yaxshi rahmat hma gap
-      <span class="translation">Show translation</span>
-    </div>
-  </div>
-
-</section>
-
-<div class="composer">
-  <input type="text" placeholder="Write a message here">
-  <button class="send">➤</button>
-</div>
-
+<script>
+(function(){
+ const tg=window.Telegram&&window.Telegram.WebApp;
+ if(tg){tg.ready();tg.expand();try{tg.setHeaderColor('#17232f');tg.setBackgroundColor('#17232f')}catch(e){}}
+ const screens=['loading','logo','tableScreen'];
+ function show(id){screens.forEach(s=>document.getElementById(s).classList.toggle('active',s===id))}
+ setTimeout(()=>{show('logo');setTimeout(()=>show('tableScreen'),1900)},2100);
+ const positions=['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12'];
+ const seats=document.getElementById('seats');
+ positions.forEach((p,i)=>{
+  const el=document.createElement('div');el.className='seat '+p;
+  const av=document.createElement('div');av.className='avatar';
+  const init=document.createElement('div');init.className='initial';init.textContent='👤';av.appendChild(init);
+  const level=document.createElement('span');level.className='level';level.textContent=i===9?'125':String([6,2,42,8,17,2,5,2,14,125,3,7][i]);av.appendChild(level);
+  const gift=document.createElement('div');gift.className='gift';gift.textContent='🍸';
+  const name=document.createElement('div');name.className='playername';name.textContent='No name, 22';
+  el.append(av,gift,name);seats.appendChild(el);
+ });
+})();
+</script>
 </body>
 </html>
