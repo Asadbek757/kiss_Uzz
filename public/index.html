@@ -2,288 +2,112 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="theme-color" content="#17232f">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#172432">
 <title>KissUZ — Spin the Bottle</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-:root{--wood1:#e5a04e;--wood2:#bd7130;--wood3:#8e4c20;--cream:#ffe1a2}
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,Helvetica,sans-serif;background:#17232f}
-body{overscroll-behavior:none}
-#app{position:relative;width:100%;height:100dvh;overflow:hidden;background:#17232f}
-.screen{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .35s ease}
-.screen.active{opacity:1;visibility:visible}
-#loading,#logo{background-color:#7d9e4b;background-image:
-radial-gradient(circle at 12% 15%,transparent 0 6px,#91b65b 7px 9px,transparent 10px),
-radial-gradient(circle at 78% 28%,transparent 0 8px,#91b65b 9px 11px,transparent 12px),
-radial-gradient(circle at 35% 75%,transparent 0 5px,#91b65b 6px 8px,transparent 9px),
-radial-gradient(circle at 85% 82%,transparent 0 4px,#91b65b 5px 7px,transparent 8px),
-linear-gradient(135deg,#789746,#85a653 55%,#729044)}
-.pattern{position:absolute;inset:-20px;opacity:.18;background-image:
-radial-gradient(ellipse at center,transparent 44%,#b4d06c 46% 53%,transparent 55%);
-background-size:118px 126px;transform:rotate(17deg)}
-.doodles{position:absolute;inset:0;opacity:.16;color:#b8d66d;font-size:43px;line-height:1}
-.doodles span{position:absolute;transform:rotate(-13deg)}
-.doodles span:nth-child(1){left:8%;top:8%}.doodles span:nth-child(2){left:55%;top:5%}
-.doodles span:nth-child(3){left:78%;top:22%}.doodles span:nth-child(4){left:20%;top:33%}
-.doodles span:nth-child(5){left:66%;top:49%}.doodles span:nth-child(6){left:5%;top:67%}
-.doodles span:nth-child(7){left:43%;top:78%}.doodles span:nth-child(8){left:82%;top:87%}
-.progress{width:52%;height:34px;border-radius:30px;background:#fff;padding:6px;box-shadow:0 2px 6px #526b32;overflow:hidden}
-.progress i{display:block;width:0;height:100%;border-radius:20px;background:linear-gradient(#c4e86d,#91c33d);animation:load 1.8s ease forwards}
-@keyframes load{to{width:100%}}
-.logo{color:#ff9d18;text-align:center;font-weight:1000;font-style:italic;line-height:.83;letter-spacing:1px;text-shadow:2px 4px 0 #a94e14,4px 7px 5px #394b24;transform:rotate(-2deg);animation:logoIn .65s cubic-bezier(.2,1.5,.4,1) both}
-.logo strong{display:block;font-size:clamp(68px,19vw,112px);letter-spacing:3px}
-.logo small{display:block;font-size:clamp(37px,10vw,58px);margin-top:10px;letter-spacing:-1px}
-@keyframes logoIn{from{transform:scale(.45) rotate(-10deg);opacity:0}to{transform:scale(1) rotate(-2deg);opacity:1}}
-#tableScreen{display:block;background:#b76c2c}
-.wood{position:absolute;inset:0;background:
-radial-gradient(ellipse at 50% 45%,rgba(255,211,130,.32),transparent 55%),
-repeating-linear-gradient(2deg,transparent 0 17px,rgba(103,48,13,.10) 18px,transparent 20px 34px),
-repeating-linear-gradient(91deg,rgba(255,220,150,.07) 0 2px,transparent 3px 95px),
-linear-gradient(105deg,#c27a36,#e2a454 30%,#c9823c 66%,#a95f28)}
-.wood:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(74,35,11,.18),transparent 15%,transparent 85%,rgba(74,35,11,.18))}
-.topbar{height:76px;position:absolute;z-index:5;left:0;right:0;top:0;display:flex;align-items:center;justify-content:space-around;padding:5px 8px;background:linear-gradient(#bd7535,#a95f28);box-shadow:0 2px 5px #75401f66;color:#fff4d9}
-.topbtn{width:42px;height:42px;flex:0 0 42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(#e8a957,#c77b35);box-shadow:0 2px 4px #713e20aa,inset 0 1px 2px #ffdfa2;font-size:24px;text-shadow:0 1px 2px #88501f}
-.heart{font-size:47px;color:#fff;filter:drop-shadow(1px 2px 1px #9c4926)}
-.score{font-size:13px;font-weight:bold;margin-left:-8px}
-.streak{font-size:10px;text-align:center;background:#fff;color:#777;border-radius:12px;padding:3px 8px;margin-top:-3px}
-.tablecount{text-align:center;font-size:12px;line-height:15px;font-weight:bold}
-.tablecount b{font-size:14px}
-.seats{position:absolute;inset:88px 0 78px;z-index:2}
-.seat{position:absolute;width:18%;height:18%;min-height:86px;max-height:130px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start}
-.avatar{width:100%;height:calc(100% - 20px);max-height:105px;min-height:65px;position:relative;border-radius:9px;overflow:hidden;border:2px solid rgba(255,222,157,.65);background:linear-gradient(145deg,#27394b,#111b26);box-shadow:0 3px 7px #5c2e1680}
-.avatar img{width:100%;height:100%;object-fit:cover;display:block}
-.avatar .initial{height:100%;display:flex;align-items:center;justify-content:center;font-size:34px;color:#ffe0a2;background:linear-gradient(135deg,#4c6070,#17232f)}
-.level{position:absolute;right:-3px;top:-4px;z-index:2;background:#e74d36;color:#fff;border-radius:12px;padding:3px 6px;font-size:11px;font-weight:bold;border:1px solid #ffbd82}
-.playername{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff8e9;font-size:11px;text-shadow:0 1px 3px #552b12;margin-top:3px}
-.gift{position:absolute;right:-8px;bottom:15px;font-size:24px;filter:drop-shadow(0 1px 2px #6d371b)}
-.s1{left:8%;top:7%}.s2{left:36%;top:2%}.s3{right:8%;top:7%}
-.s4{left:3%;top:29%}.s5{right:3%;top:29%}
-.s6{left:3%;top:53%}.s7{right:3%;top:53%}
-.s8{left:8%;bottom:3%}.s9{left:36%;bottom:0}.s10{right:8%;bottom:3%}
-.s11{left:22%;top:2%;transform:translateX(-50%) scale(.82)}.s12{right:22%;top:2%;transform:translateX(50%) scale(.82)}
-.centerornament{position:absolute;z-index:1;width:min(58vw,330px);height:min(58vw,330px);left:50%;top:50%;transform:translate(-50%,-50%);opacity:.45}
-.bottlewrap{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);width:94px;height:220px;display:flex;align-items:center;justify-content:center}
-.bottle{width:76px;height:205px;filter:drop-shadow(5px 6px 4px #603b1b88)}
-.spincaption{position:absolute;z-index:3;left:31%;top:43%;color:#fff;text-shadow:0 1px 3px #75401f;font-size:14px;line-height:16px;text-align:center}
-.bottomchat{position:absolute;z-index:6;bottom:0;left:0;right:0;height:66px;background:#fff;display:flex;align-items:center;padding:0 13px;gap:10px;box-shadow:0 -2px 5px #713e2022}
-.bottomchat .placeholder{flex:1;color:#aaa;font-size:16px}
-.send{width:43px;height:43px;border-radius:50%;background:#f4ad4b;color:white;display:flex;align-items:center;justify-content:center;font-size:25px}
-@media(max-height:650px){.topbar{height:62px}.seats{inset:70px 0 66px}.seat{min-height:68px}.avatar{min-height:52px}.bottlewrap{transform:translate(-50%,-50%) scale(.78)}.centerornament{width:48vw;height:48vw}.bottomchat{height:55px}}
-
-/* Reference-matched KissUZ table layout */
-#tableScreen{background:#f3f3f3}
-#tableScreen .topbar{height:76px;left:0;right:0;top:0;padding:5px 12px;justify-content:space-between;gap:5px;background:linear-gradient(180deg,#bd7838,#a95d27);}
-#tableScreen .topbtn{width:clamp(38px,8.2vw,56px);height:clamp(38px,8.2vw,56px);flex:0 0 clamp(38px,8.2vw,56px);font-size:clamp(19px,4.6vw,29px);}
-#tableScreen .heart{font-size:clamp(38px,7.5vw,52px);line-height:1}
-#tableScreen .score{font-size:13px;margin-left:-9px;margin-right:2px}
-#tableScreen .tablecount{font-size:clamp(10px,2.6vw,14px);line-height:15px;white-space:nowrap}
-#tableScreen .tablecount b{font-size:15px}
-#tableScreen .wood{position:absolute;top:76px;left:0;right:0;bottom:calc(35% + 66px);height:auto;background:
- radial-gradient(ellipse at 50% 48%,rgba(255,220,150,.28),transparent 57%),
- repeating-linear-gradient(2deg,transparent 0 34px,rgba(104,49,15,.13) 35px,transparent 38px 68px),
- repeating-linear-gradient(90deg,rgba(255,222,166,.08) 0 3px,transparent 4px 112px),
- linear-gradient(105deg,#b96d31,#e6a354 30%,#d28a43 67%,#a95e2a);}
-#tableScreen .seats{inset:91px 0 calc(35% + 76px);z-index:4}
-#tableScreen .seat{width:17.2%;height:auto;min-height:0;max-height:none;overflow:visible}
-#tableScreen .avatar{width:100%;height:auto;aspect-ratio:1/1;min-height:0;max-height:none;border-radius:13px;border:3px solid rgba(255,220,158,.78);background:linear-gradient(145deg,#33495b,#172633);box-shadow:0 3px 7px #643b1f88;}
-#tableScreen .avatar .initial{font-size:clamp(28px,8vw,48px);background:linear-gradient(145deg,#344c60,#172633);}
-#tableScreen .level{right:-3px;top:-4px;padding:3px 7px;font-size:clamp(10px,2.7vw,14px);border-radius:15px;background:#e94c3b;border:2px solid #ffd49b}
-#tableScreen .playername{font-size:clamp(10px,2.7vw,14px);line-height:16px;margin-top:4px;max-width:125%;overflow:visible;text-overflow:clip;text-shadow:0 1px 3px #603315;white-space:nowrap}
-#tableScreen .gift{right:-9px;bottom:22px;font-size:clamp(21px,5.5vw,31px);filter:drop-shadow(0 1px 2px #75421e)}
-/* 12 seats: four across the top, two on each side, four across the bottom */
-#tableScreen .s1{left:8%;top:2%;transform:none}
-#tableScreen .s2{left:30%;top:0%;transform:none}
-#tableScreen .s3{left:52%;top:0%;transform:none}
-#tableScreen .s4{left:74%;top:2%;right:auto;transform:none}
-#tableScreen .s5{left:4%;top:34%;right:auto;transform:none}
-#tableScreen .s6{left:4%;top:57%;right:auto;transform:none}
-#tableScreen .s7{right:4%;left:auto;top:34%;transform:none}
-#tableScreen .s8{right:4%;left:auto;top:57%;transform:none}
-#tableScreen .s9{left:8%;top:81%;bottom:auto;transform:none}
-#tableScreen .s10{left:30%;top:84%;bottom:auto;transform:none}
-#tableScreen .s11{left:52%;top:84%;right:auto;bottom:auto;transform:none}
-#tableScreen .s12{left:74%;top:81%;right:auto;bottom:auto;transform:none}
-#tableScreen .centerornament{width:min(54vw,330px);height:min(54vw,330px);left:50%;top:36%;transform:translate(-50%,-50%);opacity:.52}
-#tableScreen .bottlewrap{width:100px;height:190px;left:50%;top:36%;transform:translate(-50%,-50%)}
-#tableScreen .bottle{width:100px;height:182px;filter:drop-shadow(4px 5px 4px #603b1b99)}
-#tableScreen .spincaption{left:31%;top:36%;transform:translate(-50%,-50%);margin:0;font-size:clamp(13px,3.5vw,18px);line-height:1.12;width:100px}
-#tableScreen .chatlog{position:absolute;z-index:6;left:0;right:0;bottom:66px;height:35%;background:#f5f5f5;display:flex;flex-direction:column;justify-content:flex-end;gap:14px;padding:12px 22px 10px;overflow:hidden}
-#tableScreen .chatmsg{align-self:flex-start;max-width:92%;padding:13px 17px;border-radius:20px;background:#fff;color:#202020;font-size:clamp(14px,3.7vw,19px);line-height:1.25;box-shadow:0 1px 2px #0000000a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#tableScreen .chatmsg b{color:#56a9ce}
-#tableScreen .chatmsg:nth-child(2) b{color:#d67eaa}
-#tableScreen .chatmsg:nth-child(4) b{color:#555}
-#tableScreen .bottomchat{height:66px;bottom:0;padding:0 24px;background:#fff}
-#tableScreen .bottomchat .placeholder{font-size:clamp(16px,4vw,22px)}
-#tableScreen .send{width:58px;height:58px;font-size:30px;background:#f4ad4b}
-@media(max-height:720px){#tableScreen .wood{bottom:calc(35% + 58px)}#tableScreen .seats{inset:84px 0 calc(35% + 67px)}#tableScreen .chatlog{height:35%;bottom:58px}#tableScreen .bottomchat{height:58px}#tableScreen .bottlewrap{transform:translate(-50%,-50%) scale(.9)}}
-
-/* Final proportion corrections based on the supplied reference screenshot */
-#tableScreen .topbar{height:46px;padding:3px 10px;gap:4px}
-#tableScreen .topbtn{width:clamp(32px,7.8vw,48px);height:clamp(32px,7.8vw,48px);flex:0 0 clamp(32px,7.8vw,48px);font-size:clamp(17px,4vw,25px)}
-#tableScreen .heart{font-size:clamp(34px,7vw,46px)}
-#tableScreen .score{font-size:12px;margin-left:-8px}
-#tableScreen .tablecount{font-size:clamp(9px,2.3vw,12px);line-height:13px}
-#tableScreen .tablecount b{font-size:13px}
-#tableScreen .wood{top:46px;bottom:calc(34% + 45px)}
-#tableScreen .seats{inset:58px 0 calc(34% + 52px)}
-#tableScreen .seat{width:17.2%}
-#tableScreen .avatar{aspect-ratio:1/1}
-#tableScreen .playername{font-size:clamp(10px,2.5vw,13px);line-height:15px;margin-top:3px;max-width:125%;white-space:nowrap}
-#tableScreen .gift{right:-7px;bottom:21px;font-size:clamp(19px,4.8vw,27px)}
-#tableScreen .centerornament{width:min(43vw,275px);height:min(43vw,275px);top:32%;opacity:.5}
-#tableScreen .bottlewrap{width:68px;height:116px;left:50%;top:32%;transform:translate(-50%,-50%)}
-#tableScreen .bottle{width:62px;height:112px;filter:drop-shadow(3px 4px 3px #603b1b88)}
-#tableScreen .spincaption{left:31%;top:32%;width:96px;font-size:clamp(12px,3.2vw,16px);line-height:1.1}
-#tableScreen .chatlog{bottom:45px;height:34%;gap:12px;padding:10px 22px 8px}
-#tableScreen .chatmsg{padding:11px 15px;border-radius:18px;font-size:clamp(13px,3.4vw,18px)}
-#tableScreen .bottomchat{height:45px;padding:0 24px}
-#tableScreen .bottomchat .placeholder{font-size:clamp(14px,3.5vw,19px)}
-#tableScreen .send{width:42px;height:42px;font-size:24px}
-@media(max-height:720px){#tableScreen .topbar{height:44px}#tableScreen .wood{top:44px;bottom:calc(34% + 40px)}#tableScreen .seats{inset:55px 0 calc(34% + 47px)}#tableScreen .chatlog{height:34%;bottom:40px}#tableScreen .bottomchat{height:40px}#tableScreen .bottlewrap{width:58px;height:100px}#tableScreen .bottle{width:54px;height:96px}}
-
-
-/* v3: precise table proportions, full 12-seat layout, compact chat and reference-shaped bottle */
-#tableScreen .topbar{height:72px!important;padding:4px 10px!important;gap:3px!important}
-#tableScreen .topbtn{width:clamp(34px,7.7vw,52px)!important;height:clamp(34px,7.7vw,52px)!important;flex-basis:clamp(34px,7.7vw,52px)!important;position:relative;font-size:clamp(17px,4vw,26px)!important}
-#tableScreen .heart{font-size:clamp(36px,7.5vw,49px)!important}
-#tableScreen .score{font-size:12px!important}
-#tableScreen .tablecount{font-size:clamp(10px,2.5vw,14px)!important;line-height:14px!important}
-#tableScreen .tablecount b{font-size:15px!important}
-#tableScreen .wood{top:72px!important;bottom:calc(24% + 60px)!important;background:
- radial-gradient(ellipse at 50% 47%,rgba(255,220,145,.30),transparent 58%),
- repeating-linear-gradient(2deg,transparent 0 36px,rgba(100,47,14,.12) 37px,transparent 40px 72px),
- repeating-linear-gradient(90deg,rgba(255,226,175,.08) 0 3px,transparent 4px 112px),
- linear-gradient(105deg,#b96b2f 0%,#e3a052 29%,#d18a43 66%,#a95c28 100%)!important}
-#tableScreen .seats{inset:82px 0 calc(24% + 68px)!important;z-index:4!important}
-#tableScreen .seat{width:16.2%!important;min-height:0!important;height:auto!important;max-height:none!important;overflow:visible!important}
-#tableScreen .avatar{width:100%!important;aspect-ratio:1/1!important;height:auto!important;min-height:0!important;max-height:none!important;border-radius:12px!important;border:3px solid rgba(255,220,158,.82)!important;box-shadow:0 3px 8px #643b1f88!important}
-#tableScreen .avatar .initial{font-size:0!important;position:relative!important;background:linear-gradient(145deg,#344c60,#172633)!important}
-#tableScreen .avatar .initial:before{content:"";position:absolute;left:35%;top:19%;width:30%;height:35%;border-radius:50%;background:#1681df}
-#tableScreen .avatar .initial:after{content:"";position:absolute;left:19%;bottom:13%;width:62%;height:34%;border-radius:55% 55% 10% 10%;background:#1681df}
-#tableScreen .level{right:-3px!important;top:-4px!important;padding:3px 7px!important;font-size:clamp(10px,2.7vw,14px)!important;border-radius:14px!important}
-#tableScreen .playername{font-size:clamp(10px,2.5vw,13px)!important;line-height:15px!important;margin-top:4px!important;max-width:145%!important;white-space:nowrap!important;overflow:visible!important;text-overflow:clip!important;text-align:center!important}
-#tableScreen .gift{display:none!important;right:-9px!important;bottom:17px!important;font-size:clamp(20px,5vw,28px)!important;z-index:5!important}
-#tableScreen .seat.has-gift .gift{display:block!important}
-/* Four at the top, two on each side, four at the bottom. */
-#tableScreen .s1{left:8%!important;right:auto!important;top:2%!important;bottom:auto!important;transform:none!important}
-#tableScreen .s2{left:30%!important;right:auto!important;top:0%!important;bottom:auto!important;transform:none!important}
-#tableScreen .s3{left:52%!important;right:auto!important;top:0%!important;bottom:auto!important;transform:none!important}
-#tableScreen .s4{left:74%!important;right:auto!important;top:2%!important;bottom:auto!important;transform:none!important}
-#tableScreen .s5{left:3.5%!important;right:auto!important;top:34%!important;bottom:auto!important;transform:none!important}
-#tableScreen .s6{left:3.5%!important;right:auto!important;top:58%!important;bottom:auto!important;transform:none!important}
-#tableScreen .s7{left:auto!important;right:3.5%!important;top:34%!important;bottom:auto!important;transform:none!important}
-#tableScreen .s8{left:auto!important;right:3.5%!important;top:58%!important;bottom:auto!important;transform:none!important}
-#tableScreen .s9{left:8%!important;right:auto!important;top:auto!important;bottom:1%!important;transform:none!important}
-#tableScreen .s10{left:30%!important;right:auto!important;top:auto!important;bottom:0!important;transform:none!important}
-#tableScreen .s11{left:52%!important;right:auto!important;top:auto!important;bottom:0!important;transform:none!important}
-#tableScreen .s12{left:74%!important;right:auto!important;top:auto!important;bottom:1%!important;transform:none!important}
-#tableScreen .centerornament{width:min(46vw,285px)!important;height:min(46vw,285px)!important;left:50%!important;top:47%!important;transform:translate(-50%,-50%)!important;opacity:.48!important}
-#tableScreen .bottlewrap{width:96px!important;height:190px!important;left:50%!important;top:47%!important;transform:translate(-50%,-50%)!important}
-#tableScreen .bottle{width:96px!important;height:190px!important;filter:drop-shadow(4px 5px 4px #603b1b99)!important}
-#tableScreen .spincaption{left:29%!important;top:47%!important;transform:translate(-50%,-50%)!important;width:100px!important;font-size:clamp(12px,3.2vw,17px)!important;line-height:1.12!important}
-#tableScreen .chatlog{height:24%!important;bottom:60px!important;gap:10px!important;padding:9px 22px 8px!important;justify-content:flex-end!important}
-#tableScreen .chatmsg{padding:10px 15px!important;border-radius:18px!important;font-size:clamp(13px,3.4vw,18px)!important;line-height:1.2!important;max-width:92%!important}
-#tableScreen .bottomchat{height:60px!important;padding:0 24px!important}
-#tableScreen .bottomchat .placeholder{font-size:clamp(15px,3.8vw,21px)!important}
-#tableScreen .send{width:48px!important;height:48px!important;font-size:26px!important}
-@media(max-height:760px){
- #tableScreen .topbar{height:64px!important}
- #tableScreen .wood{top:64px!important;bottom:calc(24% + 54px)!important}
- #tableScreen .seats{inset:74px 0 calc(24% + 62px)!important}
- #tableScreen .seat{width:15.5%!important}
- #tableScreen .centerornament{width:min(39vw,230px)!important;height:min(39vw,230px)!important}
- #tableScreen .bottlewrap,#tableScreen .bottle{height:160px!important}
- #tableScreen .bottlewrap{width:82px!important}
- #tableScreen .bottle{width:82px!important}
- #tableScreen .chatlog{height:24%!important;bottom:54px!important}
- #tableScreen .bottomchat{height:54px!important}
-}
-
+:root{--wood1:#d99448;--wood2:#b96b2d;--gold:#f5bd62;--ink:#172b3d;--red:#e94b40;--board-size:100vw}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;color:#222;overflow-x:hidden}
+body{padding:0}
+.app{width:100%;max-width:760px;margin:0 auto;background:#fff;min-height:100vh;overflow:hidden}
+.topbar{height:clamp(64px,13vw,90px);padding:0 3.2%;display:flex;align-items:center;justify-content:space-between;gap:clamp(5px,1.6vw,13px);color:#fff;background:linear-gradient(180deg,#c77b35 0%,#a95d25 100%);box-shadow:0 3px 8px #713b1d55;position:relative;z-index:3}
+.top-item{position:relative;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.heart{font-size:clamp(31px,7vw,48px);line-height:1;color:#fff;text-shadow:0 2px 2px #713b1d;transform:scaleX(1.04)}
+.heart-count{font-size:clamp(12px,2.8vw,17px);font-weight:bold;margin-left:3px;color:#fff}
+.round{width:clamp(38px,9vw,58px);height:clamp(38px,9vw,58px);border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#ffd184,#c47a32);border:2px solid #f6c77f;box-shadow:0 3px 5px #693a1d77,inset 0 1px 3px #fff9;color:#fff;font-size:clamp(21px,5vw,31px);text-shadow:0 1px 2px #91511e}
+.round.smalltext{font-size:clamp(15px,3.5vw,22px);font-weight:700}
+.round svg{width:56%;height:56%;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 1px #91511e)}
+.timer{position:absolute;bottom:-13px;left:50%;transform:translateX(-50%);background:#fff;color:#999;border-radius:15px;padding:3px 9px;font-size:clamp(10px,2.3vw,13px);font-weight:600;white-space:nowrap;box-shadow:0 1px 2px #0002}
+.table-count{font-weight:bold;text-align:center;color:#fff;font-size:clamp(12px,2.8vw,17px);line-height:1.05;min-width:42px;text-shadow:0 1px 2px #75421d}
+.table-count b{display:block;font-size:clamp(15px,3.5vw,22px);margin-top:2px}
+.board{width:100%;aspect-ratio:1/1;position:relative;overflow:hidden;isolation:isolate;background-color:#c77b36;background-image:
+ radial-gradient(ellipse at 50% 50%,#efb35f55 0%,transparent 49%),
+ repeating-linear-gradient(0deg,transparent 0 24%,#8b4e2520 24.2%,transparent 24.8% 49%),
+ repeating-linear-gradient(90deg,transparent 0 24%,#f8ca7a20 24.2%,transparent 24.8% 49%),
+ linear-gradient(110deg,#d68d43 0%,#bd702f 48%,#d58a40 100%);
+ box-shadow:inset 0 5px 14px #713d1e55,inset 0 -4px 12px #713d1e44}
+.board:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.23;background-image:repeating-linear-gradient(2deg,transparent 0 13px,#8a4c2518 14px,#fff1 16px,transparent 22px),repeating-linear-gradient(91deg,transparent 0 130px,#ffe0a044 132px,transparent 135px)}
+.board:after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,#ffd17a30 0%,transparent 65%)}
+.center-emblem{position:absolute;width:48%;height:48%;left:50%;top:50%;transform:translate(-50%,-50%);opacity:.47;pointer-events:none}
+.center-emblem svg{width:100%;height:100%;overflow:visible}
+.spin-label{position:absolute;left:24%;top:50%;transform:translate(-50%,-50%);font-size:clamp(12px,3.4vw,20px);line-height:1.08;text-align:center;color:#fff;text-shadow:0 2px 3px #6d3d1c;z-index:1;width:22%}
+.bottle{position:absolute;left:50%;top:50%;width:clamp(35px,9vw,62px);height:clamp(112px,27vw,184px);transform:translate(-50%,-50%);z-index:2;filter:drop-shadow(0 4px 3px #4d351c88)}
+.bottle svg{width:100%;height:100%;overflow:visible}
+.player{position:absolute;width:17.2%;display:flex;flex-direction:column;align-items:center;z-index:2;transform:translate(-50%,-50%);min-width:0}
+.avatar{position:relative;width:100%;aspect-ratio:1/1;border-radius:20%;overflow:visible;background:linear-gradient(145deg,#344b5c,#1b2c3c);border:clamp(3px,.65vw,5px) solid #cbb98e;box-shadow:0 3px 7px #55351988,inset 0 0 0 1px #fff3}
+.avatar-inner{position:absolute;inset:0;border-radius:inherit;overflow:hidden;display:grid;place-items:center;background:linear-gradient(145deg,#31485a,#1b2b3a)}
+.avatar-inner svg{width:76%;height:76%;fill:#1680df;filter:drop-shadow(0 1px 1px #061d34)}
+.score{position:absolute;right:-7%;top:-8%;min-width:31%;height:31%;padding:0 5px;border-radius:18px;background:#e94c40;border:2px solid #ffd7a0;color:white;font-weight:800;font-size:clamp(11px,3.2vw,17px);display:flex;align-items:center;justify-content:center;box-shadow:0 1px 2px #4b241b88;z-index:4}
+.player-name{width:125%;margin-top:5px;color:#fff;font-size:clamp(10px,2.7vw,15px);line-height:1.05;text-align:center;white-space:nowrap;overflow:visible;text-overflow:clip;text-shadow:0 1px 3px #603818,0 1px 2px #603818;min-height:1.1em}
+.gift{position:absolute;right:-17%;bottom:-17%;font-size:clamp(22px,5.5vw,35px);z-index:5;filter:drop-shadow(0 2px 1px #58351b)}
+/* 12 fixed seats: four top, two left, two right, four bottom */
+.p1{left:15.5%;top:20.5%}.p2{left:38.5%;top:20.5%}.p3{left:61.5%;top:20.5%}.p4{left:84.5%;top:20.5%}
+.p5{left:12.5%;top:51%}.p6{left:12.5%;top:73%}.p7{left:87.5%;top:51%}.p8{left:87.5%;top:73%}
+.p9{left:15.5%;top:88%}.p10{left:38.5%;top:88%}.p11{left:61.5%;top:88%}.p12{left:84.5%;top:88%}
+/* chat area */
+.chat{background:#f5f5f5;padding:clamp(18px,4vw,30px) 3.4% clamp(12px,3vw,22px);min-height:clamp(260px,58vw,410px);display:flex;flex-direction:column;gap:clamp(10px,2.6vw,17px)}
+.message{align-self:flex-start;max-width:92%;width:max-content;background:#fff;border-radius:24px;padding:clamp(11px,2.7vw,17px) clamp(16px,4vw,25px);font-size:clamp(14px,3.7vw,20px);line-height:1.25;box-shadow:0 1px 2px #0000000b;color:#222;overflow-wrap:anywhere}
+.message strong{font-weight:700}.blue{color:#55a9c7}.pink{color:#d17aa7}.gray{color:#555}
+.chat-spacer{flex:1;min-height:5px}
+.composer{height:clamp(62px,15vw,88px);background:#fff;display:flex;align-items:center;padding:0 3.5%;gap:10px;border-top:1px solid #eee;box-shadow:0 -2px 8px #0000000b}
+.composer input{flex:1;min-width:0;border:0;outline:0;font-size:clamp(15px,3.8vw,21px);color:#333;background:transparent}
+.composer input::placeholder{color:#b9b9b9}
+.send{border:0;border-radius:50%;width:clamp(48px,12vw,70px);height:clamp(48px,12vw,70px);background:#f5b449;color:white;display:grid;place-items:center;box-shadow:0 2px 4px #a76b2a55}
+.send svg{width:58%;height:58%;fill:white;stroke:white;stroke-width:1.4}
+@media(min-width:760px){.app{box-shadow:0 0 20px #0002}.board{max-height:760px}.player{width:17%}}
+@media(max-width:360px){.player{width:17.5%}.player-name{font-size:9px}.topbar{gap:4px;padding-inline:2.5%}.table-count{min-width:35px}}
 </style>
 </head>
 <body>
-<div id="app">
-  <section id="loading" class="screen active">
-    <div class="pattern"></div><div class="doodles"><span>♡</span><span>♬</span><span>♛</span><span>♧</span><span>♙</span><span>♬</span><span>♡</span><span>♛</span></div>
-    <div class="progress"><i></i></div>
+<div class="app">
+  <header class="topbar">
+    <div class="top-item"><span class="heart">♡</span><span class="heart-count">0</span></div>
+    <div class="top-item"><div class="round"><svg viewBox="0 0 24 24"><path d="M12 2.8 14.2 9.8 21.2 12 14.2 14.2 12 21.2 9.8 14.2 2.8 12 9.8 9.8Z"/><path d="m18.5 2 .8 2.7L22 5.5l-2.7.8-.8 2.7-.8-2.7-2.7-.8 2.7-.8Z"/></svg></div><span class="timer">14d</span></div>
+    <div class="top-item"><div class="round"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.5"/></svg></div></div>
+    <div class="top-item"><div class="round smalltext">#20</div><span class="timer">22h</span></div>
+    <div class="top-item"><div class="round"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></div></div>
+    <div class="top-item"><div class="round"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="m19.4 13.5 1.2.9-1.6 2.8-1.4-.6a8 8 0 0 1-2 1.2l-.2 1.5h-3.2l-.2-1.5a8 8 0 0 1-2-1.2l-1.4.6L7 14.4l1.2-.9a7 7 0 0 1 0-2.3L7 10.3l1.6-2.8 1.4.6a8 8 0 0 1 2-1.2l.2-1.5h3.2l.2 1.5a8 8 0 0 1 2 1.2l1.4-.6 1.6 2.8-1.2.9a7 7 0 0 1 0 2.3Z"/></svg></div></div>
+    <div class="table-count">Table<b>40</b></div>
+    <div class="top-item"><div class="round smalltext">7</div></div>
+  </header>
+
+  <main class="board" aria-label="KissUZ o‘yin stoli">
+    <div class="center-emblem"><svg viewBox="0 0 300 300" aria-hidden="true"><path d="M150 8 171 43 211 27 220 68 263 75 245 115 286 150 245 185 263 225 220 232 211 273 171 257 150 292 129 257 89 273 80 232 37 225 55 185 14 150 55 115 37 75 80 68 89 27 129 43Z" fill="none" stroke="#8e4e27" stroke-width="5"/><circle cx="150" cy="150" r="94" fill="none" stroke="#8e4e27" stroke-width="3"/><circle cx="150" cy="150" r="80" fill="none" stroke="#e9b56b" stroke-width="2"/></svg></div>
+    <div class="spin-label">Spins<br>the bottle</div>
+    <div class="bottle" aria-label="Yashil shisha"><svg viewBox="0 0 70 220" role="img"><defs><linearGradient id="glass" x1="0" x2="1"><stop offset="0" stop-color="#087d13"/><stop offset=".22" stop-color="#48e51b"/><stop offset=".48" stop-color="#149c0d"/><stop offset=".72" stop-color="#65ef24"/><stop offset="1" stop-color="#075d0c"/></linearGradient><linearGradient id="shine" x1="0" x2="1"><stop stop-color="#c5ff75" stop-opacity=".1"/><stop offset=".5" stop-color="#eaffad" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><path d="M27 5h16v12H27z" fill="#075e0b" stroke="#8bff45" stroke-width="1.5"/><path d="M25 17h20v22c0 9 5 13 10 20 5 7 6 14 6 25v111c0 14-9 23-26 23S9 209 9 195V84c0-11 2-18 7-25 5-7 9-11 9-20Z" fill="url(#glass)" stroke="#08700c" stroke-width="2"/><path d="M27 39h16v13c0 8 5 13 9 20 4 7 5 13 5 23v94c0 11-7 18-22 18s-22-7-22-18V95c0-12 2-18 7-25 4-6 7-10 7-18Z" fill="none" stroke="#9dff4b" stroke-opacity=".55" stroke-width="2"/><path d="M19 72c-3 8-4 17-4 28v87c0 7 2 12 6 15V84c0-5 0-9 2-13Z" fill="url(#shine)"/><path d="M12 185q23 13 46 0v11q-23 15-46 0Z" fill="#064f0b" opacity=".55"/><path d="M14 195q21 11 42 0" fill="none" stroke="#9aff42" stroke-width="2" opacity=".8"/></svg></div>
+
+    <div class="player p1"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">6</span></div><div class="player-name">No name, 22</div></div>
+    <div class="player p2"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">2</span></div><div class="player-name">No name, 22</div></div>
+    <div class="player p3"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">42</span></div><div class="player-name">No name, 22</div></div>
+    <div class="player p4"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">5</span></div><div class="player-name">No name, 22</div></div>
+    <div class="player p5"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">8</span></div><div class="player-name">No name, 22</div></div>
+    <div class="player p6"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">17</span></div><div class="player-name">No name, 22</div></div>
+    <div class="player p7"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">5</span></div><div class="player-name">No name, 22</div></div>
+    <div class="player p8"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">2</span></div><div class="player-name">No name, 22</div></div>
+    <div class="player p9"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">2</span></div><div class="player-name">No name, 22</div></div>
+    <div class="player p10"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">14</span></div><div class="player-name">No name, 22</div></div>
+    <div class="player p11"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">125</span></div><div class="player-name">No name, 22</div></div>
+    <div class="player p12"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">3</span></div><div class="player-name">No name, 22</div></div>
+  </main>
+
+  <section class="chat" aria-label="O‘yin chati">
+    <div class="message"><strong class="blue">No name [1]:</strong> yahw rahmat ozizc</div>
+    <div class="message"><strong class="pink">No name [1]:</strong> Kim 1/1 oynedi</div>
+    <div class="message"><strong class="blue">Ismoil:</strong> Kim 1/1 oynedi</div>
+    <div class="message"><strong class="gray">No name [1]:</strong> yaxshi rahmat nima gap</div>
+    <div class="chat-spacer"></div>
   </section>
-  <section id="logo" class="screen">
-    <div class="pattern"></div><div class="doodles"><span>♡</span><span>♬</span><span>♛</span><span>♧</span><span>♙</span><span>♬</span><span>♡</span><span>♛</span></div>
-    <div class="logo"><strong>SPIN</strong><small>the Bottle</small></div>
-  </section>
-  <section id="tableScreen" class="screen">
-    <div class="wood"></div>
-    <div class="topbar">
-      <div class="heart">♡</div><div class="score">0</div>
-      <div class="topbtn">✧<div class="streak" style="position:absolute;top:49px">14d</div></div>
-      <div class="topbtn">◉</div>
-      <div class="topbtn" style="font-size:15px">#20<div class="streak" style="position:absolute;top:49px">22h</div></div>
-      <div class="topbtn">☰</div><div class="topbtn">⚙</div>
-      <div class="tablecount">Table<br><b>40</b></div><div class="topbtn">7</div>
-    </div>
-    <svg class="centerornament" viewBox="0 0 300 300" aria-hidden="true">
-      <path d="M150 8 C170 42 190 48 224 34 C211 68 232 89 270 92 C241 116 242 142 292 150 C242 165 241 190 270 214 C230 216 211 238 224 270 C190 254 170 262 150 292 C130 262 110 254 76 270 C89 238 70 216 30 214 C59 190 58 165 8 150 C58 142 59 116 30 92 C68 89 89 68 76 34 C110 48 130 42 150 8Z" fill="#f5c16e" fill-opacity=".12" stroke="#8f4f20" stroke-width="5"/>
-      <path d="M150 30 C168 68 199 83 238 75 C218 111 232 135 270 150 C232 165 218 189 238 225 C199 217 168 232 150 270 C132 232 101 217 62 225 C82 189 68 165 30 150 C68 135 82 111 62 75 C101 83 132 68 150 30Z" fill="none" stroke="#f5c16e" stroke-width="7"/>
-      <circle cx="150" cy="150" r="95" fill="none" stroke="#8f4f20" stroke-width="3"/>
-    </svg>
-    <div class="spincaption">Spins<br>the bottle</div>
-    <div class="bottlewrap">
-      <svg class="bottle" viewBox="0 0 100 220" aria-label="Green bottle" role="img">
-        <defs>
-          <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" stop-color="#075b12"/><stop offset=".16" stop-color="#29a91d"/>
-            <stop offset=".38" stop-color="#8fe83a"/><stop offset=".56" stop-color="#49c82b"/>
-            <stop offset=".78" stop-color="#16851a"/><stop offset="1" stop-color="#06490f"/>
-          </linearGradient>
-          <linearGradient id="neck" x1="0" y1="0" x2="1" y2="0">
-            <stop stop-color="#07510e"/><stop offset=".48" stop-color="#8ee33c"/><stop offset="1" stop-color="#06430d"/>
-          </linearGradient>
-          <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">
-            <stop stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#e5ff9c" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <path d="M42 7 Q42 3 50 3 Q58 3 58 7 L58 17 L60 17 L60 52 Q60 61 68 69 Q81 82 81 99 L81 195 Q81 213 64 216 L36 216 Q19 213 19 195 L19 99 Q19 82 32 69 Q40 61 40 52 L40 17 L42 17Z" fill="url(#glass)" stroke="#145d12" stroke-width="2.5"/>
-        <path d="M41 5 L59 5 L59 18 L41 18Z" fill="#176b13" stroke="#a4ec4b" stroke-width="1.2"/>
-        <path d="M42 19 L58 19 L58 54 L42 54Z" fill="url(#neck)"/>
-        <path d="M32 82 Q25 100 27 190 Q28 204 36 207" fill="none" stroke="#d5ff83" stroke-width="4" opacity=".68" stroke-linecap="round"/>
-        <path d="M69 88 Q75 112 72 190" fill="none" stroke="#064b10" stroke-width="3" opacity=".55"/>
-        <path d="M21 192 Q50 177 79 192 L79 199 Q77 211 63 214 L37 214 Q23 211 21 199Z" fill="#075b12" opacity=".58"/>
-        <path d="M26 193 Q50 184 74 193" fill="none" stroke="#b8f45b" stroke-width="3" opacity=".6"/>
-      </svg>
-    </div>
-    <div class="seats" id="seats"></div>
-    <div class="chatlog">
-      <div class="chatmsg"><b>No name [1]:</b> yahw rahmat ozizc</div>
-      <div class="chatmsg"><b>No name [1]:</b> Kim 1/1 oynedi</div>
-      <div class="chatmsg"><b>Ismoil:</b> Kim 1/1 oynedi</div>
-      <div class="chatmsg"><b>No name [1]:</b> yaxshi rahmat nima gap</div>
-    </div>
-    <div class="bottomchat"><div class="placeholder">Write a message here</div><div class="send">➤</div></div>
-  </section>
+  <form class="composer" id="chatForm"><input id="chatInput" type="text" placeholder="Write a message here" autocomplete="off"><button class="send" type="submit" aria-label="Yuborish"><svg viewBox="0 0 24 24"><path d="M2 3.5 22 12 2 20.5l2.2-7.1L15 12 4.2 10.6Z"/></svg></button></form>
 </div>
 <script>
 (function(){
- const tg=window.Telegram&&window.Telegram.WebApp;
- if(tg){tg.ready();tg.expand();try{tg.setHeaderColor('#17232f');tg.setBackgroundColor('#17232f')}catch(e){}}
- const screens=['loading','logo','tableScreen'];
- function show(id){screens.forEach(s=>document.getElementById(s).classList.toggle('active',s===id))}
- setTimeout(()=>{show('logo');setTimeout(()=>show('tableScreen'),1900)},2100);
- const positions=['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12'];
- const seats=document.getElementById('seats');
- positions.forEach((p,i)=>{
-  const el=document.createElement('div');el.className='seat '+p;
-  const av=document.createElement('div');av.className='avatar';
-  const init=document.createElement('div');init.className='initial';init.textContent='👤';av.appendChild(init);
-  const level=document.createElement('span');level.className='level';level.textContent=i===9?'125':String([6,2,42,8,17,2,5,2,14,125,3,7][i]);av.appendChild(level);
-  const gift=document.createElement('div');gift.className='gift';gift.textContent='🍸';
-  const name=document.createElement('div');name.className='playername';name.textContent='No name, 22';
-  el.append(av,gift,name);seats.appendChild(el);
- });
- // A gift marker stays on its player until the player changes seat/table.
- window.KissUZGiveGift=function(seatIndex,emoji='🍸'){const seat=seats.children[seatIndex];if(!seat)return;const marker=seat.querySelector('.gift');marker.textContent=emoji;seat.classList.add('has-gift')};
- window.KissUZClearGift=function(seatIndex){const seat=seats.children[seatIndex];if(!seat)return;seat.classList.remove('has-gift')};
+  const tg=window.Telegram&&window.Telegram.WebApp;
+  if(tg){tg.ready();tg.expand();try{tg.setHeaderColor('#172432');tg.setBackgroundColor('#f4f4f4')}catch(e){}}
+  // Chat is a local visual preview only; connect it to the server later.
+  const form=document.getElementById('chatForm'),input=document.getElementById('chatInput'),chat=document.querySelector('.chat');
+  form.addEventListener('submit',function(e){e.preventDefault();const value=input.value.trim();if(!value)return;const bubble=document.createElement('div');bubble.className='message';bubble.textContent=value;chat.insertBefore(bubble,chat.querySelector('.chat-spacer'));input.value='';chat.scrollTop=chat.scrollHeight;});
 })();
 </script>
 </body>
