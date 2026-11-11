@@ -72,35 +72,52 @@ linear-gradient(105deg,#c27a36,#e2a454 30%,#c9823c 66%,#a95f28)}
 .send{width:43px;height:43px;border-radius:50%;background:#f4ad4b;color:white;display:flex;align-items:center;justify-content:center;font-size:25px}
 @media(max-height:650px){.topbar{height:62px}.seats{inset:70px 0 66px}.seat{min-height:68px}.avatar{min-height:52px}.bottlewrap{transform:translate(-50%,-50%) scale(.78)}.centerornament{width:48vw;height:48vw}.bottomchat{height:55px}}
 
-/* KissUZ layout correction: 12 square seats, compact bottle, separate compact chat area */
-#tableScreen .wood{height:calc(100% - 160px);bottom:auto}
-#tableScreen .topbar{height:76px}
-#tableScreen .seats{inset:86px 7px 160px}
-#tableScreen .seat{width:14.2%;height:auto;min-height:0;max-height:none}
-#tableScreen .avatar{width:100%;height:auto;aspect-ratio:1/1;min-height:0;max-height:none}
-#tableScreen .avatar .initial{font-size:clamp(25px,8vw,42px)}
-#tableScreen .playername{font-size:clamp(9px,2.7vw,12px);margin-top:4px}
-#tableScreen .gift{right:-7px;bottom:20px;font-size:clamp(18px,5vw,24px)}
-#tableScreen .s1{left:1%;top:1%}
-#tableScreen .s2{left:25%;top:1%}
-#tableScreen .s3{left:50%;right:auto;top:1%}
-#tableScreen .s4{right:1%;left:auto;top:1%}
-#tableScreen .s5{left:0;right:auto;top:35%}
-#tableScreen .s6{left:0;right:auto;top:61%}
-#tableScreen .s7{right:0;left:auto;top:35%}
-#tableScreen .s8{right:0;left:auto;top:61%}
-#tableScreen .s9{left:1%;bottom:1%;top:auto}
-#tableScreen .s10{left:25%;bottom:1%;top:auto}
-#tableScreen .s11{left:50%;right:auto;bottom:1%;top:auto;transform:none}
-#tableScreen .s12{right:1%;left:auto;bottom:1%;top:auto;transform:none}
-#tableScreen .bottlewrap{width:56px;height:142px}
-#tableScreen .bottle{width:48px;height:132px;max-height:132px}
-#tableScreen .centerornament{width:min(48vw,245px);height:min(48vw,245px)}
-#tableScreen .spincaption{left:50%;top:50%;transform:translate(-50%,-50%);margin-left:-92px;font-size:14px}
-#tableScreen .chatlog{position:absolute;z-index:6;left:0;right:0;bottom:66px;height:94px;background:#f4f4f4}
-#tableScreen .bottomchat{height:66px}
-@media(max-height:700px){#tableScreen .seats{inset:72px 7px 145px}#tableScreen .chatlog{height:82px;bottom:56px}#tableScreen .bottomchat{height:56px}#tableScreen .bottlewrap{transform:translate(-50%,-50%) scale(.9)}}
-
+/* Reference-matched KissUZ table layout */
+#tableScreen{background:#f3f3f3}
+#tableScreen .topbar{height:76px;left:0;right:0;top:0;padding:5px 12px;justify-content:space-between;gap:5px;background:linear-gradient(180deg,#bd7838,#a95d27);}
+#tableScreen .topbtn{width:clamp(38px,8.2vw,56px);height:clamp(38px,8.2vw,56px);flex:0 0 clamp(38px,8.2vw,56px);font-size:clamp(19px,4.6vw,29px);}
+#tableScreen .heart{font-size:clamp(38px,7.5vw,52px);line-height:1}
+#tableScreen .score{font-size:13px;margin-left:-9px;margin-right:2px}
+#tableScreen .tablecount{font-size:clamp(10px,2.6vw,14px);line-height:15px;white-space:nowrap}
+#tableScreen .tablecount b{font-size:15px}
+#tableScreen .wood{position:absolute;top:76px;left:0;right:0;bottom:calc(35% + 66px);height:auto;background:
+ radial-gradient(ellipse at 50% 48%,rgba(255,220,150,.28),transparent 57%),
+ repeating-linear-gradient(2deg,transparent 0 34px,rgba(104,49,15,.13) 35px,transparent 38px 68px),
+ repeating-linear-gradient(90deg,rgba(255,222,166,.08) 0 3px,transparent 4px 112px),
+ linear-gradient(105deg,#b96d31,#e6a354 30%,#d28a43 67%,#a95e2a);}
+#tableScreen .seats{inset:91px 0 calc(35% + 76px);z-index:4}
+#tableScreen .seat{width:17.2%;height:auto;min-height:0;max-height:none;overflow:visible}
+#tableScreen .avatar{width:100%;height:auto;aspect-ratio:1/1;min-height:0;max-height:none;border-radius:13px;border:3px solid rgba(255,220,158,.78);background:linear-gradient(145deg,#33495b,#172633);box-shadow:0 3px 7px #643b1f88;}
+#tableScreen .avatar .initial{font-size:clamp(28px,8vw,48px);background:linear-gradient(145deg,#344c60,#172633);}
+#tableScreen .level{right:-3px;top:-4px;padding:3px 7px;font-size:clamp(10px,2.7vw,14px);border-radius:15px;background:#e94c3b;border:2px solid #ffd49b}
+#tableScreen .playername{font-size:clamp(10px,2.7vw,14px);line-height:16px;margin-top:4px;max-width:125%;overflow:visible;text-overflow:clip;text-shadow:0 1px 3px #603315;white-space:nowrap}
+#tableScreen .gift{right:-9px;bottom:22px;font-size:clamp(21px,5.5vw,31px);filter:drop-shadow(0 1px 2px #75421e)}
+/* 12 seats: four across the top, two on each side, four across the bottom */
+#tableScreen .s1{left:8%;top:2%;transform:none}
+#tableScreen .s2{left:30%;top:0%;transform:none}
+#tableScreen .s3{left:52%;top:0%;transform:none}
+#tableScreen .s4{left:74%;top:2%;right:auto;transform:none}
+#tableScreen .s5{left:4%;top:34%;right:auto;transform:none}
+#tableScreen .s6{left:4%;top:57%;right:auto;transform:none}
+#tableScreen .s7{right:4%;left:auto;top:34%;transform:none}
+#tableScreen .s8{right:4%;left:auto;top:57%;transform:none}
+#tableScreen .s9{left:8%;top:81%;bottom:auto;transform:none}
+#tableScreen .s10{left:30%;top:84%;bottom:auto;transform:none}
+#tableScreen .s11{left:52%;top:84%;right:auto;bottom:auto;transform:none}
+#tableScreen .s12{left:74%;top:81%;right:auto;bottom:auto;transform:none}
+#tableScreen .centerornament{width:min(54vw,330px);height:min(54vw,330px);left:50%;top:36%;transform:translate(-50%,-50%);opacity:.52}
+#tableScreen .bottlewrap{width:100px;height:190px;left:50%;top:36%;transform:translate(-50%,-50%)}
+#tableScreen .bottle{width:100px;height:182px;filter:drop-shadow(4px 5px 4px #603b1b99)}
+#tableScreen .spincaption{left:31%;top:36%;transform:translate(-50%,-50%);margin:0;font-size:clamp(13px,3.5vw,18px);line-height:1.12;width:100px}
+#tableScreen .chatlog{position:absolute;z-index:6;left:0;right:0;bottom:66px;height:35%;background:#f5f5f5;display:flex;flex-direction:column;justify-content:flex-end;gap:14px;padding:12px 22px 10px;overflow:hidden}
+#tableScreen .chatmsg{align-self:flex-start;max-width:92%;padding:13px 17px;border-radius:20px;background:#fff;color:#202020;font-size:clamp(14px,3.7vw,19px);line-height:1.25;box-shadow:0 1px 2px #0000000a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#tableScreen .chatmsg b{color:#56a9ce}
+#tableScreen .chatmsg:nth-child(2) b{color:#d67eaa}
+#tableScreen .chatmsg:nth-child(4) b{color:#555}
+#tableScreen .bottomchat{height:66px;bottom:0;padding:0 24px;background:#fff}
+#tableScreen .bottomchat .placeholder{font-size:clamp(16px,4vw,22px)}
+#tableScreen .send{width:58px;height:58px;font-size:30px;background:#f4ad4b}
+@media(max-height:720px){#tableScreen .wood{bottom:calc(35% + 58px)}#tableScreen .seats{inset:84px 0 calc(35% + 67px)}#tableScreen .chatlog{height:35%;bottom:58px}#tableScreen .bottomchat{height:58px}#tableScreen .bottlewrap{transform:translate(-50%,-50%) scale(.9)}}
 </style>
 </head>
 <body>
@@ -140,7 +157,12 @@ linear-gradient(105deg,#c27a36,#e2a454 30%,#c9823c 66%,#a95f28)}
       </svg>
     </div>
     <div class="seats" id="seats"></div>
-    <div class="chatlog"></div>
+    <div class="chatlog">
+      <div class="chatmsg"><b>No name [1]:</b> yahw rahmat ozizc</div>
+      <div class="chatmsg"><b>No name [1]:</b> Kim 1/1 oynedi</div>
+      <div class="chatmsg"><b>Ismoil:</b> Kim 1/1 oynedi</div>
+      <div class="chatmsg"><b>No name [1]:</b> yaxshi rahmat nima gap</div>
+    </div>
     <div class="bottomchat"><div class="placeholder">Write a message here</div><div class="send">➤</div></div>
   </section>
 </div>
