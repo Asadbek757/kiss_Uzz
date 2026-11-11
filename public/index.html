@@ -143,6 +143,64 @@ linear-gradient(105deg,#c27a36,#e2a454 30%,#c9823c 66%,#a95f28)}
 #tableScreen .send{width:42px;height:42px;font-size:24px}
 @media(max-height:720px){#tableScreen .topbar{height:44px}#tableScreen .wood{top:44px;bottom:calc(34% + 40px)}#tableScreen .seats{inset:55px 0 calc(34% + 47px)}#tableScreen .chatlog{height:34%;bottom:40px}#tableScreen .bottomchat{height:40px}#tableScreen .bottlewrap{width:58px;height:100px}#tableScreen .bottle{width:54px;height:96px}}
 
+
+/* v3: precise table proportions, full 12-seat layout, compact chat and reference-shaped bottle */
+#tableScreen .topbar{height:72px!important;padding:4px 10px!important;gap:3px!important}
+#tableScreen .topbtn{width:clamp(34px,7.7vw,52px)!important;height:clamp(34px,7.7vw,52px)!important;flex-basis:clamp(34px,7.7vw,52px)!important;position:relative;font-size:clamp(17px,4vw,26px)!important}
+#tableScreen .heart{font-size:clamp(36px,7.5vw,49px)!important}
+#tableScreen .score{font-size:12px!important}
+#tableScreen .tablecount{font-size:clamp(10px,2.5vw,14px)!important;line-height:14px!important}
+#tableScreen .tablecount b{font-size:15px!important}
+#tableScreen .wood{top:72px!important;bottom:calc(24% + 60px)!important;background:
+ radial-gradient(ellipse at 50% 47%,rgba(255,220,145,.30),transparent 58%),
+ repeating-linear-gradient(2deg,transparent 0 36px,rgba(100,47,14,.12) 37px,transparent 40px 72px),
+ repeating-linear-gradient(90deg,rgba(255,226,175,.08) 0 3px,transparent 4px 112px),
+ linear-gradient(105deg,#b96b2f 0%,#e3a052 29%,#d18a43 66%,#a95c28 100%)!important}
+#tableScreen .seats{inset:82px 0 calc(24% + 68px)!important;z-index:4!important}
+#tableScreen .seat{width:16.2%!important;min-height:0!important;height:auto!important;max-height:none!important;overflow:visible!important}
+#tableScreen .avatar{width:100%!important;aspect-ratio:1/1!important;height:auto!important;min-height:0!important;max-height:none!important;border-radius:12px!important;border:3px solid rgba(255,220,158,.82)!important;box-shadow:0 3px 8px #643b1f88!important}
+#tableScreen .avatar .initial{font-size:0!important;position:relative!important;background:linear-gradient(145deg,#344c60,#172633)!important}
+#tableScreen .avatar .initial:before{content:"";position:absolute;left:35%;top:19%;width:30%;height:35%;border-radius:50%;background:#1681df}
+#tableScreen .avatar .initial:after{content:"";position:absolute;left:19%;bottom:13%;width:62%;height:34%;border-radius:55% 55% 10% 10%;background:#1681df}
+#tableScreen .level{right:-3px!important;top:-4px!important;padding:3px 7px!important;font-size:clamp(10px,2.7vw,14px)!important;border-radius:14px!important}
+#tableScreen .playername{font-size:clamp(10px,2.5vw,13px)!important;line-height:15px!important;margin-top:4px!important;max-width:145%!important;white-space:nowrap!important;overflow:visible!important;text-overflow:clip!important;text-align:center!important}
+#tableScreen .gift{display:none!important;right:-9px!important;bottom:17px!important;font-size:clamp(20px,5vw,28px)!important;z-index:5!important}
+#tableScreen .seat.has-gift .gift{display:block!important}
+/* Four at the top, two on each side, four at the bottom. */
+#tableScreen .s1{left:8%!important;right:auto!important;top:2%!important;bottom:auto!important;transform:none!important}
+#tableScreen .s2{left:30%!important;right:auto!important;top:0%!important;bottom:auto!important;transform:none!important}
+#tableScreen .s3{left:52%!important;right:auto!important;top:0%!important;bottom:auto!important;transform:none!important}
+#tableScreen .s4{left:74%!important;right:auto!important;top:2%!important;bottom:auto!important;transform:none!important}
+#tableScreen .s5{left:3.5%!important;right:auto!important;top:34%!important;bottom:auto!important;transform:none!important}
+#tableScreen .s6{left:3.5%!important;right:auto!important;top:58%!important;bottom:auto!important;transform:none!important}
+#tableScreen .s7{left:auto!important;right:3.5%!important;top:34%!important;bottom:auto!important;transform:none!important}
+#tableScreen .s8{left:auto!important;right:3.5%!important;top:58%!important;bottom:auto!important;transform:none!important}
+#tableScreen .s9{left:8%!important;right:auto!important;top:auto!important;bottom:1%!important;transform:none!important}
+#tableScreen .s10{left:30%!important;right:auto!important;top:auto!important;bottom:0!important;transform:none!important}
+#tableScreen .s11{left:52%!important;right:auto!important;top:auto!important;bottom:0!important;transform:none!important}
+#tableScreen .s12{left:74%!important;right:auto!important;top:auto!important;bottom:1%!important;transform:none!important}
+#tableScreen .centerornament{width:min(46vw,285px)!important;height:min(46vw,285px)!important;left:50%!important;top:47%!important;transform:translate(-50%,-50%)!important;opacity:.48!important}
+#tableScreen .bottlewrap{width:96px!important;height:190px!important;left:50%!important;top:47%!important;transform:translate(-50%,-50%)!important}
+#tableScreen .bottle{width:96px!important;height:190px!important;filter:drop-shadow(4px 5px 4px #603b1b99)!important}
+#tableScreen .spincaption{left:29%!important;top:47%!important;transform:translate(-50%,-50%)!important;width:100px!important;font-size:clamp(12px,3.2vw,17px)!important;line-height:1.12!important}
+#tableScreen .chatlog{height:24%!important;bottom:60px!important;gap:10px!important;padding:9px 22px 8px!important;justify-content:flex-end!important}
+#tableScreen .chatmsg{padding:10px 15px!important;border-radius:18px!important;font-size:clamp(13px,3.4vw,18px)!important;line-height:1.2!important;max-width:92%!important}
+#tableScreen .bottomchat{height:60px!important;padding:0 24px!important}
+#tableScreen .bottomchat .placeholder{font-size:clamp(15px,3.8vw,21px)!important}
+#tableScreen .send{width:48px!important;height:48px!important;font-size:26px!important}
+@media(max-height:760px){
+ #tableScreen .topbar{height:64px!important}
+ #tableScreen .wood{top:64px!important;bottom:calc(24% + 54px)!important}
+ #tableScreen .seats{inset:74px 0 calc(24% + 62px)!important}
+ #tableScreen .seat{width:15.5%!important}
+ #tableScreen .centerornament{width:min(39vw,230px)!important;height:min(39vw,230px)!important}
+ #tableScreen .bottlewrap,#tableScreen .bottle{height:160px!important}
+ #tableScreen .bottlewrap{width:82px!important}
+ #tableScreen .bottle{width:82px!important}
+ #tableScreen .chatlog{height:24%!important;bottom:54px!important}
+ #tableScreen .bottomchat{height:54px!important}
+}
+
 </style>
 </head>
 <body>
@@ -172,13 +230,27 @@ linear-gradient(105deg,#c27a36,#e2a454 30%,#c9823c 66%,#a95f28)}
     </svg>
     <div class="spincaption">Spins<br>the bottle</div>
     <div class="bottlewrap">
-      <svg class="bottle" viewBox="0 0 100 260" aria-label="Green bottle">
-        <defs><linearGradient id="glass" x1="0" x2="1"><stop stop-color="#0d6a16"/><stop offset=".22" stop-color="#4bc52b"/><stop offset=".48" stop-color="#9bea43"/><stop offset=".72" stop-color="#238b18"/><stop offset="1" stop-color="#064d13"/></linearGradient><linearGradient id="neck" x1="0" x2="1"><stop stop-color="#075a12"/><stop offset=".5" stop-color="#8fe63a"/><stop offset="1" stop-color="#06450e"/></linearGradient></defs>
-        <path d="M40 8 Q40 3 50 3 Q60 3 60 8 L60 35 Q60 43 68 51 Q78 62 78 79 L78 225 Q78 245 61 250 L39 250 Q22 245 22 225 L22 79 Q22 62 32 51 Q40 43 40 35Z" fill="url(#glass)" stroke="#145b12" stroke-width="3"/>
-        <path d="M40 7 L60 7 L60 37 L40 37Z" fill="url(#neck)"/><path d="M38 3 L62 3 L62 12 L38 12Z" fill="#174f10" stroke="#b1ed56" stroke-width="1"/>
-        <path d="M31 72 Q27 91 29 220 Q30 237 38 240" fill="none" stroke="#c4ff6c" stroke-width="5" opacity=".65" stroke-linecap="round"/>
-        <path d="M70 80 Q74 100 71 220" fill="none" stroke="#06490d" stroke-width="4" opacity=".5"/>
-        <path d="M26 225 Q50 210 74 225" fill="none" stroke="#0a5610" stroke-width="7" opacity=".65"/>
+      <svg class="bottle" viewBox="0 0 100 220" aria-label="Green bottle" role="img">
+        <defs>
+          <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#075b12"/><stop offset=".16" stop-color="#29a91d"/>
+            <stop offset=".38" stop-color="#8fe83a"/><stop offset=".56" stop-color="#49c82b"/>
+            <stop offset=".78" stop-color="#16851a"/><stop offset="1" stop-color="#06490f"/>
+          </linearGradient>
+          <linearGradient id="neck" x1="0" y1="0" x2="1" y2="0">
+            <stop stop-color="#07510e"/><stop offset=".48" stop-color="#8ee33c"/><stop offset="1" stop-color="#06430d"/>
+          </linearGradient>
+          <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0">
+            <stop stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#e5ff9c" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M42 7 Q42 3 50 3 Q58 3 58 7 L58 17 L60 17 L60 52 Q60 61 68 69 Q81 82 81 99 L81 195 Q81 213 64 216 L36 216 Q19 213 19 195 L19 99 Q19 82 32 69 Q40 61 40 52 L40 17 L42 17Z" fill="url(#glass)" stroke="#145d12" stroke-width="2.5"/>
+        <path d="M41 5 L59 5 L59 18 L41 18Z" fill="#176b13" stroke="#a4ec4b" stroke-width="1.2"/>
+        <path d="M42 19 L58 19 L58 54 L42 54Z" fill="url(#neck)"/>
+        <path d="M32 82 Q25 100 27 190 Q28 204 36 207" fill="none" stroke="#d5ff83" stroke-width="4" opacity=".68" stroke-linecap="round"/>
+        <path d="M69 88 Q75 112 72 190" fill="none" stroke="#064b10" stroke-width="3" opacity=".55"/>
+        <path d="M21 192 Q50 177 79 192 L79 199 Q77 211 63 214 L37 214 Q23 211 21 199Z" fill="#075b12" opacity=".58"/>
+        <path d="M26 193 Q50 184 74 193" fill="none" stroke="#b8f45b" stroke-width="3" opacity=".6"/>
       </svg>
     </div>
     <div class="seats" id="seats"></div>
@@ -209,6 +281,9 @@ linear-gradient(105deg,#c27a36,#e2a454 30%,#c9823c 66%,#a95f28)}
   const name=document.createElement('div');name.className='playername';name.textContent='No name, 22';
   el.append(av,gift,name);seats.appendChild(el);
  });
+ // A gift marker stays on its player until the player changes seat/table.
+ window.KissUZGiveGift=function(seatIndex,emoji='🍸'){const seat=seats.children[seatIndex];if(!seat)return;const marker=seat.querySelector('.gift');marker.textContent=emoji;seat.classList.add('has-gift')};
+ window.KissUZClearGift=function(seatIndex){const seat=seats.children[seatIndex];if(!seat)return;seat.classList.remove('has-gift')};
 })();
 </script>
 </body>
