@@ -2,113 +2,95 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#172432">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#1d2935">
 <title>KissUZ — Spin the Bottle</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-:root{--wood1:#d99448;--wood2:#b96b2d;--gold:#f5bd62;--ink:#172b3d;--red:#e94b40;--board-size:100vw}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;color:#222;overflow-x:hidden}
-body{padding:0}
-.app{width:100%;max-width:760px;margin:0 auto;background:#fff;min-height:100vh;overflow:hidden}
-.topbar{height:clamp(64px,13vw,90px);padding:0 3.2%;display:flex;align-items:center;justify-content:space-between;gap:clamp(5px,1.6vw,13px);color:#fff;background:linear-gradient(180deg,#c77b35 0%,#a95d25 100%);box-shadow:0 3px 8px #713b1d55;position:relative;z-index:3}
-.top-item{position:relative;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
-.heart{font-size:clamp(31px,7vw,48px);line-height:1;color:#fff;text-shadow:0 2px 2px #713b1d;transform:scaleX(1.04)}
-.heart-count{font-size:clamp(12px,2.8vw,17px);font-weight:bold;margin-left:3px;color:#fff}
-.round{width:clamp(38px,9vw,58px);height:clamp(38px,9vw,58px);border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#ffd184,#c47a32);border:2px solid #f6c77f;box-shadow:0 3px 5px #693a1d77,inset 0 1px 3px #fff9;color:#fff;font-size:clamp(21px,5vw,31px);text-shadow:0 1px 2px #91511e}
-.round.smalltext{font-size:clamp(15px,3.5vw,22px);font-weight:700}
-.round svg{width:56%;height:56%;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 1px #91511e)}
-.timer{position:absolute;bottom:-13px;left:50%;transform:translateX(-50%);background:#fff;color:#999;border-radius:15px;padding:3px 9px;font-size:clamp(10px,2.3vw,13px);font-weight:600;white-space:nowrap;box-shadow:0 1px 2px #0002}
-.table-count{font-weight:bold;text-align:center;color:#fff;font-size:clamp(12px,2.8vw,17px);line-height:1.05;min-width:42px;text-shadow:0 1px 2px #75421d}
-.table-count b{display:block;font-size:clamp(15px,3.5vw,22px);margin-top:2px}
-.board{width:100%;aspect-ratio:1/1;position:relative;overflow:hidden;isolation:isolate;background-color:#c77b36;background-image:
- radial-gradient(ellipse at 50% 50%,#efb35f55 0%,transparent 49%),
- repeating-linear-gradient(0deg,transparent 0 24%,#8b4e2520 24.2%,transparent 24.8% 49%),
- repeating-linear-gradient(90deg,transparent 0 24%,#f8ca7a20 24.2%,transparent 24.8% 49%),
- linear-gradient(110deg,#d68d43 0%,#bd702f 48%,#d58a40 100%);
- box-shadow:inset 0 5px 14px #713d1e55,inset 0 -4px 12px #713d1e44}
-.board:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.23;background-image:repeating-linear-gradient(2deg,transparent 0 13px,#8a4c2518 14px,#fff1 16px,transparent 22px),repeating-linear-gradient(91deg,transparent 0 130px,#ffe0a044 132px,transparent 135px)}
-.board:after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,#ffd17a30 0%,transparent 65%)}
-.center-emblem{position:absolute;width:48%;height:48%;left:50%;top:50%;transform:translate(-50%,-50%);opacity:.47;pointer-events:none}
-.center-emblem svg{width:100%;height:100%;overflow:visible}
-.spin-label{position:absolute;left:24%;top:50%;transform:translate(-50%,-50%);font-size:clamp(12px,3.4vw,20px);line-height:1.08;text-align:center;color:#fff;text-shadow:0 2px 3px #6d3d1c;z-index:1;width:22%}
-.bottle{position:absolute;left:50%;top:50%;width:clamp(35px,9vw,62px);height:clamp(112px,27vw,184px);transform:translate(-50%,-50%);z-index:2;filter:drop-shadow(0 4px 3px #4d351c88)}
-.bottle svg{width:100%;height:100%;overflow:visible}
-.player{position:absolute;width:17.2%;display:flex;flex-direction:column;align-items:center;z-index:2;transform:translate(-50%,-50%);min-width:0}
-.avatar{position:relative;width:100%;aspect-ratio:1/1;border-radius:20%;overflow:visible;background:linear-gradient(145deg,#344b5c,#1b2c3c);border:clamp(3px,.65vw,5px) solid #cbb98e;box-shadow:0 3px 7px #55351988,inset 0 0 0 1px #fff3}
-.avatar-inner{position:absolute;inset:0;border-radius:inherit;overflow:hidden;display:grid;place-items:center;background:linear-gradient(145deg,#31485a,#1b2b3a)}
-.avatar-inner svg{width:76%;height:76%;fill:#1680df;filter:drop-shadow(0 1px 1px #061d34)}
-.score{position:absolute;right:-7%;top:-8%;min-width:31%;height:31%;padding:0 5px;border-radius:18px;background:#e94c40;border:2px solid #ffd7a0;color:white;font-weight:800;font-size:clamp(11px,3.2vw,17px);display:flex;align-items:center;justify-content:center;box-shadow:0 1px 2px #4b241b88;z-index:4}
-.player-name{width:125%;margin-top:5px;color:#fff;font-size:clamp(10px,2.7vw,15px);line-height:1.05;text-align:center;white-space:nowrap;overflow:visible;text-overflow:clip;text-shadow:0 1px 3px #603818,0 1px 2px #603818;min-height:1.1em}
-.gift{position:absolute;right:-17%;bottom:-17%;font-size:clamp(22px,5.5vw,35px);z-index:5;filter:drop-shadow(0 2px 1px #58351b)}
-/* 12 fixed seats: four top, two left, two right, four bottom */
-.p1{left:15.5%;top:20.5%}.p2{left:38.5%;top:20.5%}.p3{left:61.5%;top:20.5%}.p4{left:84.5%;top:20.5%}
-.p5{left:12.5%;top:51%}.p6{left:12.5%;top:73%}.p7{left:87.5%;top:51%}.p8{left:87.5%;top:73%}
-.p9{left:15.5%;top:88%}.p10{left:38.5%;top:88%}.p11{left:61.5%;top:88%}.p12{left:84.5%;top:88%}
-/* chat area */
-.chat{background:#f5f5f5;padding:clamp(18px,4vw,30px) 3.4% clamp(12px,3vw,22px);min-height:clamp(260px,58vw,410px);display:flex;flex-direction:column;gap:clamp(10px,2.6vw,17px)}
-.message{align-self:flex-start;max-width:92%;width:max-content;background:#fff;border-radius:24px;padding:clamp(11px,2.7vw,17px) clamp(16px,4vw,25px);font-size:clamp(14px,3.7vw,20px);line-height:1.25;box-shadow:0 1px 2px #0000000b;color:#222;overflow-wrap:anywhere}
-.message strong{font-weight:700}.blue{color:#55a9c7}.pink{color:#d17aa7}.gray{color:#555}
-.chat-spacer{flex:1;min-height:5px}
-.composer{height:clamp(62px,15vw,88px);background:#fff;display:flex;align-items:center;padding:0 3.5%;gap:10px;border-top:1px solid #eee;box-shadow:0 -2px 8px #0000000b}
-.composer input{flex:1;min-width:0;border:0;outline:0;font-size:clamp(15px,3.8vw,21px);color:#333;background:transparent}
-.composer input::placeholder{color:#b9b9b9}
-.send{border:0;border-radius:50%;width:clamp(48px,12vw,70px);height:clamp(48px,12vw,70px);background:#f5b449;color:white;display:grid;place-items:center;box-shadow:0 2px 4px #a76b2a55}
-.send svg{width:58%;height:58%;fill:white;stroke:white;stroke-width:1.4}
-@media(min-width:760px){.app{box-shadow:0 0 20px #0002}.board{max-height:760px}.player{width:17%}}
-@media(max-width:360px){.player{width:17.5%}.player-name{font-size:9px}.topbar{gap:4px;padding-inline:2.5%}.table-count{min-width:35px}}
+*{box-sizing:border-box}
+:root{--gold:#efaa4e;--wood1:#b96b2d;--wood2:#d68a43;--wood3:#a85c27}
+html,body{margin:0;width:100%;height:100%;font-family:Arial,sans-serif;background:#f4f4f4;color:#fff;overflow:hidden}
+body{display:flex;flex-direction:column}
+.tg-head{height:174px;flex:none;background:#1d2935;position:relative;padding-top:27px}
+.status{height:34px;padding:0 28px;font-size:16px;display:flex;justify-content:space-between;align-items:center;color:#fff}
+.browser{height:113px;display:flex;align-items:center;padding:20px 28px 0;gap:25px}
+.browser .x{font-size:38px;font-weight:200}
+.browser .title{font-size:23px;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.browser .sub{font-size:14px;color:#aeb7c1;margin-top:5px}
+.browser .right{margin-left:auto;font-size:28px;display:flex;gap:24px}
+.game{height: min(114vw, 765px);min-height:405px;max-height:765px;flex:none;position:relative;overflow:hidden;background:
+ radial-gradient(ellipse at 50% 54%,rgba(255,205,119,.48),transparent 48%),
+ repeating-linear-gradient(2deg,rgba(92,43,13,.08) 0 2px,transparent 2px 22px),
+ repeating-linear-gradient(90deg,rgba(255,220,160,.08) 0 2px,transparent 2px 82px),
+ linear-gradient(100deg,#b96b2d,#d88d47 48%,#b96b2d)}
+.game:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 24%,rgba(255,220,160,.12) 24.3%,transparent 25%,transparent 74%,rgba(90,40,10,.08) 74.4%,transparent 75%);pointer-events:none}
+.toolbar{height:82px;position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-around;padding:0 10px;background:linear-gradient(#b96b2d,#a95f28);box-shadow:0 4px 12px #713a1d55;z-index:5}
+.tool{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#f4bd70,#cf812f);border:2px solid #f5c27b;box-shadow:0 2px 5px #713c1e88,inset 0 1px 3px #fff8;font-size:25px;color:#fff;text-shadow:0 1px 2px #9b5b24}
+.heart{font-size:38px;color:#fff;text-shadow:-2px -2px 0 #fff,2px 2px 0 #a94c20}
+.count{font-size:14px;margin-left:-8px}
+.tablecount{text-align:center;font-size:14px;font-weight:bold;line-height:1.25}
+.tablecount b{font-size:18px}
+.seat{position:absolute;width:17.5%;height:auto;text-align:center;z-index:2}
+.seat .photo{width:100%;aspect-ratio:1/1;border:5px solid #d7bd83;border-radius:22%;background:linear-gradient(145deg,#293e50,#172b3c);box-shadow:0 3px 7px #65381799,inset 0 0 0 2px #fff3;position:relative;display:flex;align-items:center;justify-content:center;overflow:visible}
+.person{width:67%;height:74%;fill:#1686e5;filter:drop-shadow(0 1px 1px #071c31)}
+.score{position:absolute;right:-5px;top:-7px;min-width:36px;height:31px;padding:2px 7px;border-radius:18px;background:#e94b43;border:3px solid #f7d6a0;color:#fff;font-size:17px;font-weight:bold;line-height:23px;box-shadow:0 1px 3px #64351c}
+.name{font-size:clamp(10px,2.6vw,16px);color:#fff;text-shadow:0 1px 3px #633515;margin-top:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gift{position:absolute;right:-13px;bottom:-8px;font-size:29px;filter:drop-shadow(0 2px 2px #70401e)}
+/* Seat positions: 4 yuqorida, 2 chapda, 2 o'ngda, 4 pastda */
+.s1{left:8.5%;top:20%}.s2{left:30.5%;top:16%}.s3{left:52.5%;top:16%}.s4{right:8.5%;top:20%}
+.s5{left:4.8%;top:39%}.s6{left:4.8%;top:58%}
+.s7{right:4.8%;top:39%}.s8{right:4.8%;top:58%}
+.s9{left:8.5%;top:78%}.s10{left:30.5%;top:80%}.s11{left:52.5%;top:80%}.s12{right:8.5%;top:78%}
+.center{position:absolute;left:50%;top:54%;width:46%;height:42%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;z-index:1}
+.ornament{position:absolute;width:100%;height:100%;opacity:.34}
+.bottle{height:49%;width:auto;max-width:24%;filter:drop-shadow(0 5px 4px #56340c88);z-index:2}
+.spintext{position:absolute;left:-27%;top:40%;font-size:clamp(12px,3.3vw,20px);line-height:1.12;text-align:center;text-shadow:0 1px 3px #86501f}
+.chat{flex:1;min-height:0;background:#f5f5f5;color:#222;padding:25px 6% 12px;overflow:hidden;display:flex;flex-direction:column;gap:18px}
+.msg{align-self:flex-start;background:#fff;border-radius:28px;padding:17px 22px;max-width:92%;font-size:clamp(14px,3.7vw,20px);box-shadow:0 2px 3px #00000008;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msg b{color:#65a9bf}
+.composer{height:78px;flex:none;background:#fff;border-top:1px solid #eee;display:flex;align-items:center;padding:0 7%;gap:12px;color:#bbb;font-size:18px}
+.send{margin-left:auto;width:58px;height:58px;border-radius:50%;background:#f2ad4c;color:#fff;display:grid;place-items:center;font-size:32px}
+.nav{height:28px;flex:none;background:#1d2027;display:flex;justify-content:center;align-items:center}
+.nav:after{content:"";width:108px;height:4px;border-radius:5px;background:#ddd}
+@media(min-width:600px){.game{height:765px;width:100%;max-height:765px}.seat{width:118px}.s1{left:9%;top:20%}.s2{left:30%;top:16%}.s3{left:52%;top:16%}.s4{right:9%;top:20%}.s5{left:5%;top:39%}.s6{left:5%;top:58%}.s7{right:5%;top:39%}.s8{right:5%;top:58%}.s9{left:9%;top:78%}.s10{left:30%;top:80%}.s11{left:52%;top:80%}.s12{right:9%;top:78%}}
 </style>
 </head>
 <body>
-<div class="app">
-  <header class="topbar">
-    <div class="top-item"><span class="heart">♡</span><span class="heart-count">0</span></div>
-    <div class="top-item"><div class="round"><svg viewBox="0 0 24 24"><path d="M12 2.8 14.2 9.8 21.2 12 14.2 14.2 12 21.2 9.8 14.2 2.8 12 9.8 9.8Z"/><path d="m18.5 2 .8 2.7L22 5.5l-2.7.8-.8 2.7-.8-2.7-2.7-.8 2.7-.8Z"/></svg></div><span class="timer">14d</span></div>
-    <div class="top-item"><div class="round"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.5"/></svg></div></div>
-    <div class="top-item"><div class="round smalltext">#20</div><span class="timer">22h</span></div>
-    <div class="top-item"><div class="round"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></div></div>
-    <div class="top-item"><div class="round"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="m19.4 13.5 1.2.9-1.6 2.8-1.4-.6a8 8 0 0 1-2 1.2l-.2 1.5h-3.2l-.2-1.5a8 8 0 0 1-2-1.2l-1.4.6L7 14.4l1.2-.9a7 7 0 0 1 0-2.3L7 10.3l1.6-2.8 1.4.6a8 8 0 0 1 2-1.2l.2-1.5h3.2l.2 1.5a8 8 0 0 1 2 1.2l1.4-.6 1.6 2.8-1.2.9a7 7 0 0 1 0 2.3Z"/></svg></div></div>
-    <div class="table-count">Table<b>40</b></div>
-    <div class="top-item"><div class="round smalltext">7</div></div>
-  </header>
-
-  <main class="board" aria-label="KissUZ o‘yin stoli">
-    <div class="center-emblem"><svg viewBox="0 0 300 300" aria-hidden="true"><path d="M150 8 171 43 211 27 220 68 263 75 245 115 286 150 245 185 263 225 220 232 211 273 171 257 150 292 129 257 89 273 80 232 37 225 55 185 14 150 55 115 37 75 80 68 89 27 129 43Z" fill="none" stroke="#8e4e27" stroke-width="5"/><circle cx="150" cy="150" r="94" fill="none" stroke="#8e4e27" stroke-width="3"/><circle cx="150" cy="150" r="80" fill="none" stroke="#e9b56b" stroke-width="2"/></svg></div>
-    <div class="spin-label">Spins<br>the bottle</div>
-    <div class="bottle" aria-label="Yashil shisha"><svg viewBox="0 0 70 220" role="img"><defs><linearGradient id="glass" x1="0" x2="1"><stop offset="0" stop-color="#087d13"/><stop offset=".22" stop-color="#48e51b"/><stop offset=".48" stop-color="#149c0d"/><stop offset=".72" stop-color="#65ef24"/><stop offset="1" stop-color="#075d0c"/></linearGradient><linearGradient id="shine" x1="0" x2="1"><stop stop-color="#c5ff75" stop-opacity=".1"/><stop offset=".5" stop-color="#eaffad" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><path d="M27 5h16v12H27z" fill="#075e0b" stroke="#8bff45" stroke-width="1.5"/><path d="M25 17h20v22c0 9 5 13 10 20 5 7 6 14 6 25v111c0 14-9 23-26 23S9 209 9 195V84c0-11 2-18 7-25 5-7 9-11 9-20Z" fill="url(#glass)" stroke="#08700c" stroke-width="2"/><path d="M27 39h16v13c0 8 5 13 9 20 4 7 5 13 5 23v94c0 11-7 18-22 18s-22-7-22-18V95c0-12 2-18 7-25 4-6 7-10 7-18Z" fill="none" stroke="#9dff4b" stroke-opacity=".55" stroke-width="2"/><path d="M19 72c-3 8-4 17-4 28v87c0 7 2 12 6 15V84c0-5 0-9 2-13Z" fill="url(#shine)"/><path d="M12 185q23 13 46 0v11q-23 15-46 0Z" fill="#064f0b" opacity=".55"/><path d="M14 195q21 11 42 0" fill="none" stroke="#9aff42" stroke-width="2" opacity=".8"/></svg></div>
-
-    <div class="player p1"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">6</span></div><div class="player-name">No name, 22</div></div>
-    <div class="player p2"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">2</span></div><div class="player-name">No name, 22</div></div>
-    <div class="player p3"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">42</span></div><div class="player-name">No name, 22</div></div>
-    <div class="player p4"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">5</span></div><div class="player-name">No name, 22</div></div>
-    <div class="player p5"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">8</span></div><div class="player-name">No name, 22</div></div>
-    <div class="player p6"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">17</span></div><div class="player-name">No name, 22</div></div>
-    <div class="player p7"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">5</span></div><div class="player-name">No name, 22</div></div>
-    <div class="player p8"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">2</span></div><div class="player-name">No name, 22</div></div>
-    <div class="player p9"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">2</span></div><div class="player-name">No name, 22</div></div>
-    <div class="player p10"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">14</span></div><div class="player-name">No name, 22</div></div>
-    <div class="player p11"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">125</span></div><div class="player-name">No name, 22</div></div>
-    <div class="player p12"><div class="avatar"><div class="avatar-inner"><svg viewBox="0 0 100 100"><path d="M50 12c-15 0-23 12-23 29 0 13 5 22 13 27l-3 7c-15 3-25 9-29 17h84c-4-8-14-14-29-17l-3-7c8-5 13-14 13-27 0-17-8-29-23-29Z"/></svg></div><span class="score">3</span></div><div class="player-name">No name, 22</div></div>
-  </main>
-
-  <section class="chat" aria-label="O‘yin chati">
-    <div class="message"><strong class="blue">No name [1]:</strong> yahw rahmat ozizc</div>
-    <div class="message"><strong class="pink">No name [1]:</strong> Kim 1/1 oynedi</div>
-    <div class="message"><strong class="blue">Ismoil:</strong> Kim 1/1 oynedi</div>
-    <div class="message"><strong class="gray">No name [1]:</strong> yaxshi rahmat nima gap</div>
-    <div class="chat-spacer"></div>
-  </section>
-  <form class="composer" id="chatForm"><input id="chatInput" type="text" placeholder="Write a message here" autocomplete="off"><button class="send" type="submit" aria-label="Yuborish"><svg viewBox="0 0 24 24"><path d="M2 3.5 22 12 2 20.5l2.2-7.1L15 12 4.2 10.6Z"/></svg></button></form>
-</div>
+<header class="tg-head">
+ <div class="status"><span>01:54</span><span>◆ ◉ 4G ▮▮ 71%</span></div>
+ <div class="browser"><span class="x">×</span><div><div class="title">Spin the Bottle 🍾...</div><div class="sub">KissUZ</div></div><div class="right"><span>⌄</span><span>⋮</span></div></div>
+</header>
+<main class="game">
+ <div class="toolbar">
+  <span class="heart">♡</span><span class="count">0</span>
+  <div class="tool">✧</div><div class="tool">◉</div><div class="tool">#20</div><div class="tool">☰</div><div class="tool">⚙</div>
+  <div class="tablecount">Table<br><b>40</b></div><div class="tool">7</div>
+ </div>
+ <div class="center">
+  <svg class="ornament" viewBox="0 0 300 300" aria-hidden="true"><path d="M150 5 C168 40 185 45 220 30 C210 68 225 85 265 90 C235 120 235 145 290 150 C235 165 235 190 265 220 C225 225 210 242 220 270 C185 255 168 260 150 295 C132 260 115 255 80 270 C90 242 75 225 35 220 C65 190 65 165 10 150 C65 135 65 110 35 80 C75 75 90 58 80 30 C115 45 132 40 150 5Z" fill="none" stroke="#8d4e20" stroke-width="5"/><circle cx="150" cy="150" r="91" fill="none" stroke="#8d4e20" stroke-width="3"/></svg>
+  <div class="spintext">Spins<br>the bottle</div>
+  <svg class="bottle" viewBox="0 0 100 300" aria-label="Green bottle"><defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#075c08"/><stop offset=".28" stop-color="#58e52c"/><stop offset=".55" stop-color="#087b08"/><stop offset=".78" stop-color="#5eea27"/><stop offset="1" stop-color="#064b08"/></linearGradient></defs><path d="M39 8h22v38c0 12 8 18 15 29 7 11 9 23 9 39v145c0 18-10 28-35 28S15 277 15 259V114c0-16 3-28 10-39 7-11 14-17 14-29Z" fill="url(#g)" stroke="#07510a" stroke-width="4"/><rect x="38" y="1" width="24" height="13" rx="2" fill="#159b12" stroke="#064d08" stroke-width="3"/><path d="M28 111v139q0 12 8 17" fill="none" stroke="#b4ff72" stroke-width="5" opacity=".7"/><path d="M20 254q30 20 60 0" fill="none" stroke="#063f08" stroke-width="8" opacity=".7"/></svg>
+ </div>
+ <div id="seats"></div>
+</main>
+<section class="chat">
+ <div class="msg"><b>No name [1]:</b> yahw rahmat ozizc</div>
+ <div class="msg"><b style="color:#d07da7">No name [1]:</b> Kim 1/1 oynedi</div>
+ <div class="msg"><b>Ismoil:</b> Kim 1/1 oynedi</div>
+ <div class="msg"><b style="color:#555">No name [1]:</b> yaxshi rahmat nima gap</div>
+</section>
+<div class="composer"><span>Write a message here</span><div class="send">➤</div></div>
+<div class="nav"></div>
 <script>
-(function(){
-  const tg=window.Telegram&&window.Telegram.WebApp;
-  if(tg){tg.ready();tg.expand();try{tg.setHeaderColor('#172432');tg.setBackgroundColor('#f4f4f4')}catch(e){}}
-  // Chat is a local visual preview only; connect it to the server later.
-  const form=document.getElementById('chatForm'),input=document.getElementById('chatInput'),chat=document.querySelector('.chat');
-  form.addEventListener('submit',function(e){e.preventDefault();const value=input.value.trim();if(!value)return;const bubble=document.createElement('div');bubble.className='message';bubble.textContent=value;chat.insertBefore(bubble,chat.querySelector('.chat-spacer'));input.value='';chat.scrollTop=chat.scrollHeight;});
-})();
+const scores=[6,2,42,5,8,17,2,2,14,125,3,7];
+const seats=document.getElementById('seats');
+scores.forEach((score,i)=>{
+ const el=document.createElement('div');
+ el.className='seat s'+(i+1);
+ el.innerHTML=`<div class="photo"><svg class="person" viewBox="0 0 100 110" aria-hidden="true"><circle cx="50" cy="30" r="21"/><path d="M13 101c2-25 15-39 37-39s35 14 37 39z"/></svg><span class="score">${score}</span></div><div class="name">No name, 22</div>`;
+ seats.appendChild(el);
+});
+if(window.Telegram?.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}
 </script>
 </body>
 </html>
