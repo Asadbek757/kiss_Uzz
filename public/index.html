@@ -23,19 +23,19 @@ body{font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;color:#fff}
 #game:before{content:"";position:absolute;inset:0;background:
   repeating-linear-gradient(3deg,transparent 0 115px,rgba(94,45,17,.10) 116px,transparent 120px),
   linear-gradient(90deg,rgba(92,43,15,.10),transparent 16%,transparent 84%,rgba(92,43,15,.10));pointer-events:none}
-#toolbar{height:11.5%;min-height:64px;max-height:104px;flex:none;display:flex;align-items:center;justify-content:space-around;padding:0 2.2%;position:relative;z-index:5;background:linear-gradient(180deg,#a95722 0%,#bd6b2d 55%,#9b4e1e 100%);border-bottom:4px solid rgba(255,205,128,.72);box-shadow:0 5px 12px rgba(73,34,12,.38),inset 0 2px 4px rgba(255,225,170,.22)}
+#toolbar{height:10.5%;min-height:56px;max-height:88px;flex:none;display:flex;align-items:center;justify-content:space-around;padding:0 2.2%;position:relative;z-index:5;background:rgba(151,75,28,.10);border:0;box-shadow:none}
 .heart{font-size:clamp(28px,6vw,48px);font-weight:bold;color:white;text-shadow:0 2px 3px #a7431f;white-space:nowrap}
 .heart small{font-size:clamp(12px,2.5vw,19px);vertical-align:middle}
-.tool{width:clamp(42px,8.2vw,70px);height:clamp(42px,8.2vw,70px);border-radius:50%;display:grid;place-items:center;flex:none;background:linear-gradient(145deg,#f5c16e,#d98531);border:2px solid rgba(255,225,163,.65);box-shadow:0 3px 7px rgba(87,42,14,.25),inset 0 1px 3px rgba(255,255,255,.55);color:#fff;font-size:clamp(18px,4vw,30px);text-shadow:0 1px 2px #a45b25}
+.tool{width:clamp(36px,6.8vw,58px);height:clamp(36px,6.8vw,58px);border-radius:50%;display:grid;place-items:center;flex:none;background:linear-gradient(145deg,#f5c16e,#d98531);border:2px solid rgba(255,225,163,.65);box-shadow:0 3px 7px rgba(87,42,14,.25),inset 0 1px 3px rgba(255,255,255,.55);color:#fff;font-size:clamp(18px,4vw,30px);text-shadow:0 1px 2px #a45b25}
 .tool.hash{font-size:clamp(15px,3vw,23px);font-weight:bold}
 .table-info{font-weight:bold;text-align:center;font-size:clamp(11px,2.4vw,18px);line-height:1.05;text-shadow:0 1px 2px #9c4c1d;white-space:nowrap}
 .table-info b{display:block;font-size:1.15em;margin-top:3px}
-.round{width:clamp(42px,8vw,68px);height:clamp(42px,8vw,68px);border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#f7c36d,#d7832d);border:2px solid rgba(255,226,167,.65);font-size:clamp(21px,4vw,34px);box-shadow:0 3px 7px #9a4e20}
+.round{width:clamp(36px,6.8vw,58px);height:clamp(36px,6.8vw,58px);border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#f7c36d,#d7832d);border:2px solid rgba(255,226,167,.65);font-size:clamp(21px,4vw,34px);box-shadow:0 3px 7px #9a4e20}
 #table{position:relative;flex:1;min-height:0;z-index:1;overflow:hidden;background:radial-gradient(ellipse at 50% 48%,rgba(255,196,112,.28),transparent 62%)}
 #ornament{position:absolute;width:min(44vw,350px);height:auto;left:50%;top:50%;transform:translate(-50%,-50%);opacity:.44;filter:drop-shadow(0 2px 1px rgba(117,58,22,.15))}
 #bottle{position:absolute;width:min(9vw,72px);height: min(27vh,218px);left:50%;top:50%;transform:translate(-50%,-50%);filter:drop-shadow(0 6px 5px rgba(50,67,12,.35));z-index:2}
 #spin-label{position:absolute;left:29%;top:50%;transform:translate(-50%,-50%);font-size:clamp(11px,2.7vw,20px);line-height:1.15;text-align:center;text-shadow:0 1px 2px #9b5c2c;z-index:2}
-.player{position:absolute;width:17.2%;max-width:140px;min-width:78px;transform:translate(-50%,-50%);text-align:center;z-index:3;display:flex;flex-direction:column;align-items:center}
+.player{position:absolute;width:15.8%;max-width:126px;min-width:72px;transform:translate(-50%,-50%);text-align:center;z-index:3;display:flex;flex-direction:column;align-items:center}
 .player .photo{width:100%;aspect-ratio:1/1;border-radius:13%;padding:5px;background:linear-gradient(145deg,#f6d18a,#a77b43);box-shadow:0 3px 8px rgba(74,38,15,.42);position:relative}
 .player .photo:after{content:"";position:absolute;inset:5px;border:2px solid rgba(255,225,165,.55);border-radius:10%;pointer-events:none}
 .avatar{width:100%;height:100%;border-radius:9%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#273e56,#17283c)}
@@ -43,7 +43,7 @@ body{font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;color:#fff}
 .player:nth-of-type(odd) .avatar{background:linear-gradient(145deg,#8b6655,#3d302e)}
 .player:nth-of-type(3n) .avatar{background:linear-gradient(145deg,#5e747b,#263b49)}
 .count{position:absolute;right:-7%;top:-7%;min-width:37%;height:34%;padding:0 5px;border-radius:30px;background:#ed4643;border:3px solid #f5d69b;box-shadow:0 2px 5px #70401e;color:#fff;font-weight:bold;font-size:clamp(14px,3.5vw,25px);display:grid;place-items:center;z-index:2}
-.nick{font-size:clamp(10px,2.35vw,17px);line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:112%;margin-top:10px;padding-bottom:2px;text-shadow:0 1px 2px #75401f}
+.nick{font-size:clamp(10px,2.25vw,16px);line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:112%;margin-top:2px;padding-bottom:1px;text-shadow:0 1px 2px #75401f}
 .p1{left:17%;top:18.4%}.p2{left:39%;top:13.2%}.p3{left:61%;top:13.2%}.p4{left:83%;top:18.4%}
 .p5{left:13%;top:40.2%}.p6{left:13%;top:61.5%}.p7{left:87%;top:40.2%}.p8{left:87%;top:61.5%}
 .p9{left:17%;top:79.5%}.p10{left:39%;top:83%}.p11{left:61%;top:83%}.p12{left:83%;top:79.5%}
@@ -52,7 +52,7 @@ body{font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;color:#fff}
 #composer{height:9.2dvh;min-height:64px;max-height:100px;flex:none;background:#fff;border-top:1px solid #e5e5e5;display:flex;align-items:center;padding:0 4%;gap:12px}
 #message{flex:1;min-width:0;border:0;outline:0;font-size:clamp(16px,3.5vw,22px);color:#333;background:transparent}
 #message::placeholder{color:#bdbdbd}
-#send{width:clamp(54px,12vw,82px);height:clamp(54px,12vw,82px);border:0;border-radius:50%;background:#f3b44e;color:white;font-size:clamp(28px,6vw,42px);display:grid;place-items:center}
+#send{width:clamp(46px,9vw,64px);height:clamp(46px,9vw,64px);border:0;border-radius:50%;background:#f3b44e;color:white;font-size:clamp(24px,5vw,34px);display:grid;place-items:center}
 @media (max-height:650px){#game{height:62dvh}#composer{height:10dvh}.player{width:15.5%}#bottle{height:22vh}}
 </style>
 </head>
