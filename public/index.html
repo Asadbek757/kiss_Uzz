@@ -3,92 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-<meta name="theme-color" content="#b96b2d">
-<title>KissUZ — Spin the Bottle</title>
+<meta name="theme-color" content="#a95b24">
+<title>KissUZ</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
+:root{
+  --wood1:#c77a37;--wood2:#a95722;--wood3:#e39a4e;
+  --gold:#f4bd67;--gold2:#ffe0a0;--dark:#281d18;
+  --stage-h:59.2dvh; --toolbar-h:6.5dvh;
+}
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,sans-serif}
-body{height:100dvh;display:flex;flex-direction:column;background:#f5f5f5;color:#fff}
-/* The Telegram/browser header and phone status bar are native UI: never draw fake copies here. */
-.game{position:relative;flex:0 0 60%;min-height:0;overflow:hidden;background:
- radial-gradient(ellipse at 50% 52%,rgba(255,224,153,.65),transparent 43%),
- repeating-linear-gradient(0deg,transparent 0 38px,rgba(111,57,20,.10) 39px 41px),
- repeating-linear-gradient(90deg,transparent 0 79px,rgba(255,226,173,.13) 80px 82px),
- linear-gradient(100deg,#b96b2d 0%,#d9924c 48%,#b96b2d 100%)}
-.game:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 35%,rgba(111,48,13,.13) 100%),repeating-linear-gradient(3deg,rgba(96,48,18,.08) 0 2px,transparent 2px 24px)}
-.toolbar{position:relative;z-index:10;top:auto;left:auto;right:auto;height:72px;min-height:64px;max-height:72px;flex:none;display:flex;align-items:center;justify-content:space-around;padding:0 2.2%;background:linear-gradient(180deg,rgba(164,85,34,.36),rgba(135,67,25,.20));}
-.heart{font-size:clamp(30px,8vw,54px);line-height:1;color:#ff6728;-webkit-text-stroke:2px #fff;text-shadow:0 2px 2px #87451e}
-.count{font-size:clamp(12px,3vw,19px);font-weight:bold;margin-left:-2.2%;text-shadow:0 1px 3px #713b1d}
-.tool{width:clamp(32px,8vw,48px);height:clamp(32px,8vw,48px);border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#e9a34c,#c4772d);box-shadow:0 2px 6px #78401955,inset 0 1px 3px #ffe0a0aa;color:#fff;font-size:clamp(17px,4.5vw,27px);font-weight:500}
-.tool.hash{font-size:clamp(12px,3vw,17px)}
-.tool.menu{font-size:clamp(21px,5vw,29px)}
-.tablecount{text-align:center;font-size:clamp(10px,2.6vw,15px);font-weight:bold;line-height:1.12;text-shadow:0 1px 3px #79421f}.tablecount b{font-size:clamp(13px,3.4vw,20px)}
-#seats{position:absolute;left:0;right:0;top:72px;bottom:0;}\n/* 12 seats: four top, two left, two right, four bottom. */
-.seat{position:absolute;width:18.5%;text-align:center;z-index:4}
-.photo{width:100%;aspect-ratio:1/1;border-radius:11%;position:relative;overflow:visible;background:linear-gradient(145deg,#e4bd82,#9a6234);padding:4px;box-shadow:0 3px 8px #68371688}
-.photo:before{content:"";position:absolute;inset:4px;border-radius:8%;background:linear-gradient(145deg,#293f50,#101e2a);border:2px solid rgba(255,226,167,.75);z-index:0}
-.avatar{position:absolute;inset:6px;border-radius:7%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(140deg,var(--av1),var(--av2));z-index:1}
-.avatar:before{content:"";position:absolute;width:29%;height:29%;top:18%;border-radius:50%;background:var(--skin,#e1b18c);box-shadow:0 0 0 2px #ffffff22}
-.avatar:after{content:"";position:absolute;width:58%;height:40%;bottom:8%;border-radius:48% 48% 12% 12%;background:var(--shirt,#197fd0)}
-/* varied photo-like backgrounds until Telegram user photos are connected */
-.avatar.a1{--av1:#342b29;--av2:#c9a17b;--skin:#e2b18f;--shirt:#202d43}
-.avatar.a2{--av1:#92765a;--av2:#e1c9a4;--skin:#d6a27e;--shirt:#eee0c9}
-.avatar.a3{--av1:#0b1b32;--av2:#397bb0;--skin:#d9a17c;--shirt:#171d29}
-.avatar.a4{--av1:#8c5744;--av2:#e7c5a4;--skin:#e9b993;--shirt:#f0e7df}
-.avatar.a5{--av1:#4b3035;--av2:#d18e9a;--skin:#e8b18d;--shirt:#1980d1}
-.avatar.a6{--av1:#324a5b;--av2:#a5b4bb;--skin:#c88f6d;--shirt:#17283b}
-.avatar.a7{--av1:#172b40;--av2:#8396a1;--skin:#d5a27d;--shirt:#222e3b}
-.avatar.a8{--av1:#714b39;--av2:#d8b28a;--skin:#e0b18e;--shirt:#202c3b}
-.avatar.a9{--av1:#5c1f23;--av2:#c28d62;--skin:#d8a07e;--shirt:#111820}
-.avatar.a10{--av1:#171719;--av2:#4c535a;--skin:#c89474;--shirt:#111820}
-.avatar.a11{--av1:#7c8b7c;--av2:#d4c3a2;--skin:#e3b28e;--shirt:#263c50}
-.avatar.a12{--av1:#b18b69;--av2:#f1d7b2;--skin:#dca582;--shirt:#eee0d0}
-.score{position:absolute;z-index:3;right:-7%;top:-7%;min-width:31%;height:31%;padding:0 5px;border-radius:50px;background:#ed4942;border:3px solid #f4d5a0;color:#fff;font-size:clamp(13px,3.4vw,20px);font-weight:bold;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 3px #623416}
-.name{font-size:clamp(9px,2.5vw,14px);color:#fff;text-shadow:0 1px 3px #573018;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.gift{position:absolute;z-index:5;right:-13%;bottom:4%;font-size:clamp(22px,6vw,35px);filter:drop-shadow(0 2px 2px #623416)}
-/* positions measured relative to the playfield */
-.s1{left:4%;top:3%}.s2{left:28%;top:0%}.s3{left:52%;top:0%}.s4{right:4%;top:3%}
-.s5{left:3%;top:34%}.s6{left:3%;top:59%}.s7{right:3%;top:34%}.s8{right:3%;top:59%}
-.s9{left:4%;top:78%}.s10{left:28%;top:81%}.s11{left:52%;top:81%}.s12{right:4%;top:78%}
-.center{position:absolute;z-index:2;left:50%;top:51%;width:43%;height:43%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;pointer-events:none}
-.ornament{position:absolute;width:100%;height:100%;opacity:.44;filter:drop-shadow(0 1px 1px #f8d49a)}
-.bottle{height:43%;width:auto;max-width:25%;z-index:2;filter:drop-shadow(0 5px 5px #56340c88)}
-.spintext{position:absolute;left:-25%;top:43%;font-size:clamp(11px,3vw,18px);line-height:1.12;text-align:center;text-shadow:0 1px 3px #86501f}
-.chat{flex:1 1 auto;min-height:0;background:#f4f4f4;color:#222;padding:12px 4% 8px;overflow:auto;display:flex;flex-direction:column;gap:10px}
-/* Empty chat stays clean white; sample messages appear only when real messages arrive. */
-.composer{height:70px;flex:none;background:#fff;border-top:1px solid #eee;display:flex;align-items:center;padding:0 4%;gap:12px;color:#b8b8b8;font-size:clamp(15px,4vw,20px)}
-.send{margin-left:auto;width:49px;height:49px;flex:none;border-radius:50%;background:#f2ad4c;color:#fff;display:grid;place-items:center;font-size:28px}
-@media(max-height:650px){.game{flex-basis:58%}.toolbar{height:60px;min-height:60px}#seats{top:60px}.composer{height:60px}.seat{width:17%}.center{width:39%;height:39%}}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;color:#fff}
+#app{height:100dvh;width:100%;display:flex;flex-direction:column;overflow:hidden;background:#f4f4f4}
+#game{height:59.2dvh;min-height:390px;max-height:910px;flex:none;display:flex;flex-direction:column;position:relative;overflow:hidden;background:
+  repeating-linear-gradient(0deg,transparent 0 48px,rgba(91,42,13,.10) 49px,transparent 52px),
+  repeating-linear-gradient(90deg,transparent 0 74px,rgba(255,210,135,.10) 75px,transparent 78px),
+  radial-gradient(ellipse at 50% 53%,#eeb36b 0%,#d98d46 48%,#b9682d 100%)}
+#game:before{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(3deg,transparent 0 115px,rgba(94,45,17,.10) 116px,transparent 120px),
+  linear-gradient(90deg,rgba(92,43,15,.10),transparent 16%,transparent 84%,rgba(92,43,15,.10));pointer-events:none}
+#toolbar{height:10.8%;min-height:58px;max-height:100px;flex:none;display:flex;align-items:center;justify-content:space-around;padding:0 2.2%;position:relative;z-index:5;background:linear-gradient(180deg,rgba(143,67,23,.38),rgba(128,57,18,.18));box-shadow:0 4px 10px rgba(74,35,12,.12)}
+.heart{font-size:clamp(28px,6vw,48px);font-weight:bold;color:white;text-shadow:0 2px 3px #a7431f;white-space:nowrap}
+.heart small{font-size:clamp(12px,2.5vw,19px);vertical-align:middle}
+.tool{width:clamp(42px,8.2vw,70px);height:clamp(42px,8.2vw,70px);border-radius:50%;display:grid;place-items:center;flex:none;background:linear-gradient(145deg,#f5c16e,#d98531);border:2px solid rgba(255,225,163,.65);box-shadow:0 3px 7px rgba(87,42,14,.25),inset 0 1px 3px rgba(255,255,255,.55);color:#fff;font-size:clamp(18px,4vw,30px);text-shadow:0 1px 2px #a45b25}
+.tool.hash{font-size:clamp(15px,3vw,23px);font-weight:bold}
+.table-info{font-weight:bold;text-align:center;font-size:clamp(11px,2.4vw,18px);line-height:1.05;text-shadow:0 1px 2px #9c4c1d;white-space:nowrap}
+.table-info b{display:block;font-size:1.15em;margin-top:3px}
+.round{width:clamp(42px,8vw,68px);height:clamp(42px,8vw,68px);border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#f7c36d,#d7832d);border:2px solid rgba(255,226,167,.65);font-size:clamp(21px,4vw,34px);box-shadow:0 3px 7px #9a4e20}
+#table{position:relative;flex:1;min-height:0;z-index:1;overflow:hidden}
+#ornament{position:absolute;width:min(44vw,350px);height:auto;left:50%;top:50%;transform:translate(-50%,-50%);opacity:.44;filter:drop-shadow(0 2px 1px rgba(117,58,22,.15))}
+#bottle{position:absolute;width:min(9vw,72px);height: min(27vh,218px);left:50%;top:50%;transform:translate(-50%,-50%);filter:drop-shadow(0 6px 5px rgba(50,67,12,.35));z-index:2}
+#spin-label{position:absolute;left:29%;top:50%;transform:translate(-50%,-50%);font-size:clamp(11px,2.7vw,20px);line-height:1.15;text-align:center;text-shadow:0 1px 2px #9b5c2c;z-index:2}
+.player{position:absolute;width:17.2%;max-width:140px;min-width:78px;transform:translate(-50%,-50%);text-align:center;z-index:3}
+.player .photo{width:100%;aspect-ratio:1/1;border-radius:13%;padding:5px;background:linear-gradient(145deg,#f6d18a,#a77b43);box-shadow:0 3px 8px rgba(74,38,15,.42);position:relative}
+.player .photo:after{content:"";position:absolute;inset:5px;border:2px solid rgba(255,225,165,.55);border-radius:10%;pointer-events:none}
+.avatar{width:100%;height:100%;border-radius:9%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#273e56,#17283c)}
+.avatar svg{width:75%;height:85%;filter:drop-shadow(0 2px 2px rgba(0,0,0,.2))}
+.player:nth-of-type(odd) .avatar{background:linear-gradient(145deg,#8b6655,#3d302e)}
+.player:nth-of-type(3n) .avatar{background:linear-gradient(145deg,#5e747b,#263b49)}
+.count{position:absolute;right:-7%;top:-7%;min-width:37%;height:34%;padding:0 5px;border-radius:30px;background:#ed4643;border:3px solid #f5d69b;box-shadow:0 2px 5px #70401e;color:#fff;font-weight:bold;font-size:clamp(14px,3.5vw,25px);display:grid;place-items:center;z-index:2}
+.nick{font-size:clamp(10px,2.35vw,17px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:5px;text-shadow:0 1px 2px #75401f}
+.p1{left:17%;top:18.4%}.p2{left:39%;top:13.2%}.p3{left:61%;top:13.2%}.p4{left:83%;top:18.4%}
+.p5{left:13%;top:40.2%}.p6{left:13%;top:61.5%}.p7{left:87%;top:40.2%}.p8{left:87%;top:61.5%}
+.p9{left:17%;top:83.7%}.p10{left:39%;top:88.5%}.p11{left:61%;top:88.5%}.p12{left:83%;top:83.7%}
+#chat{flex:1;min-height:0;background:#f4f4f4;position:relative;overflow:auto}
+#messages{padding:10px 12px}
+#composer{height:9.2dvh;min-height:64px;max-height:100px;flex:none;background:#fff;border-top:1px solid #e5e5e5;display:flex;align-items:center;padding:0 4%;gap:12px}
+#message{flex:1;min-width:0;border:0;outline:0;font-size:clamp(16px,3.5vw,22px);color:#333;background:transparent}
+#message::placeholder{color:#bdbdbd}
+#send{width:clamp(54px,12vw,82px);height:clamp(54px,12vw,82px);border:0;border-radius:50%;background:#f3b44e;color:white;font-size:clamp(28px,6vw,42px);display:grid;place-items:center}
+@media (max-height:650px){#game{height:62dvh}#composer{height:10dvh}.player{width:15.5%}#bottle{height:22vh}}
 </style>
 </head>
 <body>
-<main class="game">
- <div class="toolbar">
-  <span class="heart">♡</span><span class="count">0</span>
-  <div class="tool">✧</div><div class="tool">☼</div><div class="tool hash">#20</div><div class="tool menu">☰</div><div class="tool">⚙</div>
-  <div class="tablecount">Table<br><b>40</b></div><div class="tool">7</div>
- </div>
- <div class="center">
-  <svg class="ornament" viewBox="0 0 300 300" aria-hidden="true"><path d="M150 5 C168 40 185 45 220 30 C210 68 225 85 265 90 C235 120 235 145 290 150 C235 165 235 190 265 220 C225 225 210 242 220 270 C185 255 168 260 150 295 C132 260 115 255 80 270 C90 242 75 225 35 220 C65 190 65 165 10 150 C65 135 65 110 35 80 C75 75 90 58 80 30 C115 45 132 40 150 5Z" fill="none" stroke="#9b5b2a" stroke-width="5"/><circle cx="150" cy="150" r="91" fill="none" stroke="#9b5b2a" stroke-width="3"/><circle cx="150" cy="150" r="70" fill="none" stroke="#9b5b2a" stroke-width="2"/></svg>
-  <div class="spintext">Spins<br>the bottle</div>
-  <svg class="bottle" viewBox="0 0 100 300" aria-label="Green bottle"><defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#075c08"/><stop offset=".28" stop-color="#58e52c"/><stop offset=".55" stop-color="#087b08"/><stop offset=".78" stop-color="#5eea27"/><stop offset="1" stop-color="#064b08"/></linearGradient></defs><path d="M39 8h22v38c0 12 8 18 15 29 7 11 9 23 9 39v145c0 18-10 28-35 28S15 277 15 259V114c0-16 3-28 10-39 7-11 14-17 14-29Z" fill="url(#g)" stroke="#07510a" stroke-width="4"/><rect x="38" y="1" width="24" height="13" rx="2" fill="#159b12" stroke="#064d08" stroke-width="3"/><path d="M28 111v139q0 12 8 17" fill="none" stroke="#b4ff72" stroke-width="5" opacity=".7"/><path d="M20 254q30 20 60 0" fill="none" stroke="#063f08" stroke-width="8" opacity=".7"/></svg>
- </div>
- <div id="seats"></div>
-</main>
-<section class="chat" id="chat" aria-label="Chat"></section>
-<div class="composer"><span>Write a message here</span><div class="send">➤</div></div>
+<div id="app">
+  <section id="game">
+    <div id="toolbar">
+      <div class="heart">♡ <small>0</small></div>
+      <div class="tool">✧</div><div class="tool">☼</div><div class="tool hash">#20</div>
+      <div class="tool">☰</div><div class="tool">⚙</div>
+      <div class="table-info">Table<b>40</b></div><div class="round">7</div>
+    </div>
+    <div id="table">
+      <svg id="ornament" viewBox="0 0 400 400" aria-hidden="true">
+        <defs><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f9d18a"/><stop offset="1" stop-color="#9e5c2c"/></linearGradient></defs>
+        <path d="M200 8 C224 55 246 48 282 28 C278 73 300 91 350 91 C320 126 333 151 390 178 C342 196 342 224 390 252 C337 267 323 294 350 337 C300 330 274 348 282 390 C242 364 220 367 200 400 C180 367 158 364 118 390 C126 348 100 330 50 337 C77 294 63 267 10 252 C58 224 58 196 10 178 C67 151 80 126 50 91 C100 91 122 73 118 28 C154 48 176 55 200 8Z" fill="none" stroke="url(#gold)" stroke-width="5"/>
+        <circle cx="200" cy="200" r="115" fill="none" stroke="#a76634" stroke-width="4"/>
+        <circle cx="200" cy="200" r="94" fill="none" stroke="#f4d092" stroke-width="3"/>
+      </svg>
+      <div id="spin-label">Spins<br>the bottle</div>
+      <svg id="bottle" viewBox="0 0 80 230" aria-hidden="true">
+        <defs>
+          <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#075c13"/><stop offset=".22" stop-color="#32e51a"/><stop offset=".48" stop-color="#8cff36"/><stop offset=".72" stop-color="#12a916"/><stop offset="1" stop-color="#064b10"/></linearGradient>
+          <linearGradient id="neck" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#075b12"/><stop offset=".5" stop-color="#6fff2a"/><stop offset="1" stop-color="#075b12"/></linearGradient>
+        </defs>
+        <path d="M32 5h16v14H32z" fill="url(#neck)" stroke="#07500d" stroke-width="2"/>
+        <path d="M32 19h16v31c0 11 5 17 12 28 6 9 8 17 8 29v103c0 13-9 18-28 18s-28-5-28-18V107c0-12 2-20 8-29 7-11 12-17 12-28z" fill="url(#glass)" stroke="#07580e" stroke-width="3"/>
+        <path d="M25 96c-4 12-4 19-4 31v76c0 9 3 13 8 15" fill="none" stroke="#c5ff7b" stroke-width="4" opacity=".6"/>
+        <path d="M19 194q21 14 43 0" fill="none" stroke="#064b0c" stroke-width="5"/>
+      </svg>
+      <div class="player p1"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">6</span></div><div class="nick">No name, 22</div></div>
+      <div class="player p2"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#eee0c8"/></svg></div><span class="count">2</span></div><div class="nick">No name, 22</div></div>
+      <div class="player p3"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">42</span></div><div class="nick">No name, 22</div></div>
+      <div class="player p4"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#eee0c8"/></svg></div><span class="count">5</span></div><div class="nick">No name, 22</div></div>
+      <div class="player p5"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#168bdc"/></svg></div><span class="count">8</span></div><div class="nick">No name, 22</div></div>
+      <div class="player p6"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">17</span></div><div class="nick">No name, 22</div></div>
+      <div class="player p7"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">2</span></div><div class="nick">No name, 22</div></div>
+      <div class="player p8"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">2</span></div><div class="nick">No name, 22</div></div>
+      <div class="player p9"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">14</span></div><div class="nick">No name, 22</div></div>
+      <div class="player p10"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">125</span></div><div class="nick">No name, 22</div></div>
+      <div class="player p11"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#253e53"/></svg></div><span class="count">3</span></div><div class="nick">No name, 22</div></div>
+      <div class="player p12"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#eee0c8"/></svg></div><span class="count">7</span></div><div class="nick">No name, 22</div></div>
+    </div>
+  </section>
+  <section id="chat"><div id="messages"></div></section>
+  <form id="composer"><input id="message" placeholder="Write a message here" autocomplete="off"><button id="send" type="submit">➤</button></form>
+</div>
 <script>
-const scores=[6,2,42,5,8,17,2,2,14,125,3,7];
-const gifts=new Set(); // Gift glass appears only after a real gift is sent.
-const seats=document.getElementById('seats');
-scores.forEach((score,i)=>{
- const el=document.createElement('div');
- el.className='seat s'+(i+1);
- el.innerHTML=`<div class="photo"><div class="avatar a${i+1}"></div><span class="score">${score}</span>${gifts.has(i+1)?'<span class="gift">🍸</span>':''}</div><div class="name">No name, 22</div>`;
- seats.appendChild(el);
-});
-if(window.Telegram?.WebApp){Telegram.WebApp.ready();Telegram.WebApp.expand();}
+const tg=window.Telegram?.WebApp;
+if(tg){tg.ready();tg.expand();document.body.style.backgroundColor='#f4f4f4';}
+document.getElementById('composer').addEventListener('submit',e=>{e.preventDefault();const input=document.getElementById('message');const value=input.value.trim();if(!value)return;const bubble=document.createElement('div');bubble.textContent=value;bubble.style.cssText='background:#fff;color:#222;border-radius:14px;padding:10px 14px;margin:7px 0 7px auto;width:fit-content;max-width:85%;font-size:15px;box-shadow:0 1px 2px #ddd';document.getElementById('messages').appendChild(bubble);input.value='';document.getElementById('chat').scrollTop=document.getElementById('chat').scrollHeight;});
 </script>
 </body>
 </html>
