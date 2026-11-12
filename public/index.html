@@ -16,7 +16,7 @@
 html,body{margin:0;width:100%;height:100%;overflow:hidden}
 body{font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;color:#fff}
 #app{height:100dvh;width:100%;display:flex;flex-direction:column;overflow:hidden;background:#f4f4f4}
-#game{height:59.2dvh;min-height:390px;max-height:910px;flex:none;display:flex;flex-direction:column;position:relative;overflow:hidden;background:
+#game{height:62dvh;min-height:410px;max-height:950px;flex:none;display:flex;flex-direction:column;position:relative;overflow:hidden;background:
   repeating-linear-gradient(0deg,transparent 0 48px,rgba(91,42,13,.10) 49px,transparent 52px),
   repeating-linear-gradient(90deg,transparent 0 74px,rgba(255,210,135,.10) 75px,transparent 78px),
   radial-gradient(ellipse at 50% 53%,#eeb36b 0%,#d98d46 48%,#b9682d 100%)}
@@ -43,16 +43,16 @@ body{font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;color:#fff}
 .player:nth-of-type(odd) .avatar{background:linear-gradient(145deg,#8b6655,#3d302e)}
 .player:nth-of-type(3n) .avatar{background:linear-gradient(145deg,#5e747b,#263b49)}
 .count{position:absolute;right:-7%;top:-7%;min-width:37%;height:34%;padding:0 5px;border-radius:30px;background:#ed4643;border:3px solid #f5d69b;box-shadow:0 2px 5px #70401e;color:#fff;font-weight:bold;font-size:clamp(14px,3.5vw,25px);display:grid;place-items:center;z-index:2}
-.nick{font-size:clamp(10px,2.25vw,16px);line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:112%;margin-top:2px;padding-bottom:1px;text-shadow:0 1px 2px #75401f}
+.nick{font-size:clamp(9px,2vw,14px);line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:108%;margin-top:1px;padding-bottom:1px;text-shadow:0 1px 2px #75401f}
 .p1{left:17%;top:18.4%}.p2{left:39%;top:13.2%}.p3{left:61%;top:13.2%}.p4{left:83%;top:18.4%}
-.p5{left:13%;top:40.2%}.p6{left:13%;top:61.5%}.p7{left:87%;top:40.2%}.p8{left:87%;top:61.5%}
-.p9{left:17%;top:79.5%}.p10{left:39%;top:83%}.p11{left:61%;top:83%}.p12{left:83%;top:79.5%}
+.p5{left:13%;top:38.5%}.p6{left:13%;top:63.5%}.p7{left:87%;top:38.5%}.p8{left:87%;top:63.5%}
+.p9{left:17%;top:80%}.p10{left:39%;top:84%}.p11{left:61%;top:84%}.p12{left:83%;top:80%}
 #chat{flex:1;min-height:0;background:#f4f4f4;position:relative;overflow:auto}
 #messages{padding:10px 12px}
-#composer{height:7.2dvh;min-height:54px;max-height:78px;flex:none;background:#fff;border-top:1px solid #e5e5e5;display:flex;align-items:center;padding:0 3.5%;gap:9px}
-#message{flex:1;min-width:0;border:0;outline:0;font-size:clamp(14px,2.8vw,18px);color:#333;background:transparent}
+#composer{height:5.8dvh;min-height:44px;max-height:62px;flex:none;background:#fff;border-top:1px solid #e5e5e5;display:flex;align-items:center;padding:0 3.5%;gap:9px}
+#message{flex:1;min-width:0;border:0;outline:0;font-size:clamp(12px,2.4vw,16px);color:#333;background:transparent}
 #message::placeholder{color:#bdbdbd}
-#send{width:clamp(40px,7.5vw,54px);height:clamp(40px,7.5vw,54px);border:0;border-radius:50%;background:#f3b44e;color:white;font-size:clamp(21px,4vw,28px);display:grid;place-items:center;flex:none}
+#send{width:clamp(34px,6.2vw,46px);height:clamp(34px,6.2vw,46px);border:0;border-radius:50%;background:#f3b44e;color:white;font-size:clamp(18px,3.5vw,24px);display:grid;place-items:center;flex:none}
 @media (max-height:650px){#game{height:62dvh}#composer{height:10dvh}.player{width:15.5%}#bottle{height:22vh}}
 </style>
 </head>
