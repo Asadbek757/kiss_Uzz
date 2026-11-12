@@ -32,18 +32,19 @@ body{font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;color:#fff}
 .table-info b{display:block;font-size:1.15em;margin-top:3px}
 .round{width:clamp(36px,6.8vw,58px);height:clamp(36px,6.8vw,58px);border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#f7c36d,#d7832d);border:2px solid rgba(255,226,167,.65);font-size:clamp(21px,4vw,34px);box-shadow:0 3px 7px #9a4e20}
 #table{position:relative;flex:1;min-height:0;z-index:1;overflow:hidden;background:radial-gradient(ellipse at 50% 48%,rgba(255,196,112,.28),transparent 62%)}
-#ornament{position:absolute;width:min(44vw,350px);height:auto;left:50%;top:50%;transform:translate(-50%,-50%);opacity:.44;filter:drop-shadow(0 2px 1px rgba(117,58,22,.15))}
-#bottle{position:absolute;width:min(9vw,72px);height: min(27vh,218px);left:50%;top:50%;transform:translate(-50%,-50%);filter:drop-shadow(0 6px 5px rgba(50,67,12,.35));z-index:2}
+#ornament{position:absolute;width:min(47vw,380px);height:auto;left:50%;top:50%;transform:translate(-50%,-50%);opacity:.38;filter:drop-shadow(0 3px 2px rgba(117,58,22,.18))}
+#bottle{position:absolute;width:min(12vw,88px);height:min(27vh,218px);left:50%;top:50%;transform:translate(-50%,-50%);filter:drop-shadow(0 6px 5px rgba(50,67,12,.35));z-index:2}
 #spin-label{position:absolute;left:29%;top:50%;transform:translate(-50%,-50%);font-size:clamp(11px,2.7vw,20px);line-height:1.15;text-align:center;text-shadow:0 1px 2px #9b5c2c;z-index:2}
-.player{position:absolute;width:19.8vw;max-width:140px;min-width:96px;transform:translate(-50%,-50%);text-align:center;z-index:3;display:flex;flex-direction:column;align-items:center}
-.player .photo{width:100%;aspect-ratio:1/1;border-radius:8px;padding:0;background:transparent;box-shadow:0 2px 5px rgba(65,35,18,.18);position:relative}
+.player{position:absolute;width:17.5vw;max-width:140px;min-width:0;transform:translate(-50%,-50%);text-align:center;z-index:3;display:flex;flex-direction:column;align-items:center}
+.player .photo{width:100%;aspect-ratio:1/1;border-radius:7px;padding:0;background:transparent;box-shadow:none;position:relative}
 .player .photo:after{display:none}
-.avatar{width:100%;height:100%;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#273e56,#17283c)}
+.avatar{width:100%;height:100%;border-radius:7px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#273e56,#17283c)}
 .avatar svg{width:75%;height:85%;filter:drop-shadow(0 2px 2px rgba(0,0,0,.2))}
 .player:nth-of-type(odd) .avatar{background:linear-gradient(145deg,#8b6655,#3d302e)}
 .player:nth-of-type(3n) .avatar{background:linear-gradient(145deg,#5e747b,#263b49)}
-.count{position:absolute;right:-7%;top:-7%;min-width:37%;height:34%;padding:0 5px;border-radius:30px;background:#ed4643;border:3px solid #f5d69b;box-shadow:0 2px 5px #70401e;color:#fff;font-weight:bold;font-size:clamp(14px,3.5vw,25px);display:grid;place-items:center;z-index:2}
-.nick{font-size:clamp(9px,2vw,14px);line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:108%;margin-top:1px;padding-bottom:1px;text-shadow:0 1px 2px #75401f}
+.count{position:absolute;right:-7%;top:-7%;min-width:35%;height:31%;padding:0 4px;border-radius:30px;background:#ed4643;border:2px solid #f5d69b;box-shadow:0 2px 4px #70401e;color:#fff;font-weight:bold;font-size:clamp(12px,3vw,22px);display:grid;place-items:center;z-index:2}
+.nick{font-size:clamp(9px,1.8vw,13px);line-height:1.08;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:110%;margin-top:2px;padding-bottom:1px;text-shadow:0 1px 2px #75401f}
+.kiss-mark{position:absolute;right:-13%;bottom:20%;width:clamp(25px,5.5vw,42px);height:clamp(25px,5.5vw,42px);border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#ffd5e1,#e66b91 72%,#a93259);border:2px solid rgba(255,235,205,.9);box-shadow:0 2px 5px rgba(91,35,25,.35);font-size:clamp(14px,3vw,22px);z-index:4}
 .p1{left:17%;top:18.5%}.p2{left:39%;top:13.5%}.p3{left:61%;top:13.5%}.p4{left:83%;top:18.5%}
 .p5{left:13%;top:39%}.p6{left:13%;top:62%}.p7{left:87%;top:39%}.p8{left:87%;top:62%}
 .p9{left:17%;top:84%}.p10{left:39%;top:86%}.p11{left:61%;top:86%}.p12{left:83%;top:84%}
@@ -53,7 +54,7 @@ body{font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;color:#fff}
 #message{flex:1;min-width:0;border:0;outline:0;font-size:clamp(12px,2.4vw,16px);color:#333;background:transparent}
 #message::placeholder{color:#bdbdbd}
 #send{width:clamp(34px,6.2vw,46px);height:clamp(34px,6.2vw,46px);border:0;border-radius:50%;background:#f3b44e;color:white;font-size:clamp(18px,3.5vw,24px);display:grid;place-items:center;flex:none}
-@media (max-height:650px){#game{height:62dvh}#composer{height:5.8dvh}.player{width:19vw;min-width:88px}#bottle{height:22vh}}
+@media (max-height:650px){#game{height:62dvh}#composer{height:5.8dvh}.player{width:17.5vw;min-width:0}#bottle{height:22vh}}
 </style>
 </head>
 <body>
@@ -67,34 +68,53 @@ body{font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;color:#fff}
     </div>
     <div id="table">
       <svg id="ornament" viewBox="0 0 400 400" aria-hidden="true">
-        <defs><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f9d18a"/><stop offset="1" stop-color="#9e5c2c"/></linearGradient></defs>
-        <path d="M200 8 C224 55 246 48 282 28 C278 73 300 91 350 91 C320 126 333 151 390 178 C342 196 342 224 390 252 C337 267 323 294 350 337 C300 330 274 348 282 390 C242 364 220 367 200 400 C180 367 158 364 118 390 C126 348 100 330 50 337 C77 294 63 267 10 252 C58 224 58 196 10 178 C67 151 80 126 50 91 C100 91 122 73 118 28 C154 48 176 55 200 8Z" fill="none" stroke="url(#gold)" stroke-width="5"/>
-        <circle cx="200" cy="200" r="115" fill="none" stroke="#a76634" stroke-width="4"/>
-        <circle cx="200" cy="200" r="94" fill="none" stroke="#f4d092" stroke-width="3"/>
+        <defs>
+          <linearGradient id="petalWood" x1="0" y1="0" x2="1" y2="1">
+            <stop stop-color="#f5c77d" stop-opacity=".75"/>
+            <stop offset=".52" stop-color="#c17a3c" stop-opacity=".55"/>
+            <stop offset="1" stop-color="#8e4d27" stop-opacity=".65"/>
+          </linearGradient>
+        </defs>
+        <g fill="url(#petalWood)" fill-opacity=".22" stroke="#9b5e32" stroke-opacity=".42" stroke-width="3">
+          <path d="M200 18 C229 76 258 74 296 45 C284 94 309 119 366 122 C320 158 326 190 382 220 C323 238 315 270 346 322 C292 309 262 331 252 383 C218 340 182 340 148 383 C138 331 108 309 54 322 C85 270 77 238 18 220 C74 190 80 158 34 122 C91 119 116 94 104 45 C142 74 171 76 200 18Z"/>
+          <path d="M200 54 C224 102 249 111 281 91 C267 126 286 151 326 165 C288 187 287 216 329 244 C284 252 267 278 279 319 C241 302 218 316 200 352 C182 316 159 302 121 319 C133 278 116 252 71 244 C113 216 112 187 74 165 C114 151 133 126 119 91 C151 111 176 102 200 54Z"/>
+          <path d="M200 94 C224 131 251 140 274 128 C264 158 281 178 303 194 C273 211 269 233 291 259 C260 260 239 280 238 310 C215 292 185 292 162 310 C161 280 140 260 109 259 C131 233 127 211 97 194 C119 178 136 158 126 128 C149 140 176 131 200 94Z"/>
+        </g>
+        <circle cx="200" cy="200" r="112" fill="none" stroke="#a66b3d" stroke-opacity=".48" stroke-width="4"/>
+        <circle cx="200" cy="200" r="91" fill="none" stroke="#f1c47e" stroke-opacity=".55" stroke-width="3"/>
+        <circle cx="200" cy="200" r="76" fill="none" stroke="#9b5e32" stroke-opacity=".28" stroke-width="2"/>
       </svg>
       <div id="spin-label">Spins<br>the bottle</div>
-      <svg id="bottle" viewBox="0 0 80 230" aria-hidden="true">
+      <svg id="bottle" viewBox="0 0 100 230" aria-hidden="true">
         <defs>
-          <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#075c13"/><stop offset=".22" stop-color="#32e51a"/><stop offset=".48" stop-color="#8cff36"/><stop offset=".72" stop-color="#12a916"/><stop offset="1" stop-color="#064b10"/></linearGradient>
-          <linearGradient id="neck" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#075b12"/><stop offset=".5" stop-color="#6fff2a"/><stop offset="1" stop-color="#075b12"/></linearGradient>
+          <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+            <stop stop-color="#07520d"/><stop offset=".18" stop-color="#24c916"/>
+            <stop offset=".42" stop-color="#8cff38"/><stop offset=".68" stop-color="#20c51a"/>
+            <stop offset="1" stop-color="#06450b"/>
+          </linearGradient>
+          <linearGradient id="neck" x1="0" y1="0" x2="1" y2="0">
+            <stop stop-color="#07520d"/><stop offset=".5" stop-color="#7df52d"/><stop offset="1" stop-color="#07520d"/>
+          </linearGradient>
         </defs>
-        <path d="M32 5h16v14H32z" fill="url(#neck)" stroke="#07500d" stroke-width="2"/>
-        <path d="M32 19h16v31c0 11 5 17 12 28 6 9 8 17 8 29v103c0 13-9 18-28 18s-28-5-28-18V107c0-12 2-20 8-29 7-11 12-17 12-28z" fill="url(#glass)" stroke="#07580e" stroke-width="3"/>
-        <path d="M25 96c-4 12-4 19-4 31v76c0 9 3 13 8 15" fill="none" stroke="#c5ff7b" stroke-width="4" opacity=".6"/>
-        <path d="M19 194q21 14 43 0" fill="none" stroke="#064b0c" stroke-width="5"/>
+        <path d="M40 5h20v11H40z" fill="url(#neck)" stroke="#07500d" stroke-width="2"/>
+        <path d="M40 16h20v27c0 13 8 22 17 35 7 11 10 20 10 34v91c0 15-11 22-37 22s-37-7-37-22v-91c0-14 3-23 10-34 9-13 17-22 17-35z"
+          fill="url(#glass)" stroke="#07580e" stroke-width="3"/>
+        <path d="M25 106c-5 13-5 23-5 37v61c0 10 5 15 11 17" fill="none" stroke="#caff85" stroke-width="5" opacity=".62"/>
+        <path d="M14 194q36 22 72 0" fill="none" stroke="#064b0c" stroke-width="6"/>
+        <path d="M18 204q32 18 64 0" fill="none" stroke="#8cff39" stroke-width="2" opacity=".65"/>
       </svg>
-      <div class="player p1"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">6</span></div><div class="nick">No name, 22</div></div>
-      <div class="player p2"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#eee0c8"/></svg></div><span class="count">2</span></div><div class="nick">No name, 22</div></div>
-      <div class="player p3"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">42</span></div><div class="nick">No name, 22</div></div>
-      <div class="player p4"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#eee0c8"/></svg></div><span class="count">5</span></div><div class="nick">No name, 22</div></div>
-      <div class="player p5"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#168bdc"/></svg></div><span class="count">8</span></div><div class="nick">No name, 22</div></div>
-      <div class="player p6"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">17</span></div><div class="nick">No name, 22</div></div>
-      <div class="player p7"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">2</span></div><div class="nick">No name, 22</div></div>
-      <div class="player p8"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">2</span></div><div class="nick">No name, 22</div></div>
-      <div class="player p9"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">14</span></div><div class="nick">No name, 22</div></div>
-      <div class="player p10"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">125</span></div><div class="nick">No name, 22</div></div>
-      <div class="player p11"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#253e53"/></svg></div><span class="count">3</span></div><div class="nick">No name, 22</div></div>
-      <div class="player p12"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#eee0c8"/></svg></div><span class="count">7</span></div><div class="nick">No name, 22</div></div>
+      <div class="player p1"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">6</span></div><div class="nick">No name, 22</div><span class="kiss-mark">💋</span></div>
+      <div class="player p2"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#eee0c8"/></svg></div><span class="count">2</span></div><div class="nick">No name, 22</div><span class="kiss-mark">💋</span></div>
+      <div class="player p3"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">42</span></div><div class="nick">No name, 22</div><span class="kiss-mark">💋</span></div>
+      <div class="player p4"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#eee0c8"/></svg></div><span class="count">5</span></div><div class="nick">No name, 22</div><span class="kiss-mark">💋</span></div>
+      <div class="player p5"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#168bdc"/></svg></div><span class="count">8</span></div><div class="nick">No name, 22</div><span class="kiss-mark">💋</span></div>
+      <div class="player p6"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">17</span></div><div class="nick">No name, 22</div><span class="kiss-mark">💋</span></div>
+      <div class="player p7"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">2</span></div><div class="nick">No name, 22</div><span class="kiss-mark">💋</span></div>
+      <div class="player p8"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">2</span></div><div class="nick">No name, 22</div><span class="kiss-mark">💋</span></div>
+      <div class="player p9"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">14</span></div><div class="nick">No name, 22</div><span class="kiss-mark">💋</span></div>
+      <div class="player p10"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#17283c"/></svg></div><span class="count">125</span></div><div class="nick">No name, 22</div><span class="kiss-mark">💋</span></div>
+      <div class="player p11"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#253e53"/></svg></div><span class="count">3</span></div><div class="nick">No name, 22</div><span class="kiss-mark">💋</span></div>
+      <div class="player p12"><div class="photo"><div class="avatar"><svg viewBox="0 0 100 100"><circle cx="50" cy="34" r="19" fill="#e6ad86"/><path d="M18 92V76q0-25 32-25t32 25v16" fill="#eee0c8"/></svg></div><span class="count">7</span></div><div class="nick">No name, 22</div><span class="kiss-mark">💋</span></div>
     </div>
   </section>
   <section id="chat"><div id="messages"></div></section>
